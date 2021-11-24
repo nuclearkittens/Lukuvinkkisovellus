@@ -15,6 +15,7 @@ Placeholder...
 
 - [Product backlog](https://docs.google.com/spreadsheets/d/10ld7weDSDLxcA8vwZXymfioQPwHWz-7xzCbk3FgV9HU/edit#gid=0)
 - [Flinga](https://flinga.fi/s/FTVMGVC)
+- Tietokantakaavio <img src='db_schema.png'></img>
 
 ## Asennus
 
