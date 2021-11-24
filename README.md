@@ -56,6 +56,12 @@ poetry run invoke coverage-report
 
 Raportti generoidaan kansioon nimeltä `htmlcov`. Testeihin liittyvä koodi on jätetty raportista pois.
 
+Järjestelmätestit voidaan suorittaa komennolla:
+
+```
+poetry run invoke robot
+```
+
 #### Pylint:
 
 Laatutarkastukset voidaan suorittaa komennolla:
