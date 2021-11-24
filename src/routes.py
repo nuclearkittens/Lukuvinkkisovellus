@@ -6,3 +6,8 @@ from repositories.user_repository import user_repository
 @app.route("/")
 def render_home():
     return render_template("index.html")
+
+# For run robot bash script
+@app.route("/ping")
+def ping():
+    return "Pong"
