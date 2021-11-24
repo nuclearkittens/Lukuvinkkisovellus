@@ -22,7 +22,7 @@ Aloita kloonaamalla repositorio:
 
 ```
 $ git clone git@github.com:TopiasHarjunpaa/ot-harjoitustyo.git
-$ cd ot-harjoitustyo
+$ cd lukuvinkkisovellus
 ```
 
 Asenna seuraavaksi tarvittavat riippuvuudet:
