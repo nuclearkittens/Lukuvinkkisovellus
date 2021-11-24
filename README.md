@@ -21,7 +21,7 @@ Placeholder...
 Aloita kloonaamalla repositorio:
 
 ```
-$ git clone git@github.com:TopiasHarjunpaa/ot-harjoitustyo.git
+$ git clone git@github.com:TopiasHarjunpaa/Lukuvinkkisovellus.git
 $ cd lukuvinkkisovellus
 ```
 
