@@ -1,8 +1,9 @@
 # Ohjelmistotuotanto, syksy 2021
-### Lukuvinkkikirjasto | miniprojekti
 
 ![GitHub Actions](https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/TopiasHarjunpaa/Lukuvinkkisovellus/branch/main/graph/badge.svg?token=IIHLH6RUFG)](https://codecov.io/gh/TopiasHarjunpaa/Lukuvinkkisovellus)
+
+### Lukuvinkkikirjasto | miniprojekti
 
 Lisää sovelluksen kuvaus...
 
