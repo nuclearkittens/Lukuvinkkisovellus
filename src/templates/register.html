@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Lukuvinkkisovellus
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <form action="/register" method="POST">
+            Username must be over 3 and under 12 characters in length and may only contain letters
+            <p>
+            username: <input type="text" name="username" size="20">
+            <p>
+            Password must be over 8 and under 16 characters in length
+            <p>
+            password: <input type="password" name="a_password" size="20">
+            <p>
+            and again: <input type="password" name="b_password" size="20">
+            <p>
+            <input type="submit" value="create">
+            <a href="/login">go back</a>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <p class=flashes>
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                    </p>
+                {% endif %}
+            {% endwith %}
+        </form>
+    </div>
+
+{% endblock %}
