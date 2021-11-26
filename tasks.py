@@ -22,7 +22,7 @@ def lint(ctx):
 
 @task
 def format(ctx):
-    ctx.run("autopep8 --in-place --recursive src")
+    ctx.run("autopep8 --in-place --recursive src --exclude app.py")
 
 @task
 def robot(ctx):
