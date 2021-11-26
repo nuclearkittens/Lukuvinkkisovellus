@@ -9,7 +9,8 @@ from repositories.user_repository import user_repository
 def render_home():
     return render_template("index.html")
 
-@app.route("/login",methods=["GET","POST"])
+
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
         return render_template("login.html")
@@ -23,13 +24,15 @@ def login():
             flash("wrong username or password")
             return redirect("/login")
 
+
 @app.route("/logout")
 def logout():
     user_service.logout()
     flash("logged out")
     return redirect("/")
 
-@app.route("/register",methods=["GET","POST"])
+
+@app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "GET":
         return render_template("register.html")
@@ -58,6 +61,7 @@ def register():
 @app.route("/ping")
 def ping():
     return "Pong"
+
 
 @app.route("/try_db")
 def try_db():

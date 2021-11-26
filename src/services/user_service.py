@@ -8,13 +8,14 @@ from os import urandom
 from db import db
 import re
 
+
 class UserService:
     def __init__(self, user_repository=default_user_repository):
         self._user_repository = user_repository
 
     def login(self, username, password):
         _sql = "SELECT id, password FROM users WHERE username=:username"
-        _result = db.session.execute(_sql, {"username":username})
+        _result = db.session.execute(_sql, {"username": username})
         _user = _result.fetchone()
         if _user == None:
             return False
@@ -30,12 +31,13 @@ class UserService:
         _hash_val = generate_password_hash(password)
         try:
             _sql = "INSERT INTO users (username, password) VALUES (:username,:password)"
-            db.session.execute(_sql, {"username":username, "password":_hash_val})
+            db.session.execute(
+                _sql, {"username": username, "password": _hash_val})
             db.session.commit()
         except:
             return False
         return self.login(username, password)
-    
+
     def logout(self):
         del session["user_id"]
         del session["csrf_token"]
@@ -56,5 +58,6 @@ class UserService:
         ):
             return False
         return True
+
 
 user_service = UserService()
