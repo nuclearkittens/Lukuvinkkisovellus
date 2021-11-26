@@ -4,7 +4,18 @@
 Lukuvinkkisovellus
 {% endblock %}
 
-{% block body %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p class=flashes>
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+            </p>
+        {% endif %}
+    {% endwith %}
+
 <hr>
 <p>
     <p>
@@ -60,4 +71,5 @@ Lukuvinkkisovellus
             Already have an account? <a href="/">Log In</a>
         </medium>
       </form>
+      
 {% endblock %}

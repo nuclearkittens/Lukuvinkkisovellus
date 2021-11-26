@@ -8,23 +8,22 @@ from forms import LoginForm, RegisterForm
 
 @app.route("/")
 def render_home():
-    login_form = LoginForm()
-    return render_template("index.html", login_form = login_form)
+    form = LoginForm()
+    return render_template("index.html", form = form)
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    login_form = LoginForm(request.form)
-    if login_form.validate_on_submit():
-        username = login_form.username.data
-        password = login_form.password.data
+    form = LoginForm(request.form)
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
         if user_service.login(username,password):
             flash("login succesful")
             return redirect("/")
         else:
-            flash("wrong username or password")
-            return render_template("index.html",login_form = login_form)
-    return render_template("index.html", login_form = login_form)
+            return render_template("index.html", form = form, error="Invalid username of password")
+    return render_template("index.html", form = form)
 
 
 @app.route("/logout")
@@ -45,7 +44,6 @@ def register():
         else:
             flash("Username taken")
     return render_template("register.html", form=form)
-
 
 # For run robot bash script
 

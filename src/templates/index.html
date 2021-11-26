@@ -4,7 +4,7 @@
 Lukuvinkkisovellus
 {% endblock %}
 
-{% block body %}
+{% block content %}
 
 {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -22,24 +22,43 @@ Lukuvinkkisovellus
     {% else %}
 
     Start by logging in!
-        <form action="/login" method="POST">
-            {{ login_form.csrf_token }}
-            <div class="form-group">
-              {{ login_form.username.label(class='form-control-label') }}
-              {{ login_form.username(class='form-control form-control-') }}
+    <form action="/login" method="POST">
+        {{ form.csrf_token }}
+        <div class="form-group">
+          {{ form.username.label(class='form-control-label') }}
 
+            {% if form.username.errors %}
+            {{ form.username(class='form-control form-control is-invalid') }}
+            <div class='invalid-feedback'>
+                {% for error in form.username.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
             </div>
-            <div class="form-group">
-                {{ login_form.password.label(class='form-control-label') }}
-                {{ login_form.password(class='form-control form-control') }}
+            {% else %}
+            {{ form.username(class='form-control form-control-') }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.password.label(class='form-control-label') }}
+
+            {% if form.password.errors %}
+            {{ form.password(class='form-control form-control- is-invalid') }}
+            <div class='invalid-feedback'>
+                {% for error in form.password.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
             </div>
-            {{ login_form.submit(class="btn btn-primary") }}
-          </form>
-          <hr>
-          <medium class="text-muted">
-              <a href="/register">Click here to register!</a>
-          </medium>
-    
+            {% else %}
+            {{ form.password(class='form-control form-control') }}
+            {% endif %}
+        </div>
+        <p style="color: tomato;">{{ error }}</p>
+        {{ form.submit(class="btn btn-primary") }}
+      </form>
+      <hr>
+      <medium class="text-muted">
+          <a href="/register">Click here to register!</a>
+      </medium>
     {% endif %}
 
 </ul>
