@@ -1,5 +1,5 @@
 import unittest
-from services.user_service import user_service
+#from services.user_service import user_service
 
 
 class TestUserService(unittest.TestCase):
