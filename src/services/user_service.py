@@ -22,6 +22,7 @@ class UserService:
         else:
             if check_password_hash(_user[1], password):
                 session["user_id"] = _user[0]
+                session["username"] = username
                 session["csrf_token"] = urandom(16).hex()
                 return True
             else:

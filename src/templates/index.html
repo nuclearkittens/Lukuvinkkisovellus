@@ -18,7 +18,6 @@ Lukuvinkkisovellus
     <p>
 <ul>
     {% if session.user_id %}
-    <li><a href="/logout">Logout</a></li>
     listaa kirjat yms tähän
     {% else %}
 
@@ -32,17 +31,7 @@ Lukuvinkkisovellus
             </div>
             <div class="form-group">
                 {{ login_form.password.label(class='form-control-label') }}
-
-                {% if login_form.password.errors %}
-                {{ login_form.password(class='form-control form-control- is-invalid') }}
-                <div class='invalid-feedback'>
-                    {% for error in login_form.password.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
                 {{ login_form.password(class='form-control form-control') }}
-                {% endif %}
             </div>
             {{ login_form.submit(class="btn btn-primary") }}
           </form>
@@ -50,9 +39,9 @@ Lukuvinkkisovellus
           <medium class="text-muted">
               <a href="/register">Click here to register!</a>
           </medium>
-    </div>
     
     {% endif %}
+
 </ul>
 
 {% endblock %}

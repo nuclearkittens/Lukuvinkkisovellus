@@ -33,6 +33,9 @@
                     <a class="nav-link" href="#">Temp</a>
                 </li>
                 </ul>
+                {% if session.user_id %}
+                <a href="/logout" class="btn btn-outline-success my-2 my-sm-0" role="button" >Log out, {{ session.username }}</a>
+                {% endif %}
             </div>
             </div>
         </nav>
@@ -42,6 +45,7 @@
               <div class="col-8">
         
         {% block body %}{% endblock %}
+        </div>
 
         <div class="col-4">
             <h2>Lukuvinkkisovellus</h2>
@@ -57,10 +61,10 @@
               <a href="/completed" class="btn-secondary btn-lg active" role="button" aria-pressed="true">Nappi</a>
                 {% endif %}
                 <hr>
-                <a href="https://github.com/VoxBorealis/To-Do-List-Web-Application">GitHub</a>
+                <a href="https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus">GitHub</a>
                 <hr>
       
-      
+
           </div>
     </body>
 </html>

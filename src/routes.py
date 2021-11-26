@@ -14,17 +14,17 @@ def render_home():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == "GET":
-        return render_template("login.html")
-    if request.method == "POST":
-        _username = request.form["username"]
-        _password = request.form["password"]
-        if user_service.login(_username, _password):
-            flash("login succesful!")
+    login_form = LoginForm(request.form)
+    if login_form.validate_on_submit():
+        username = login_form.username.data
+        password = login_form.password.data
+        if user_service.login(username,password):
+            flash("login succesful")
             return redirect("/")
         else:
             flash("wrong username or password")
-            return redirect("/login")
+            return render_template("index.html",login_form = login_form)
+    return render_template("index.html", login_form = login_form)
 
 
 @app.route("/logout")
@@ -36,26 +36,15 @@ def logout():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    if request.method == "GET":
-        return render_template("register.html")
-    if request.method == "POST":
-        if (request.form["a_password"] != request.form["b_password"]):
-            flash("passwords do not match")
-            return redirect("/register")
-        _username = request.form["username"]
-        _password = request.form["a_password"]
-        if (not user_service.check_username(_username)):
-            flash("invalid username")
-            return redirect("/register")
-        if (not user_service.check_password(_password)):
-            flash("invalid password")
-            return redirect("/register")
-        if user_service.register(_username, _password):
-            flash("new user created")
+    form = RegisterForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        if user_service.register(username, password):
             return redirect("/")
         else:
-            flash("username taken")
-            return redirect("/register")
+            flash("Username taken")
+    return render_template("register.html", form=form)
 
 
 # For run robot bash script
