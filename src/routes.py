@@ -1,6 +1,6 @@
 from app import app
 from db import db
-from flask import render_template
+from flask import render_template, redirect, flash, request, session
 from services.user_service import user_service
 from repositories.user_repository import user_repository
 
@@ -9,8 +9,51 @@ from repositories.user_repository import user_repository
 def render_home():
     return render_template("index.html")
 
-# For run robot bash script
+@app.route("/login",methods=["GET","POST"])
+def login():
+    if request.method == "GET":
+        return render_template("login.html")
+    if request.method == "POST":
+        _username = request.form["username"]
+        _password = request.form["password"]
+        if user_service.login(_username, _password):
+            flash("login succesful!")
+            return redirect("/")
+        else:
+            flash("wrong username or password")
+            return redirect("/login")
 
+@app.route("/logout")
+def logout():
+    user_service.logout()
+    flash("logged out")
+    return redirect("/")
+
+@app.route("/register",methods=["GET","POST"])
+def register():
+    if request.method == "GET":
+        return render_template("register.html")
+    if request.method == "POST":
+        if (request.form["a_password"] != request.form["b_password"]):
+            flash("passwords do not match")
+            return redirect("/register")
+        _username = request.form["username"]
+        _password = request.form["a_password"]
+        if (not user_service.check_username(_username)):
+            flash("invalid username")
+            return redirect("/register")
+        if (not user_service.check_password(_password)):
+            flash("invalid password")
+            return redirect("/register")
+        if user_service.register(_username, _password):
+            flash("new user created")
+            return redirect("/")
+        else:
+            flash("username taken")
+            return redirect("/register")
+
+
+# For run robot bash script
 
 @app.route("/ping")
 def ping():
@@ -28,4 +71,3 @@ def try_db():
     name = row[0]
 
     return f"heippa {name}"
-    
