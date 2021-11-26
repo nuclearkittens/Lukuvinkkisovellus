@@ -3,11 +3,13 @@ from db import db
 from flask import render_template, redirect, flash, request, session
 from services.user_service import user_service
 from repositories.user_repository import user_repository
+from forms import LoginForm, RegisterForm
 
 
 @app.route("/")
 def render_home():
-    return render_template("index.html")
+    login_form = LoginForm()
+    return render_template("index.html", login_form = login_form)
 
 
 @app.route("/login", methods=["GET", "POST"])

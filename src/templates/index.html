@@ -5,7 +5,7 @@ Lukuvinkkisovellus
 {% endblock %}
 
 {% block body %}
-<h1>Lukuvinkkisovellus</h1>
+
 {% with messages = get_flashed_messages() %}
         {% if messages %}
             <p class=flashes>
@@ -19,9 +19,39 @@ Lukuvinkkisovellus
 <ul>
     {% if session.user_id %}
     <li><a href="/logout">Logout</a></li>
+    listaa kirjat yms tähän
     {% else %}
-    <li><a href="/login">Login</a></li>
-    <li><a href="/register">Register</a></li>
+
+    Start by logging in!
+        <form action="/login" method="POST">
+            {{ login_form.csrf_token }}
+            <div class="form-group">
+              {{ login_form.username.label(class='form-control-label') }}
+              {{ login_form.username(class='form-control form-control-') }}
+
+            </div>
+            <div class="form-group">
+                {{ login_form.password.label(class='form-control-label') }}
+
+                {% if login_form.password.errors %}
+                {{ login_form.password(class='form-control form-control- is-invalid') }}
+                <div class='invalid-feedback'>
+                    {% for error in login_form.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ login_form.password(class='form-control form-control') }}
+                {% endif %}
+            </div>
+            {{ login_form.submit(class="btn btn-primary") }}
+          </form>
+          <hr>
+          <medium class="text-muted">
+              <a href="/register">Click here to register!</a>
+          </medium>
+    </div>
+    
     {% endif %}
 </ul>
 

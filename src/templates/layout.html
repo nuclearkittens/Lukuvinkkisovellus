@@ -4,9 +4,63 @@
         <title>{% block title %}{% endblock %}</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="/static/bootstrap.min.css">
     </head>
     <body>
+        
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="/">Lukuvinkkisovellus</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Home
+                    <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Temp</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Temp</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Temp</a>
+                </li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+        
+        <div class="container" >
+            <div class="row">
+              <div class="col-8">
+        
         {% block body %}{% endblock %}
+
+        <div class="col-4">
+            <h2>Lukuvinkkisovellus</h2>
+            <p>
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            </p>
+                {% if session.user_id %}
+              <hr>
+              <a href="/completed" class="btn-secondary btn-lg active" role="button" aria-pressed="true">Nappi</a>
+                {% endif %}
+                <hr>
+                <a href="https://github.com/VoxBorealis/To-Do-List-Web-Application">GitHub</a>
+                <hr>
+      
+      
+          </div>
     </body>
 </html>
