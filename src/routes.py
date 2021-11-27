@@ -40,7 +40,8 @@ def register():
         username = form.username.data
         password = form.password.data
         if user_service.register(username, password):
-            return redirect("/")
+            if user_service.login(username, password):
+                return redirect("/")
         else:
             flash("Username taken")
     return render_template("register.html", form=form)
