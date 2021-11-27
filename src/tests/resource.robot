@@ -17,5 +17,8 @@ Open And Configure Browser
 Home Page Should Be Open
     Title Should Be  Lukuvinkkisovellus
 
+Register Page Should Be Open
+    Page Should Contain Button  Sign up
+
 Go To Home Page
     Go To  ${HOME URL}
