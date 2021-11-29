@@ -3,7 +3,7 @@ from db import db
 from flask import render_template, redirect, flash, request, session
 from services.user_service import UserService
 from repositories.user_repository import UserRepository
-from forms import LoginForm, RegisterForm
+from forms import BookForm, LoginForm, RegisterForm
 
 user_repository = UserRepository(db)
 user_service = UserService(user_repository)
@@ -47,6 +47,19 @@ def register():
         else:
             flash("Username taken")
     return render_template("register.html", form=form)
+
+@app.route("/new_book", methods=["GET", "POST"])
+def new_book():
+    form = BookForm
+    if form.validate_on_submit():
+        author = form.author.data
+        title = form.title.data
+        isbn = form.isbn.data
+        if book_service.new_book(author, title, isbn):
+            return redirect("/")
+        else:
+            flash("Something went wrong...")
+    return render_template("new_book.html", form=form)
 
 # For run robot bash script
 
