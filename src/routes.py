@@ -2,11 +2,12 @@ from app import app
 from db import db
 from flask import render_template, redirect, flash, request, session
 from services.user_service import UserService
+from entities.user import User
 from repositories.user_repository import UserRepository
 from forms import BookForm, LoginForm, RegisterForm
 
 user_repository = UserRepository(db)
-user_service = UserService(user_repository)
+user_service = UserService(user_repository, session)
 
 @app.route("/")
 def render_home():
@@ -23,7 +24,7 @@ def login():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-        if user_service.login(username,password):
+        if user_service.login(User(username,password)):
             flash("login succesful")
             return redirect("/")
         else:
@@ -44,8 +45,9 @@ def register():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-        if user_service.register(username, password):
-            if user_service.login(username, password):
+        user = User(username, password)
+        if user_service.register(user):
+            if user_service.login(user):
                 return redirect("/")
         else:
             flash("Username taken")

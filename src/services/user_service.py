@@ -1,28 +1,27 @@
-from entities.user import User
-from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 from os import urandom
 
 class UserService:
-    def __init__(self, user_repository):
+    def __init__(self, user_repository, session):
         self._user_repository = user_repository
+        self._session = session
 
-    def login(self, username, password):
-        user = self._user_repository.get_user(username)
-        if user == None:
+    def login(self, user):
+        user_data = self._user_repository.get_user(user)
+        if user_data == None:
             return False
-        if check_password_hash(user[1], password):
-            session["user_id"] = user[0]
-            session["username"] = username
-            session["csrf_token"] = urandom(16).hex()
+        if check_password_hash(user_data[1], user.password):
+            self._session["user_id"] = user_data[0]
+            self._session["username"] = user.username
+            self._session["csrf_token"] = urandom(16).hex()
             return True
         return False
 
-    def register(self, username, password):
-        hash_val = generate_password_hash(password)
-        return self._user_repository.add_user(username, hash_val)
+    def register(self, user):
+        user.set_password(generate_password_hash(user.password))
+        return self._user_repository.add_user(user)
 
     def logout(self):
-        del session["user_id"]
-        del session["username"]
-        del session["csrf_token"]
+        del self._session["user_id"]
+        del self._session["username"]
+        del self._session["csrf_token"]

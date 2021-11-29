@@ -1,18 +1,16 @@
-from entities.user import User
-
 class UserRepository:
     def __init__(self, db):
         self._db = db
 
-    def get_user(self, username):
+    def get_user(self, user):
         sql = "SELECT id, password FROM users WHERE username=:username"
-        result = self._db.session.execute(sql, {"username": username})
+        result = self._db.session.execute(sql, {"username": user.username})
         return result.fetchone()
     
-    def add_user(self, username, password):
+    def add_user(self, user):
         try:
             sql = "INSERT INTO users (username, password) VALUES (:username,:password)"
-            self._db.session.execute(sql, {"username": username, "password": password})
+            self._db.session.execute(sql, {"username": user.username, "password": user.password})
             self._db.session.commit()
             return True
         except:
