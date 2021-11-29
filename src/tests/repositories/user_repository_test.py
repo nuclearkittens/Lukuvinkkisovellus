@@ -1,7 +1,7 @@
 import unittest
 from repositories.user_repository import UserRepository
-import app
 from db import db
+from entities.user import User
 
 
 class TestUserRepository(unittest.TestCase):
@@ -17,6 +17,6 @@ class TestUserRepository(unittest.TestCase):
         db.session.commit()
     
     def test_add_user(self):
-        result = self.user_repository.add_user('Paavo', 'pesusieni')
+        result = self.user_repository.add_user(User('Paavo', 'pesusieni'))
         
         self.assertTrue(result)
