@@ -50,7 +50,7 @@ def register():
 
 @app.route("/new_book", methods=["GET", "POST"])
 def new_book():
-    form = BookForm
+    form = BookForm()
     if form.validate_on_submit():
         author = form.author.data
         title = form.title.data

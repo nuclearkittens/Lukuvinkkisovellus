@@ -18,6 +18,7 @@ class LoginForm(FlaskForm):
 #joka tarkistaa onko isbn annettu, jos on niin authoria tai titleä ei tarvitse syöttää.. 
 #Mennään ainakin aluksi tällä
 class BookForm(FlaskForm):
-    author = StringField("Kirjoittaja", validators=[DataRequired(), Length(min=3, max=50)])
-    title = StringField("Otsikko", validator=[DataRequired(), Length(min=2, max=200)])
+    author = StringField("Kirjoittaja (*)", validators=[DataRequired(), Length(min=3, max=50)])
+    title = StringField("Otsikko (*)", validators=[DataRequired(), Length(min=2, max=200)])
     isbn = StringField("ISBN")
+    submit = SubmitField("Submit")
