@@ -22,14 +22,6 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      -name: psql actions
-      uses: n1ru4/psql-action@v1
-      with:
-          POSTGRES_HOST: "localhost"
-          POSTGRES_USER: "postgres"
-          POSTGRES_PASSWORD: "postgres"
-          POSTGRES_PORT: "port"
-          DATABASE_DUMP_PATH: "schema.sql"
       - uses: actions/checkout@v2
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
