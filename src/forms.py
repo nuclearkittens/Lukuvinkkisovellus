@@ -1,3 +1,4 @@
+from flask.app import Flask
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length, EqualTo, ValidationError, InputRequired
@@ -12,3 +13,11 @@ class LoginForm(FlaskForm):
     username = StringField("Username", validators=[DataRequired(), Length(min=3, max=36)])
     password = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Login")
+
+#Myöhemmin kun isbn-haku on toteutettu, niin pitäisi varmaan toteuttaa jonkinlainen systeemi,
+#joka tarkistaa onko isbn annettu, jos on niin authoria tai titleä ei tarvitse syöttää.. 
+#Mennään ainakin aluksi tällä
+class BookForm(FlaskForm):
+    author = StringField("Kirjoittaja", validators=[DataRequired(), Length(min=3, max=50)])
+    title = StringField("Otsikko", validator=[DataRequired(), Length(min=2, max=200)])
+    isbn = StringField("ISBN")
