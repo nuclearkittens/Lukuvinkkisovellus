@@ -12,6 +12,9 @@ user_service = UserService(user_repository)
 def render_home():
     form = LoginForm()
     return render_template("index.html", form = form)
+    #kun book_service on olemassa lisää render_template argumentteihin
+    #books = book_service.get_my_books(user_id) yms, joka antaa index.html:lle
+    #tiedot omista kirjoista, jotta voi rendaa ne
 
 
 @app.route("/login", methods=["GET", "POST"])
