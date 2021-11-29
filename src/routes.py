@@ -2,10 +2,11 @@ from app import app
 from db import db
 from flask import render_template, redirect, flash, request, session
 from services.user_service import UserService
-from repositories.user_repository import user_repository
+from repositories.user_repository import UserRepository
 from forms import LoginForm, RegisterForm
 
-user_service = UserService(user_repository, db)
+user_repository = UserRepository(db)
+user_service = UserService(user_repository)
 
 @app.route("/")
 def render_home():

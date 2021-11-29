@@ -4,14 +4,11 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from os import urandom
 
 class UserService:
-    def __init__(self, user_repository, db):
+    def __init__(self, user_repository):
         self._user_repository = user_repository
-        self._db = db
 
     def login(self, username, password):
-        sql = "SELECT id, password FROM users WHERE username=:username"
-        result = self._db.session.execute(sql, {"username": username})
-        user = result.fetchone()
+        user = self._user_repository.get_user(username)
         if user == None:
             return False
         if check_password_hash(user[1], password):
@@ -23,14 +20,7 @@ class UserService:
 
     def register(self, username, password):
         hash_val = generate_password_hash(password)
-        try:
-            sql = "INSERT INTO users (username, password) VALUES (:username,:password)"
-            self._db.session.execute(
-                sql, {"username": username, "password": hash_val})
-            self._db.session.commit()
-        except:
-            return False
-        return True
+        return self._user_repository.add_user(username, hash_val)
 
     def logout(self):
         del session["user_id"]
