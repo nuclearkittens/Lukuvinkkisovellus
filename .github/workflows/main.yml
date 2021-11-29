@@ -22,6 +22,11 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
+      - name: Import DB seed data
+        run: psql -d postgresql://postgres@localhost/db_test -f schema.sql
+        working-directory: ./test/data
+        env:
+          PGPASSWORD: postgres
       - uses: actions/checkout@v2
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
