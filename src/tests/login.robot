@@ -9,6 +9,18 @@ Test Setup  Go To Home Page
 
 Login With Nonexistent user
     Set Username  olematon
-    Set Password  kayttaja
+    Set Password  Felix123
     Submit Login Credentials
-    Login Should Fail With Message  Invalid username of password
+    Login Should Return Message  Invalid username of password
+
+Login With Wrong Password
+    Set Username  Felix
+    Set Password  Felix213
+    Submit Login Credentials
+    Login Should Return Message  Invalid username of password
+
+Login With Correct Credentials
+    Set Username  Felix
+    Set Password  Felix123
+    Submit Login Credentials
+    Login Should Return Message  login succesful
