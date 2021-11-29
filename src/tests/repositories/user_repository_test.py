@@ -6,8 +6,12 @@ from db import db
 
 class TestUserRepository(unittest.TestCase):
     def setUp(self):
-        pass
+        db.session.execute("DELETE FROM users")
 
     def test_nothing(self):
-        db.session.execute("SELECT * FROM users")
+        db.session.execute(""" 
+            INSERT INTO users (username, password) 
+            VALUES ('Paavo', 'pesusieni')
+
+            """)
         db.session.commit()
