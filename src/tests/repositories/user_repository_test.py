@@ -1,5 +1,7 @@
 import unittest
-from repositories.user_repository import user_repository
+from repositories.user_repository import UserRepository
+import app
+from db import db
 
 
 class TestUserRepository(unittest.TestCase):
@@ -7,4 +9,5 @@ class TestUserRepository(unittest.TestCase):
         pass
 
     def test_nothing(self):
-        pass
+        db.session.execute("SELECT * FROM users")
+        db.session.commit()
