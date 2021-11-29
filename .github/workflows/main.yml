@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: Import DB seed data
-        run: psql -d postgresql://postgres@localhost/db_test < schema.sql
+        run: psql -d postgresql://postgres@localhost/db_test
         working-directory: ./test/data
         env:
           PGPASSWORD: password
