@@ -1,6 +1,6 @@
 import unittest
 from repositories.user_repository import UserRepository
-giimport app
+import app
 from db import db
 
 
