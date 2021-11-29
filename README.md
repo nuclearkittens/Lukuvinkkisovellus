@@ -2,7 +2,7 @@
 
 ### Lukuvinkkikirjasto | miniprojekti
 
-Lukuvinkkikirjasto web-sovellus, joka toteutetaan Helsingin Yliopiston Ohjelmistotuotantokurssin projektityönä. Sovelluksen käyttäjä voi tallettaa, hakea sekä jaotella erilaisia lukuvinkkejä sekä muistiinpanoja, kuten kirjoja, podcasteja, videoita tai blogipostauksia. Tarkemmat tiedot löytyvät[tehtävänannosta](https://ohjelmistotuotanto-hy.github.io/speksi/).
+Lukuvinkkikirjasto web-sovellus, joka toteutetaan Helsingin Yliopiston Ohjelmistotuotantokurssin projektityönä. Sovelluksen käyttäjä voi tallettaa, hakea sekä jaotella erilaisia lukuvinkkejä sekä muistiinpanoja, kuten kirjoja, podcasteja, videoita tai blogipostauksia. Tarkemmat tiedot löytyvät [tehtävänannosta](https://ohjelmistotuotanto-hy.github.io/speksi/).
 
 ![GitHub Actions](https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/TopiasHarjunpaa/Lukuvinkkisovellus/branch/main/graph/badge.svg?token=IIHLH6RUFG)](https://codecov.io/gh/TopiasHarjunpaa/Lukuvinkkisovellus)
@@ -11,8 +11,8 @@ Lukuvinkkikirjasto web-sovellus, joka toteutetaan Helsingin Yliopiston Ohjelmist
 
 - [Product backlog](https://docs.google.com/spreadsheets/d/10ld7weDSDLxcA8vwZXymfioQPwHWz-7xzCbk3FgV9HU/edit#gid=0)
 - [Flinga](https://flinga.fi/s/FTVMGVC)
-- [Tietokantakaavio](https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus/documentation/database_schema.md)
-- [Definition of Done](https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus/documentation/definition_of_done.md)
+- [Tietokantakaavio](https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus/blob/main/documentation/database_schema.md)
+- [Definition of Done](https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus/blob/main/documentation/definition_of_done.md)
 
 ## Asennus
 
