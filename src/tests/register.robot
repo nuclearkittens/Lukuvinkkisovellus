@@ -40,3 +40,9 @@ Register With Reserved Username
     Register Should Fail With Message  Username taken
 
 #Register With Correct Credentials
+    #Click Link  Click here to register!
+    #Set Username  Gotrek
+    #Set Password  Gotrek123
+    #Set Password Confirm  Gotrek123
+    #Submit Register Credentials
+    #Register Should Succeed With Message  ???????

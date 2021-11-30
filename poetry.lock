@@ -469,9 +469,21 @@ use_chardet_on_py3 = ["chardet (>=3.0.2,<5)"]
 name = "robotframework"
 version = "4.1.2"
 description = "Generic automation framework for acceptance testing and robotic process automation (RPA)"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
+
+[[package]]
+name = "robotframework-postgresqldb"
+version = "2.0.0"
+description = "Robot Framework Library For Working With PostgreSQL Database."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+psycopg2 = "*"
+robotframework = "*"
 
 [[package]]
 name = "robotframework-pythonlibcore"
@@ -675,7 +687,7 @@ email = ["email-validator"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "c93b491849e76d0d3957d3ea583506403db679a9d945bc259f23f7a465a85fb3"
+content-hash = "bb2da188db6214f55fc29fc36b162385169186071c41daa1438841edb35a5755"
 
 [metadata.files]
 astroid = [
@@ -1102,6 +1114,10 @@ requests = [
 robotframework = [
     {file = "robotframework-4.1.2-py2.py3-none-any.whl", hash = "sha256:6441c774f274ae022a184165287d967a7c1bb0c5f96ff0005f0468f4c979fb2b"},
     {file = "robotframework-4.1.2.zip", hash = "sha256:7ea2454b847cfcb211e2906743c5c4a868ab096ab4ce1547ab102d91fb224443"},
+]
+robotframework-postgresqldb = [
+    {file = "robotframework-postgresqldb-2.0.0.tar.gz", hash = "sha256:ab276e83b705b3f115cff02a911dce6000f9e2dfe5efcee58536eac0e0c9e074"},
+    {file = "robotframework_postgresqldb-2.0.0-py2.py3-none-any.whl", hash = "sha256:fa28c5fed14e69ef483613b16c8ac76d99329eb4c876e37f31af8b5dabe24987"},
 ]
 robotframework-pythonlibcore = [
     {file = "robotframework-pythonlibcore-3.0.0.tar.gz", hash = "sha256:1bce3b8dfcb7519789ee3a89320f6402e126f6d0a02794184a1ab8cee0e46b5d"},
