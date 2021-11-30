@@ -25,3 +25,7 @@ Login Should Return Message
 Register Should Fail With Message
     [Arguments]  ${message}
     Page Should Contain  ${message}
+    
+Register Should Succeed With Message
+    [Arguments]  ${message}
+    Page Should Contain  ${message}
