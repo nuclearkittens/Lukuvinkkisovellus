@@ -14,16 +14,15 @@ user_service = UserService(user_repository, session)
 book_repository = BookRepository(db)
 book_service = BookService(book_repository)
 
+
 @app.route("/")
 def render_home():
     form = LoginForm()
     books = None
     if "user_id" in session.keys():
         books = book_service.get_my_books(session["user_id"])
-    return render_template("index.html", form = form, books = books)
-    #kun book_service on olemassa lisää render_template argumentteihin
-    #books = book_service.get_my_books(user_id) yms, joka antaa index.html:lle
-    #tiedot omista kirjoista, jotta voi rendaa ne
+    return render_template("index.html", form=form, books=books)
+
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -32,12 +31,12 @@ def login():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-        if user_service.login(User(username,password)):
+        if user_service.login(User(username, password)):
             flash("login succesful")
             return redirect("/")
         else:
-            return render_template("index.html", form = form, error="Invalid username of password")
-    return render_template("index.html", form = form)
+            return render_template("index.html", form=form, error="Invalid username of password")
+    return render_template("index.html", form=form)
 
 
 @app.route("/logout")
@@ -61,6 +60,7 @@ def register():
             flash("Username taken")
     return render_template("register.html", form=form)
 
+
 @app.route("/new_book", methods=["GET", "POST"])
 def new_book():
     form = BookForm()
@@ -76,6 +76,7 @@ def new_book():
     return render_template("new_book.html", form=form)
 
 # For run robot bash script
+
 
 @app.route("/ping")
 def ping():

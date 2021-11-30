@@ -1,6 +1,7 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 from os import urandom
 
+
 class UserService:
     def __init__(self, user_repository, session):
         self._user_repository = user_repository

@@ -15,8 +15,8 @@ class TestUserRepository(unittest.TestCase):
 
             """)
         db.session.commit()
-    
+
     def test_add_user(self):
         result = self.user_repository.add_user(User('Paavo', 'pesusieni'))
-        
+
         self.assertTrue(result)
