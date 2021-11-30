@@ -18,7 +18,7 @@ Submit Login Credentials
 Submit Register Credentials
     Click Button  Sign up
     
-Login Should Fail With Message
+Login Should Return Message
     [Arguments]  ${message}
     Page Should Contain  ${message}
     
