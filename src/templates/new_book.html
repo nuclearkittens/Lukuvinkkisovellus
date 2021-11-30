@@ -19,7 +19,7 @@ Lukuvinkkisovellus
 <h5>Lisää uusi kirja</h4>
 <hr>
 <p>
-<form action="new_book" method="POST">
+<form action="/new_book" method="POST">
     {{ form.csrf_token }}
     <div class="form-group">
         {{ form.author.label(class='form-control-label') }}
