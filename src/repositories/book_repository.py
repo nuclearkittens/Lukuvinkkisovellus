@@ -41,3 +41,7 @@ class BookRepository:
             return result.fetchall()
         except:
             return None
+
+    def delete(self):
+        self._db.session.execute("DELETE FROM books")
+        self._db.session.commit()

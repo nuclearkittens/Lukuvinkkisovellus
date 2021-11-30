@@ -1,7 +1,7 @@
 import unittest
 
 
-class TestUserService(unittest.TestCase):
+class TestBookService(unittest.TestCase):
     def setUp(self):
         pass
 

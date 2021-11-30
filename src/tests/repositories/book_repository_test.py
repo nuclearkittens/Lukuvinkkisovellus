@@ -1,7 +1,7 @@
 import unittest
 
 
-class TestUserService(unittest.TestCase):
+class TestBookRepository(unittest.TestCase):
     def setUp(self):
         pass
 
