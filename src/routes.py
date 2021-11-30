@@ -4,15 +4,23 @@ from flask import render_template, redirect, flash, request, session
 from services.user_service import UserService
 from entities.user import User
 from repositories.user_repository import UserRepository
+from services.book_service import BookService
+from entities.book import Book
+from repositories.book_repository import BookRepository
 from forms import BookForm, LoginForm, RegisterForm
 
 user_repository = UserRepository(db)
 user_service = UserService(user_repository, session)
+book_repository = BookRepository(db)
+book_service = BookService(book_repository)
 
 @app.route("/")
 def render_home():
     form = LoginForm()
-    return render_template("index.html", form = form)
+    books = None
+    if "user_id" in session.keys():
+        books = book_service.get_my_books(session["user_id"])
+    return render_template("index.html", form = form, books = books)
     #kun book_service on olemassa lisää render_template argumentteihin
     #books = book_service.get_my_books(user_id) yms, joka antaa index.html:lle
     #tiedot omista kirjoista, jotta voi rendaa ne
@@ -60,7 +68,8 @@ def new_book():
         author = form.author.data
         title = form.title.data
         isbn = form.isbn.data
-        if book_service.new_book(author, title, isbn):
+        user_id = session["user_id"]
+        if book_service.new_book(Book(author, title, isbn), user_id):
             return redirect("/")
         else:
             flash("Something went wrong...")

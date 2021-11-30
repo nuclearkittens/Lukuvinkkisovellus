@@ -27,6 +27,7 @@ Lukuvinkkisovellus
     <hr>
     <p>Tähän alas pitäs listata kirjoja sitten ku on joku kirjojen haku luokka</p>
     <ul>
+      {% if books is not none %}
         {% for book in books %}
           <div class="list-group">
             <a href="#" class="list-group-item list-group-item-action">
@@ -40,6 +41,7 @@ Lukuvinkkisovellus
           </div>
   
           {% endfor %}
+      {% endif %}
     </ul>
 
 
