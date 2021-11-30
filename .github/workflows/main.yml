@@ -29,7 +29,6 @@ jobs:
           heroku_app_name: "lukuvinkkiapp"
           heroku_email: "topias.harjunpaa@gmail.com"
           buildpack: "https://github.com/moneymeets/python-poetry-buildpack.git"
-          appdir: "src" 
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
