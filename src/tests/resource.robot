@@ -7,10 +7,21 @@ Library  ../AppLibrary.py
 *** Variables ***
 ${SERVER}  localhost:5000
 ${BROWSER}  chrome
-${DELAY}  0.5 seconds
+${DELAY}  0.2 seconds
 ${HOME URL}  http://${SERVER}
+
+#Tietokanta muuttujat
+# Vaihda vastaamaan käytettävää tietokantaa
 ${dbname}  lukuvinkki
-${dbuser}  postgresql
+${dbuser}  tino
+${dbpasswd}  ""
+${script_file}  ./src/tests/robot_db_test.sql
+
+#Testauksessa käytettäviä muuttujia.
+${test_user_1}  Felix
+${test_user_2}  Gotrek
+${test_passwd_1}  Felix123
+${test_passwd_2}  Gotrek123
 
 
 *** Keywords ***
@@ -19,10 +30,12 @@ Open And Configure Browser
     Maximize Browser Window
     Set Selenium Speed  ${DELAY}
 
-Database Connection
-    PostgreSQLDB.Connect To postgresql  ${dbname}  ${dbuser}  None
-    Execute Sql String  select * from users
-    PostgreSQLDB.Close All postgresql Connections
+Clear Database
+    PostgreSQLDB.Connect To postgresql  ${dbname}  ${dbuser}  ${dbpasswd}
+    ${output}=  PostgreSQLDB.Execute Plpgsql Script  ${script_file}
+    log to console  ${output}
+    Should Be Equal As Strings  ${output}  None
+    PostgreSQLDB.Close All postgresql Connections    
 
 Home Page Should Be Open
     Title Should Be  Lukuvinkkisovellus

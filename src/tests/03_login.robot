@@ -14,13 +14,13 @@ Login With Nonexistent user
     Login Should Return Message  Invalid username of password
 
 Login With Wrong Password
-    Set Username  Felix
+    Set Username  ${test_user_1}
     Set Password  Felix213
     Submit Login Credentials
     Login Should Return Message  Invalid username of password
 
 Login With Correct Credentials
-    Set Username  Felix
+    Set Username  ${test_user_1}
     Set Password  Felix123
     Submit Login Credentials
     Login Should Return Message  login succesful
