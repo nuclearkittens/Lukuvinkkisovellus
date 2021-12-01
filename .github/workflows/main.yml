@@ -38,7 +38,7 @@ jobs:
           echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env.test
           cat .env.test
       - name: Run tests
-        run: poetry run coverage run --branch -m pytest --ignore=src/tests/repositories
+        run: poetry run coverage run --branch -m pytest
       - name: Coverage report
         run: poetry run coverage xml
       - name: Coverage report to Codecov
