@@ -12,14 +12,19 @@ jobs:
 
     services:
       postgres:
-        image: postgres:10.10
+        image: postgres:latest
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: db_test
+          POSTGRES_PORT: 5432
         ports:
-          - 5432/tcp
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v2 
@@ -37,6 +42,11 @@ jobs:
           echo DATABASE_URL=postgresql:///test_db >> .env.test
           echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env.test
           cat .env.test
+      - name: Install PostgreSQL client
+        run: | 
+          apt-get update
+          apt-get install --yes postgresql-client
+
       - name: Run tests
 #        env:
 #          HD_DATABASE_URL: ${{secrets.DATABASE_URL}}
