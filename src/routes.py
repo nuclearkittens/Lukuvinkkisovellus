@@ -70,7 +70,7 @@ def new_book():
         isbn = form.isbn.data
         description = form.description.data
         user_id = session["user_id"]
-        if book_service.new_book(Book(author, title, isbn), user_id):
+        if book_service.new_book(Book(author, title, isbn, description), user_id):
             return redirect("/")
         else:
             flash("Something went wrong...")
@@ -101,6 +101,8 @@ def new_video():
         if video_service.new_video(Video(title, url, description), user_id):
             return redirect("/")
     return render_template("new_video.html", form=form)
+
+
 
 # For run robot bash script
 
