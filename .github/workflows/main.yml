@@ -27,6 +27,10 @@ jobs:
           --health-retries 5
 
     steps:
+      - name: Install PostgreSQL client
+        run: | 
+          sudo apt-get update
+          sudo apt-get install --yes postgresql-client      
       - uses: actions/checkout@v2 
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
@@ -42,11 +46,7 @@ jobs:
           echo DATABASE_URL=postgresql:///test_db >> .env.test
           echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env.test
           cat .env.test
-      - name: Install PostgreSQL client
-        run: | 
-          apt-get update
-          apt-get install --yes postgresql-client
-
+      
       - name: Run tests
 #        env:
 #          HD_DATABASE_URL: ${{secrets.DATABASE_URL}}
