@@ -7,13 +7,12 @@ from repositories.user_repository import UserRepository
 from services.book_service import BookService
 from entities.book import Book
 from repositories.book_repository import BookRepository
-from forms import BlogForm, BookForm, LoginForm, RegisterForm, VideoForm
+from forms import BlogForm, BookForm, LoginForm, PodcastForm, RegisterForm, VideoForm
 
 user_repository = UserRepository(db)
 user_service = UserService(user_repository, session)
 book_repository = BookRepository(db)
 book_service = BookService(book_repository)
-
 
 @app.route("/")
 def render_home():
@@ -70,6 +69,7 @@ def new_book():
         isbn = form.isbn.data
         description = form.description.data
         user_id = session["user_id"]
+
         if book_service.new_book(Book(author, title, isbn, description), user_id):
             return redirect("/")
         else:
@@ -98,9 +98,22 @@ def new_video():
         title = form.title.data
         url = form.url.data
         description = form.description.data
+        user_id = session["user_id"]
         if video_service.new_video(Video(title, url, description), user_id):
             return redirect("/")
     return render_template("new_video.html", form=form)
+
+@app.route("/new_podcast", methods=["GET", "POST"])
+def new_podcast():
+    form = PodcastForm()
+    if form.validate_on_submit():
+        podcast_name = form.podcast_name.data
+        title = form.title.data
+        description = form.description.data
+        user_id = session["user_id"]
+        if podcast_service.new_podcast(Podcast(podcast_name, title, description), user_id):
+            return redirect("/")
+    return render_template("new_podcast.html", form=form)
 
 
 

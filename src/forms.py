@@ -1,3 +1,4 @@
+from flask.app import Flask
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, EqualTo
@@ -35,7 +36,7 @@ class BookForm(FlaskForm):
 
 class BlogForm(FlaskForm):
     title = StringField("Otsikko (*)", validators=[DataRequired()])
-    author = StringField("Kirjoittaja (*)", validators=[DataRequired()])
+    author = StringField("Kirjoittaja")
     url = StringField("URL (*)", validators=[DataRequired()])
     description = StringField("Kuvaus")
     submit = SubmitField("Submit")
@@ -43,5 +44,11 @@ class BlogForm(FlaskForm):
 class VideoForm(FlaskForm):
     title = StringField("Otsikko (*)", validators=[DataRequired()])
     url = StringField("URL (*)", validators=[DataRequired()])
+    description = StringField("Kuvaus")
+    submit = SubmitField("Submit")
+
+class PodcastForm(FlaskForm):
+    podcast_name = StringField("Podcastin nimi (*)", validators=[DataRequired()])
+    title = StringField("Otsikko (*)", validators=[DataRequired()])
     description = StringField("Kuvaus")
     submit = SubmitField("Submit")
