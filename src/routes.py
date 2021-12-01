@@ -68,6 +68,7 @@ def new_book():
         author = form.author.data
         title = form.title.data
         isbn = form.isbn.data
+        description = form.description.data
         user_id = session["user_id"]
         if book_service.new_book(Book(author, title, isbn), user_id):
             return redirect("/")
