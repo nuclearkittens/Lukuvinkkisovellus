@@ -79,7 +79,7 @@ def new_book():
 @app.route("/new_blog", methods=["GET", "POST"])
 def new_blog():
     #WIP
-    service_valmis = False
+    service_valmis = True
     if service_valmis:
 
         form = BlogForm()
