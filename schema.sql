@@ -1,13 +1,9 @@
--- Clean SQL schema fo Lukuvinkkisovellus
-
--- Users
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username TEXT NOT NULL UNIQUE,
   password TEXT NOT NULL
   );
 
--- Books
 CREATE TABLE books (
   id SERIAL PRIMARY KEY,
   author TEXT,
@@ -19,7 +15,6 @@ CREATE TABLE books (
   marked_read TIMESTAMP
 );
 
--- Podcasts
 CREATE TABLE podcasts (
   id SERIAL PRIMARY KEY,
   title TEXT,
@@ -29,7 +24,6 @@ CREATE TABLE podcasts (
   marked_read TIMESTAMP
 );
 
--- Blogs
 CREATE TABLE blogs (
   id SERIAL PRIMARY KEY,
   author TEXT,
@@ -41,7 +35,6 @@ CREATE TABLE blogs (
   marked_read TIMESTAMP
 );
 
--- Videos
 CREATE TABLE videos (
   id SERIAL PRIMARY KEY,
   title TEXT,
