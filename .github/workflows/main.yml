@@ -30,7 +30,11 @@ jobs:
       - name: Install PostgreSQL client
         run: | 
           sudo apt-get update
-          sudo apt-get install --yes postgresql-client      
+          sudo apt-get install --yes postgresql-client     
+          
+      - name: Query database
+        run: psql -h postgres -d db_test -U postgres_user -c 'SELECT 1;'    
+      
       - uses: actions/checkout@v2 
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
