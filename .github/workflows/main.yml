@@ -22,7 +22,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2 
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
@@ -31,7 +31,16 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         run: poetry install
+      - name: Create env.test file
+        run: |
+          touch .env.test
+          echo DATABASE_URL=postgresql:///test_db >> .env.test
+          echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env.test
+          cat .env.test
       - name: Run tests
+#        env:
+#          HD_DATABASE_URL: ${{secrets.DATABASE_URL}}
+#          HD_SECRET_KEY: ${{secrets.SECRET_KEY}}
         run: poetry run coverage run --branch -m pytest --ignore=src/tests/repositories
       - name: Coverage report
         run: poetry run coverage xml

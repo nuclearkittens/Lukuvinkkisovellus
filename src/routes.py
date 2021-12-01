@@ -7,7 +7,7 @@ from repositories.user_repository import UserRepository
 from services.book_service import BookService
 from entities.book import Book
 from repositories.book_repository import BookRepository
-from forms import BookForm, LoginForm, RegisterForm
+from forms import BlogForm, BookForm, LoginForm, RegisterForm
 
 user_repository = UserRepository(db)
 user_service = UserService(user_repository, session)
@@ -52,10 +52,9 @@ def register():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-        user = User(username, password)
-        if user_service.register(user):
+        if user_service.register(User(username, password)):
             flash("Registration succesful")
-            if user_service.login(user):
+            if user_service.login(User(username, password)):
                 return redirect("/")
         else:
             flash("Username taken")
@@ -69,12 +68,32 @@ def new_book():
         author = form.author.data
         title = form.title.data
         isbn = form.isbn.data
+        description = form.description.data
         user_id = session["user_id"]
         if book_service.new_book(Book(author, title, isbn), user_id):
             return redirect("/")
         else:
             flash("Something went wrong...")
     return render_template("new_book.html", form=form)
+
+@app.route("/new_blog", methods=["GET", "POST"])
+def new_blog():
+    #WIP
+    service_valmis = False
+    if service_valmis:
+
+        form = BlogForm()
+        if form.validate_on_submit():
+            title = form.title.data
+            author = form.author.data
+            url = form.url.data
+            description = form.description.data
+            user_id = session["user_id"]
+            if blog_service.new_blog(Blog(title, author, url, description), user_id):
+                return redirect("/")
+            else:
+                flash("Something went wrong...")
+        return render_template("new_blog.html", form=form)
 
 # For run robot bash script
 

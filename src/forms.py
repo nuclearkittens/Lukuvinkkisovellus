@@ -12,12 +12,12 @@ class RegisterForm(FlaskForm):
                                                                      EqualTo("password")])
     submit = SubmitField("Sign up")
 
-
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[
                            DataRequired(), Length(min=3, max=36)])
     password = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Login")
+
 
 # Myöhemmin kun isbn-haku on toteutettu, niin pitäisi varmaan toteuttaa jonkinlainen systeemi,
 # joka tarkistaa onko isbn annettu, jos on niin authoria tai titleä ei tarvitse syöttää..
@@ -30,4 +30,11 @@ class BookForm(FlaskForm):
     title = StringField(
         "Otsikko (*)", validators=[DataRequired(), Length(min=2, max=200)])
     isbn = StringField("ISBN")
+    description = StringField("Kuvaus")
     submit = SubmitField("Submit")
+
+class BlogForm(FlaskForm):
+    title = StringField("Otsikko (*)", validators=[DataRequired()])
+    author = StringField("Kirjoittaja (*)", validators=[DataRequired()])
+    url = StringField("URL (*)", validators=[DataRequired()])
+    description = StringField("Kuvaus")
