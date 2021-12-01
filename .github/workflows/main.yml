@@ -18,6 +18,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: db_test
           POSTGRES_PORT: 5432
+          POSTGRES_HOST: postgres
         ports:
           - 5432:5432
         options: >-
@@ -31,11 +32,14 @@ jobs:
         run: | 
           sudo apt-get update
           sudo apt-get install --yes postgresql-client     
-            
-      - name: Read schema
-        run: psql db_test < /github/workspace/src/schema.sql
       
       - uses: actions/checkout@v2 
+#      - name: Start client
+#        run: psql -h postgres -U postgres_user -d db_test
+      - name: Find schema
+        run: cat schema.sql
+#      - name: Read schema
+#        run: psql db_test < schema.sql
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
