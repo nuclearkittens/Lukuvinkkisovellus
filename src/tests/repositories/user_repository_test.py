@@ -9,7 +9,7 @@ class TestUserRepository(unittest.TestCase):
     def setUp(self):
         self.user_repository = UserRepository(db)
         #self.user_repository.delete()
-        self.test_user = User("testaajaaaaa", "testaaja123")
+        self.test_user = User("testaajaaaaaa", "testaaja123")
         self.empty_user = None
 
     def test_add_user(self):
