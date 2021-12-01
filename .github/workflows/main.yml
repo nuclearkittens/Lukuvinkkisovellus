@@ -38,7 +38,7 @@ jobs:
       - name: Find schema
         run: cat schema.sql
       - name: Read schema
-        run: psql db_test < .github/workspace/schema.sql
+        run: psql db_test < schema.sql
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
