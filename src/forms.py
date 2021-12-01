@@ -39,3 +39,9 @@ class BlogForm(FlaskForm):
     url = StringField("URL (*)", validators=[DataRequired()])
     description = StringField("Kuvaus")
     submit = SubmitField("Submit")
+
+class VideoForm(FlaskForm):
+    title = StringField("Otsikko (*)", validators=[DataRequired()])
+    url = StringField("URL (*)", validators=[DataRequired()])
+    description = StringField("Kuvaus")
+    submit = SubmitField("Submit")
