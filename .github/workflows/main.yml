@@ -31,9 +31,9 @@ jobs:
         run: | 
           sudo apt-get update
           sudo apt-get install --yes postgresql-client     
-          
-      - name: Query database
-        run: psql -h postgres -d db_test -U postgres_user -c 'SELECT 1;'    
+            
+      - name: Read schema
+        run: psql db_test < schema.sql
       
       - uses: actions/checkout@v2 
       - name: Set up Python 3.8
