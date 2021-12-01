@@ -76,7 +76,7 @@ def new_book():
             flash("Something went wrong...")
     return render_template("new_book.html", form=form)
 
-@app.route("new_blog", methods=["GET", "POST"])
+@app.route("/new_blog", methods=["GET", "POST"])
 def new_blog():
     #WIP
     service_valmis = False
