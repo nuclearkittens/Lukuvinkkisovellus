@@ -52,10 +52,9 @@ def register():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-        user = User(username, password)
-        if user_service.register(user):
+        if user_service.register(User(username, password)):
             flash("Registration succesful")
-            if user_service.login(user):
+            if user_service.login(User(username, password)):
                 return redirect("/")
         else:
             flash("Username taken")
@@ -69,6 +68,7 @@ def new_book():
         author = form.author.data
         title = form.title.data
         isbn = form.isbn.data
+        description = form.description.data
         user_id = session["user_id"]
         if book_service.new_book(Book(author, title, isbn), user_id):
             return redirect("/")
