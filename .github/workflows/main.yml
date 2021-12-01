@@ -34,12 +34,12 @@ jobs:
           sudo apt-get install --yes postgresql-client     
       
       - uses: actions/checkout@v2 
-      - name: Start client
-        run: psql -h postgres -U postgres_user db_test
+#      - name: Start client
+#        run: psql -h postgres -U postgres_user -d db_test
       - name: Find schema
         run: cat schema.sql
-      - name: Read schema
-        run: psql db_test < schema.sql
+#      - name: Read schema
+#        run: psql db_test < schema.sql
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
