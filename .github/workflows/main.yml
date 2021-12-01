@@ -36,7 +36,8 @@ jobs:
       #  run: psql db_test < .github/workspace/schema.sql
       
       - name: Find schema
-        run: find / -name schema.sql
+        run: sudo find / -name schema.sql
+
       - uses: actions/checkout@v2 
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
