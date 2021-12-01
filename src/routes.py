@@ -91,6 +91,17 @@ def new_blog():
             flash("Something went wrong...")
     return render_template("new_blog.html", form=form)
 
+@app.route("/new_video", methods=["GET", "POST"])
+def new_video():
+    form = VideoForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        url = form.url.data
+        description = form.description.data
+        if video_service.new_video(Video(title, url, description), user_id):
+            return redirect("/")
+    return render_template("new_video.html", form=form)
+
 # For run robot bash script
 
 
