@@ -7,7 +7,7 @@ from repositories.user_repository import UserRepository
 from services.book_service import BookService
 from entities.book import Book
 from repositories.book_repository import BookRepository
-from forms import BlogForm, BookForm, LoginForm, RegisterForm
+from forms import BlogForm, BookForm, LoginForm, RegisterForm, VideoForm
 
 user_repository = UserRepository(db)
 user_service = UserService(user_repository, session)
