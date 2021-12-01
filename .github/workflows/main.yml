@@ -28,9 +28,7 @@ jobs:
 
     steps:
       - name: Install PostgreSQL client
-        run: | 
-          sudo apt-get update
-          sudo apt-get install --yes postgresql-client      
+        run: psql     
       - uses: actions/checkout@v2 
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
