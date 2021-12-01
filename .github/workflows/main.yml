@@ -27,17 +27,13 @@ jobs:
           --health-retries 5
 
     steps:
-      - name: Try cat
-        run: |
-          cat README.md
-      
       #- name: Install PostgreSQL client
       #  run: | 
       #    sudo apt-get update
       #    sudo apt-get install --yes postgresql-client     
             
-      #- name: Read schema
-      #  run: psql db_test < /github/workspace/src/schema.sql
+      - name: Read schema
+        run: psql db_test < .github/workspace/src/schema.sql
       
       - uses: actions/checkout@v2 
       - name: Set up Python 3.8
