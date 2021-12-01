@@ -37,3 +37,4 @@ class BlogForm(FlaskForm):
     title = StringField("Otsikko (*)", validators=[DataRequired()])
     author = StringField("Kirjoittaja (*)", validators=[DataRequired()])
     url = StringField("URL (*)", validators=[DataRequired()])
+    description = StringField("Kuvaus")
