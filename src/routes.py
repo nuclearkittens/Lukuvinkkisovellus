@@ -52,10 +52,9 @@ def register():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-        user = User(username, password)
-        if user_service.register(user):
+        if user_service.register(User(username, password)):
             flash("Registration succesful")
-            if user_service.login(user):
+            if user_service.login(User(username, password)):
                 return redirect("/")
         else:
             flash("Username taken")
