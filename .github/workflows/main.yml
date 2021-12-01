@@ -38,7 +38,7 @@ jobs:
 #          echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env.test
 #          cat .env.test
       - name: Run tests
-        .env:
+        env:
           DATABASE_URL: ${{secrets.DATABASE_URL}}
           SECRET_KEY: ${{secrets.SECRET_KEY}}
         run: poetry run coverage run --branch -m pytest #--ignore=src/tests/repositories
