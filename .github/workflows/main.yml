@@ -64,7 +64,7 @@ jobs:
       - name: Create env.test file
         run: |
           touch .env.test
-          echo DATABASE_URL=postgresql:///postgres_db >> .env.test
+          echo DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db >> .env.test
           echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env.test
           cat .env.test
 
