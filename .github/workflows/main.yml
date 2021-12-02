@@ -34,15 +34,12 @@ jobs:
           sudo apt-get install --yes postgresql-client
 
       - uses: actions/checkout@v2
-      - name: start PostgreSQL server
-        run: postgres -D /usr/local/pgsql/data
-
 #      - name: Start client
 #        run: psql -h postgres -U postgres_user -d db_test
       - name: Find schema
         run: cat schema.sql
-#      - name: Read schema
-#        run: psql db_test < schema.sql
+      - name: Read schema
+        run: psql -f schema.sql -p 5432 -U posrtgres_user db_test
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
@@ -54,7 +51,7 @@ jobs:
       - name: Create env.test file
         run: |
           touch .env.test
-          echo DATABASE_URL=postgresql:///test_db >> .env.test
+          echo DATABASE_URL=postgresql:///db_test >> .env.test
           echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env.test
           cat .env.test
 
