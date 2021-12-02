@@ -76,6 +76,11 @@ def new_book():
             flash("Something went wrong...")
     return render_template("new_book.html", form=form)
 
+@app.route("/books/<int:id>", methods=["GET", "POST"])
+def book(id):
+    if request.method == "GET":
+        return render_template("book.html")
+
 @app.route("/new_blog", methods=["GET", "POST"])
 def new_blog():
     form = BlogForm()

@@ -30,7 +30,7 @@ Lukuvinkkisovellus(Herokutesti)
       {% if books is not none %}
         {% for book in books %}
           <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action">
+            <a href="/books/{{ book[0] }}" class="list-group-item list-group-item-action">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{ book[2] }}</h5>
                 <small>{{ book[3] }}</small>

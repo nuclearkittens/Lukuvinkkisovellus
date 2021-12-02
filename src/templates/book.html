@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Lukuvinkkisovellus
+{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p class=flashes>
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+            </p>
+        {% endif %}
+    {% endwith %}
+
+<hr>
+<p>
+    <p>
+    <h3>Kirjan muokkaus</h3>
+    
+      
+{% endblock %}
