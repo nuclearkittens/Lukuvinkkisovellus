@@ -13,12 +13,12 @@ jobs:
     services:
       postgres:
         image: postgres:latest
-        env:
-          POSTGRES_USER: postgres_user
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: db_test
-          POSTGRES_PORT: 5432
           POSTGRES_HOST: postgres
+        env:
+          POSTGRES_DB: db_test
+          POSTGRES_PASSWORD: postgres_password
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: postgres_user
         ports:
           - 5432:5432
         options: >-
@@ -40,6 +40,8 @@ jobs:
         run: cat schema.sql
       - name: Read schema
         run: psql -f schema.sql -p 5432 -U posrtgres_user db_test
+        env:
+          PGPASSWORD: postgres_password
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
