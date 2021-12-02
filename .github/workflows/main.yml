@@ -77,6 +77,10 @@ jobs:
         run: /github/home/.local/bin/poetry run coverage xml
       
       - name: Coverage report to Codecov
-        run: bash <(curl -s https://codecov.io/bash) -t bd4949f7-418d-426e-b792-048bdd5b5492
+#        run: bash <(curl -s https://codecov.io/bash) -t bd4949f7-418d-426e-b792-048bdd5b5492
+        run: |
+          curl -s https://codecov.io/bash > .codecov
+          chmod +x .codecov
+          ./.codecov
 #     - name: Run robot tests
 #       run: bash run_robot_tests.sh
