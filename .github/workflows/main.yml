@@ -72,7 +72,7 @@ jobs:
 #        env:
 #          HD_DATABASE_URL: ${{secrets.DATABASE_URL}}
 #          HD_SECRET_KEY: ${{secrets.SECRET_KEY}}
-        run: /github/home/.local/bin/poetry run coverage run --branch -m pytest --ignore=src/tests/repositories
+        run: /github/home/.local/bin/poetry run coverage run --branch -m pytest #--ignore=src/tests/repositories
       - name: Coverage report
         run: /github/home/.local/bin/poetry run coverage xml
       - name: Coverage report to Codecov
