@@ -59,6 +59,7 @@ jobs:
 
       - name: Install dependencies
         run: /github/home/.local/bin/poetry install
+      
       - name: Create env.test file
         run: |
           touch .env.test
@@ -68,8 +69,12 @@ jobs:
 
       - name: Run tests
         run: /github/home/.local/bin/poetry run coverage run --branch -m pytest 
+      
+      - name: Run pylint
+        run: /github/home/.local/bin/poetry run pylint src 
       - name: Coverage report
         run: /github/home/.local/bin/poetry run coverage xml
+      
       - name: Coverage report to Codecov
         run: bash <(curl -s https://codecov.io/bash)
 #     - name: Run robot tests
