@@ -27,20 +27,23 @@ jobs:
           --health-retries 5
 
     steps:
+
       - name: Install PostgreSQL client
         run: |
           sudo apt-get update
           sudo apt-get install --yes postgresql-client
 
       - uses: actions/checkout@v2
+
 #      - name: Start client
 #        run: psql -h postgres -U postgres_user -d db_test
       - name: Find schema
         run: cat schema.sql
-      - name: Read schema
-        run: psql -f schema.sql -p 5432 -U posrtgres_user db_test
-        env:
-          PGPASSWORD: postgres_password
+#       psql command works, but database server is not running
+#      - name: Read schema
+#        run: psql -f schema.sql -p 5432 -U posrtgres_user db_test
+#        env:
+#          PGPASSWORD: postgres_password
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
