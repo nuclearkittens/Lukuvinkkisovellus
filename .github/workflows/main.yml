@@ -22,18 +22,20 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd pg_isready 
-          --health-interval 10s 
-          --health-timeout 5s 
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
           --health-retries 5
 
     steps:
       - name: Install PostgreSQL client
-        run: | 
+        run: |
           sudo apt-get update
-          sudo apt-get install --yes postgresql-client     
-      
-      - uses: actions/checkout@v2 
+          sudo apt-get install --yes postgresql-client
+
+      - uses: actions/checkout@v2
+      - name: start PostgreSQL server
+        run: pg_ctl start -l logfile
 #      - name: Start client
 #        run: psql -h postgres -U postgres_user -d db_test
       - name: Find schema
@@ -54,7 +56,7 @@ jobs:
           echo DATABASE_URL=postgresql:///test_db >> .env.test
           echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env.test
           cat .env.test
-      
+
       - name: Run tests
 #        env:
 #          HD_DATABASE_URL: ${{secrets.DATABASE_URL}}
