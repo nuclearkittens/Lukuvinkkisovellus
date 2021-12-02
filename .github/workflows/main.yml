@@ -11,10 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-<<<<<<< HEAD
-=======
-      # label used to access the service container
->>>>>>> f2ab8266605fe4c2cbd5c5f64b830648f31039ad
       postgres:
         image: postgres:latest
         env:
@@ -38,13 +34,6 @@ jobs:
           sudo apt-get install --yes postgresql-client
 
       - uses: actions/checkout@v2
-<<<<<<< HEAD
-=======
-      - name: Read schema
-        run: psql -h postgres -d postgres_db -U postgres_user -f schema.sql
-        env:
-          PGPASSWORD: postgres_password
->>>>>>> f2ab8266605fe4c2cbd5c5f64b830648f31039ad
 
 #      - name: Start client
 #        run: psql -h postgres -U postgres_user -d db_test
