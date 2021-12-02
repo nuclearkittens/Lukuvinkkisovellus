@@ -38,6 +38,7 @@ Register With Correct Credentials
     Set Password Confirm  ${test_passwd_1}
     Submit Register Credentials
     Register Should Succeed With Message  Registration succesful
+    Click Link   xpath=//*[@id="logout"]
 
 Register With Reserved Username
     Click Link  Click here to register!
