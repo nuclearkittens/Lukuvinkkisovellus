@@ -71,7 +71,8 @@ jobs:
         run: /github/home/.local/bin/poetry run coverage run --branch -m pytest 
       
       - name: Run pylint
-        run: /github/home/.local/bin/poetry run pylint src 
+        run: /github/home/.local/bin/poetry run pylint src
+         
       - name: Coverage report
         run: /github/home/.local/bin/poetry run coverage xml
       
