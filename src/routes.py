@@ -78,8 +78,16 @@ def new_book():
 
 @app.route("/books/<int:id>", methods=["GET", "POST"])
 def book(id):
+    book_info = [id]
     if request.method == "GET":
-        return render_template("book.html")
+        return render_template("book.html", book_info=book_info)
+    
+    if request.method == "POST":
+        if "mark_as_read" in request.form:
+            #TODO
+            #book_service.mark_as_read()...
+            return redirect("/")
+        
 
 @app.route("/new_blog", methods=["GET", "POST"])
 def new_blog():

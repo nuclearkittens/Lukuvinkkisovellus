@@ -20,6 +20,12 @@ Lukuvinkkisovellus
 <p>
     <p>
     <h3>Kirjan muokkaus</h3>
+
+    ID: {{ book_info[0] }}
+    <hr>
+    <form action="/books/{{  book_info[0] }}" method="POST">
+        <button type="submit" class="btn btn-primary" name="mark_as_read">Merkitse luetuksi</button>
+    </form>
     
       
 {% endblock %}
