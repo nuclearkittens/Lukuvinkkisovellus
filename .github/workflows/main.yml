@@ -51,9 +51,10 @@ jobs:
       
       - name: Install pip
         run: python -m ensurepip --upgrade
-        
+
       - name: Install Poetry
-        run: pip install poetry
+        #run: pip install poetry
+        run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
       - name: Install dependencies
         run: poetry install
       - name: Create env.test file
