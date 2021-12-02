@@ -15,6 +15,7 @@ Linkki sovellukseen: https://lukuvinkkiapp.herokuapp.com/
 - [Flinga](https://flinga.fi/s/FTVMGVC)
 - [Tietokantakaavio](https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus/blob/main/documentation/database_schema.md)
 - [Definition of Done](https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus/blob/main/documentation/definition_of_done.md)
+- [Sprint review](https://jamboard.google.com/d/1hcJFA41aawSID_24-UuxcD_BTQnUseG9cyPpsFXyDnY/viewer)
 
 ## Asennus
 
