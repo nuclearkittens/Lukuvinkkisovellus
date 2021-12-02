@@ -1,11 +1,11 @@
+from flask import render_template, redirect, flash, request, session
 from app import app
 from db import db
-from flask import render_template, redirect, flash, request, session
-from services.user_service import UserService
 from entities.user import User
-from repositories.user_repository import UserRepository
-from services.book_service import BookService
 from entities.book import Book
+from services.user_service import UserService
+from services.book_service import BookService
+from repositories.user_repository import UserRepository
 from repositories.book_repository import BookRepository
 from forms import BlogForm, BookForm, LoginForm, PodcastForm, RegisterForm, VideoForm
 
@@ -33,8 +33,7 @@ def login():
         if user_service.login(User(username, password)):
             flash("login succesful")
             return redirect("/")
-        else:
-            return render_template("index.html", form=form, error="Invalid username of password")
+        return render_template("index.html", form=form, error="Invalid username of password")
     return render_template("index.html", form=form)
 
 
@@ -72,22 +71,18 @@ def new_book():
 
         if book_service.new_book(Book(author, title, isbn, description), user_id):
             return redirect("/")
-        else:
-            flash("Something went wrong...")
+        flash("Something went wrong...")
     return render_template("new_book.html", form=form)
 
-@app.route("/books/<int:id>", methods=["GET", "POST"])
-def book(id):
-    book_info = [id]
-    if request.method == "GET":
-        return render_template("book.html", book_info=book_info)
-    
+@app.route("/books/<int:book_id>", methods=["GET", "POST"])
+def book(book_id):
+    book_info = [book_id]
     if request.method == "POST":
         if "mark_as_read" in request.form:
-            #TODO
+            #WIP
             #book_service.mark_as_read()...
             return redirect("/")
-        
+    return render_template("book.html", book_info=book_info)
 
 @app.route("/new_blog", methods=["GET", "POST"])
 def new_blog():
@@ -100,8 +95,7 @@ def new_blog():
         user_id = session["user_id"]
         if blog_service.new_blog(Blog(title, author, url, description), user_id):
             return redirect("/")
-        else:
-            flash("Something went wrong...")
+        flash("Something went wrong...")
     return render_template("new_blog.html", form=form)
 
 @app.route("/new_video", methods=["GET", "POST"])
