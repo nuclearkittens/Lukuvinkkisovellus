@@ -13,7 +13,6 @@ jobs:
     services:
       postgres:
         image: postgres:latest
-          POSTGRES_HOST: postgres
         env:
           POSTGRES_DB: db_test
           POSTGRES_PASSWORD: postgres_password
