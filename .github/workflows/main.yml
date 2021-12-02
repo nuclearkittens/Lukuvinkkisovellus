@@ -53,8 +53,6 @@ jobs:
         run: python -m ensurepip --upgrade
 
       - name: Install Poetry
-        #run: pip install poetry
-        #run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
           export PATH="/github/home/.local/bin:$PATH"
@@ -69,10 +67,7 @@ jobs:
           cat .env.test
 
       - name: Run tests
-#        env:
-#          HD_DATABASE_URL: ${{secrets.DATABASE_URL}}
-#          HD_SECRET_KEY: ${{secrets.SECRET_KEY}}
-        run: /github/home/.local/bin/poetry run coverage run --branch -m pytest #--ignore=src/tests/repositories
+        run: /github/home/.local/bin/poetry run coverage run --branch -m pytest 
       - name: Coverage report
         run: /github/home/.local/bin/poetry run coverage xml
       - name: Coverage report to Codecov
