@@ -25,3 +25,6 @@ Login With Correct Credentials
     Submit Login Credentials
     Login Should Return Message  login succesful
 
+Logout From Application
+    Click Link   xpath=//*[@id="logout"]
+    Login Should Return Message  logged out
