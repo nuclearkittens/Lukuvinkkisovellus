@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     container: node:latest
 
-services:
+    services:
       # label used to access the service container
       postgres:
         # Docker Hub image
@@ -45,7 +45,7 @@ services:
           sudo apt-get install --yes postgresql-client
 
       - uses: actions/checkout@v2
-       - name: Read schema
+      - name: Read schema
         run: psql -h postgres -d postgres_db -U postgres_user -f schema.sql
         env:
           PGPASSWORD: postgres_password
