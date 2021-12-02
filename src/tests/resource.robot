@@ -18,10 +18,19 @@ ${dbpasswd}  ""
 ${script_file}  ./src/tests/robot_db_test.sql
 
 #Testauksessa käytettäviä muuttujia.
+#Login ja Register testi
 ${test_user_1}  Felix
 ${test_user_2}  Gotrek
 ${test_passwd_1}  Felix123
 ${test_passwd_2}  Gotrek123
+
+#Kirja
+${test_author}  Carlo Rovelli
+${test_title}  Ajan luonne
+${test_isbn}  978-952-5985-60-3
+${test_description}  Ajan luonne purkaa ajan vyyhtiä fysiikan, filosofian ja taiteen avulla.
+${test_author_2}  William King
+${test_title_2}  Gotrek & Felix
 
 
 *** Keywords ***

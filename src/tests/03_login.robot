@@ -21,7 +21,7 @@ Login With Wrong Password
 
 Login With Correct Credentials
     Set Username  ${test_user_1}
-    Set Password  Felix123
+    Set Password  ${test_passwd_1}
     Submit Login Credentials
     Login Should Return Message  login succesful
 
