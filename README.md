@@ -9,6 +9,7 @@ Linkki sovellukseen: https://lukuvinkkiapp.herokuapp.com/
 ![GitHub Actions](https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/TopiasHarjunpaa/Lukuvinkkisovellus/branch/main/graph/badge.svg?token=IIHLH6RUFG)](https://codecov.io/gh/TopiasHarjunpaa/Lukuvinkkisovellus)
 
+Materiaali on lisenssoitu[GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.html) lisenssillä.
 <img src='documentation/pics/gplv3-or-later.svg'></img>
 
 ## Dokumentaatio
