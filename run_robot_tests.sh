@@ -9,8 +9,14 @@ while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "2
   do sleep 1; 
 done
 
+
 # suoritetaan testit
-poetry run robot src/tests
+if [ -z $1 ]
+    then
+        poetry run robot src/tests
+    else
+        poetry run robot --variable dbname:$1 --variable dbuser:$2 src/tests
+fi
 
 # pysäytetään Flask-palvelin portissa 5000
 function clean_up {
