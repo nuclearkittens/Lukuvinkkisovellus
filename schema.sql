@@ -18,6 +18,7 @@ CREATE TABLE books (
 CREATE TABLE podcasts (
   id SERIAL PRIMARY KEY,
   title TEXT,
+  episode TEXT,
   description TEXT,
   type TEXT,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
