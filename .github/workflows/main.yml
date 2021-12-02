@@ -72,9 +72,9 @@ jobs:
 #        env:
 #          HD_DATABASE_URL: ${{secrets.DATABASE_URL}}
 #          HD_SECRET_KEY: ${{secrets.SECRET_KEY}}
-        run: poetry run coverage run --branch -m pytest --ignore=src/tests/repositories
+        run: /github/home/.local/bin/poetry run coverage run --branch -m pytest --ignore=src/tests/repositories
       - name: Coverage report
-        run: poetry run coverage xml
+        run: /github/home/.local/bin/poetry run coverage xml
       - name: Coverage report to Codecov
         run: bash <(curl -s https://codecov.io/bash)
 #     - name: Run robot tests
