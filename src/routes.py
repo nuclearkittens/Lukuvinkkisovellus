@@ -14,6 +14,7 @@ user_service = UserService(user_repository, session)
 book_repository = BookRepository(db)
 book_service = BookService(book_repository)
 
+
 @app.route("/")
 def render_home():
     form = LoginForm()
@@ -21,7 +22,6 @@ def render_home():
     if "user_id" in session.keys():
         books = book_service.get_my_books(session["user_id"])
     return render_template("index.html", form=form, books=books)
-
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -74,19 +74,21 @@ def new_book():
         flash("Something went wrong...")
     return render_template("new_book.html", form=form)
 
+
 @app.route("/books/<int:book_id>", methods=["GET", "POST"])
 def book(book_id):
-    #Tässä pitäis olla joku user_service.check_user()
-    #joka tarkistaa, että user_id on sama kuin kyseisen kirjan tekijän user_id
-    #jos ei, niin abort(403)
+    # Tässä pitäis olla joku user_service.check_user()
+    # joka tarkistaa, että user_id on sama kuin kyseisen kirjan tekijän user_id
+    # jos ei, niin abort(403)
 
     book_info = [book_id]
     if request.method == "POST":
         if "mark_as_read" in request.form:
-            #WIP
-            #book_service.mark_as_read()...
+            # WIP
+            # book_service.mark_as_read()...
             return redirect("/")
     return render_template("book.html", book_info=book_info)
+
 
 @app.route("/new_blog", methods=["GET", "POST"])
 def new_blog():
@@ -102,6 +104,7 @@ def new_blog():
         flash("Something went wrong...")
     return render_template("new_blog.html", form=form)
 
+
 @app.route("/new_video", methods=["GET", "POST"])
 def new_video():
     form = VideoForm()
@@ -114,6 +117,7 @@ def new_video():
             return redirect("/")
     return render_template("new_video.html", form=form)
 
+
 @app.route("/new_podcast", methods=["GET", "POST"])
 def new_podcast():
     form = PodcastForm()
@@ -125,10 +129,6 @@ def new_podcast():
         if podcast_service.new_podcast(Podcast(podcast_name, title, description), user_id):
             return redirect("/")
     return render_template("new_podcast.html", form=form)
-
-
-
-# For run robot bash script
 
 
 @app.route("/ping")

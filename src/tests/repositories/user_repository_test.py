@@ -15,8 +15,9 @@ class TestUserRepository(unittest.TestCase):
     def test_add_user(self):
         self.assertTrue(self.user_repository.add_user(self.test_user))
         self.assertFalse(self.user_repository.add_user(self.empty_user))
-    
+
     def test_get_user(self):
         self.user_repository.add_user(self.test_user)
 
-        self.assertEqual(self.user_repository.get_user(self.test_user)[1], self.test_user.password)
+        self.assertEqual(self.user_repository.get_user(
+            self.test_user)[1], self.test_user.password)

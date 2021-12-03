@@ -12,6 +12,7 @@ class RegisterForm(FlaskForm):
                                                                      EqualTo("password")])
     submit = SubmitField("Sign up")
 
+
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[
                            DataRequired(), Length(min=3, max=36)])
@@ -33,6 +34,7 @@ class BookForm(FlaskForm):
     description = StringField("Kuvaus")
     submit = SubmitField("Submit")
 
+
 class BlogForm(FlaskForm):
     title = StringField("Otsikko (*)", validators=[DataRequired()])
     author = StringField("Kirjoittaja")
@@ -40,14 +42,17 @@ class BlogForm(FlaskForm):
     description = StringField("Kuvaus")
     submit = SubmitField("Submit")
 
+
 class VideoForm(FlaskForm):
     title = StringField("Otsikko (*)", validators=[DataRequired()])
     url = StringField("URL (*)", validators=[DataRequired()])
     description = StringField("Kuvaus")
     submit = SubmitField("Submit")
 
+
 class PodcastForm(FlaskForm):
-    podcast_name = StringField("Podcastin nimi (*)", validators=[DataRequired()])
+    podcast_name = StringField(
+        "Podcastin nimi (*)", validators=[DataRequired()])
     title = StringField("Otsikko (*)", validators=[DataRequired()])
     description = StringField("Kuvaus")
     submit = SubmitField("Submit")

@@ -1,5 +1,5 @@
-from werkzeug.security import check_password_hash, generate_password_hash
 from os import urandom
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 class UserService:
@@ -9,7 +9,7 @@ class UserService:
 
     def login(self, user):
         user_data = self._user_repository.get_user(user)
-        if user_data == None:
+        if user_data is None:
             return False
         if check_password_hash(user_data[1], user.password):
             self._session["user_id"] = user_data[0]

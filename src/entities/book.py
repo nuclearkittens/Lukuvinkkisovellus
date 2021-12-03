@@ -43,4 +43,3 @@ class Book:
             String: ISBN given when this book-object was constructed.
         """
         return self._isbn
-

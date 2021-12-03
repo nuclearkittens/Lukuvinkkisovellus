@@ -16,7 +16,7 @@ class UserRepository:
             return True
         except:
             return False
-    
+
     def delete(self):
         self._db.session.execute("DELETE FROM users")
         self._db.session.commit()

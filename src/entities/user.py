@@ -14,7 +14,7 @@ class User:
     def set_password(self, password):
         """
         Sets password for user.
-        
+
         Args:
             password (String)
 

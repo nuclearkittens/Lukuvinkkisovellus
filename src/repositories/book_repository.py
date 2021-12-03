@@ -17,7 +17,8 @@ class BookRepository:
             author = book.get_author()
             title = book.get_title()
             isbn = book.get_isbn()
-            sql = "INSERT INTO books (author, title, type, isbn, user_id) VALUES (:author, :title, 'Book', :isbn, :user_id)"
+            sql = "INSERT INTO books (author, title, type, isbn, user_id) \
+                    VALUES (:author, :title, 'Book', :isbn, :user_id)"
             self._db.session.execute(
                 sql, {"author": author, "title": title, "isbn": isbn, "user_id": user_id})
             self._db.session.commit()
