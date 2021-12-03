@@ -71,7 +71,7 @@ jobs:
         run: /github/home/.local/bin/poetry run coverage run --branch -m pytest 
       
       - name: Run pylint
-        run: /github/home/.local/bin/poetry run pylint --fail_under=7 src 
+        run: /github/home/.local/bin/poetry run pylint src/db.py 
 
       - name: Coverage report
         run: /github/home/.local/bin/poetry run coverage xml
