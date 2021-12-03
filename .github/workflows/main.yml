@@ -70,14 +70,13 @@ jobs:
       - name: Run tests
         run: /github/home/.local/bin/poetry run coverage run --branch -m pytest 
       
-      #- name: Run pylint
-      #  run: /github/home/.local/bin/poetry run pylint src
+      - name: Run pylint
+        run: /github/home/.local/bin/poetry run pylint --fail_under=7 src 
 
       - name: Coverage report
         run: /github/home/.local/bin/poetry run coverage xml
       
       - name: Coverage report to Codecov
-#        run: bash <(curl -s https://codecov.io/bash) -t bd4949f7-418d-426e-b792-048bdd5b5492
         run: |
           curl -s https://codecov.io/bash > .codecov
           chmod +x .codecov
