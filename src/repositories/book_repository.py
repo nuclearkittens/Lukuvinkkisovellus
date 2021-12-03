@@ -44,5 +44,5 @@ class BookRepository:
             return None
 
     def delete(self):
-        self._db.session.execute("DELETE FROM books")
+        self._db.session.execute("DELETE FROM books CASCADE")
         self._db.session.commit()
