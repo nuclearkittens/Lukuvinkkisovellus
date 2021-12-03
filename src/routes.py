@@ -76,6 +76,10 @@ def new_book():
 
 @app.route("/books/<int:book_id>", methods=["GET", "POST"])
 def book(book_id):
+    #Tässä pitäis olla joku user_service.check_user()
+    #joka tarkistaa, että user_id on sama kuin kyseisen kirjan tekijän user_id
+    #jos ei, niin abort(403)
+
     book_info = [book_id]
     if request.method == "POST":
         if "mark_as_read" in request.form:
