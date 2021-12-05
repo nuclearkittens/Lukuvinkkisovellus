@@ -35,6 +35,7 @@ jobs:
           apt-get install --yes postgresql-client
 
       - uses: actions/checkout@v2
+      - uses: browser-actions/setup-chrome@latest
       - uses: nanasess/setup-chromedriver@master
 
       - name: Find schema
