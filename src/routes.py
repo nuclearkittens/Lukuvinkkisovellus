@@ -1,4 +1,4 @@
-from flask import render_template, redirect, flash, request, session
+from flask import render_template, redirect, flash, request, session, abort
 from app import app
 from db import db
 from entities.user import User
@@ -111,8 +111,7 @@ def book(book_id):
                 book_service.mark_book_finished(book_id)
                 return redirect("/")
     else:
-        # Tähän "pääsy kielletty"-herja tms ja redirect indexiin.
-        pass
+        abort(403)
     return render_template("book.html", book_info=book_info)
 
 
