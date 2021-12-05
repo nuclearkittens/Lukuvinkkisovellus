@@ -1,3 +1,6 @@
+from sqlalchemy import exc
+
+
 class BookRepository:
     def __init__(self, db):
         self._db = db
@@ -42,7 +45,3 @@ class BookRepository:
             return result.fetchall()
         except:
             return None
-
-    def delete(self):
-        self._db.session.execute("DELETE FROM books CASCADE")
-        self._db.session.commit()
