@@ -86,4 +86,7 @@ jobs:
           export DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db
           export SECRET_KEY=cd658d476cc15a67f687760f2de8b767
           /github/home/.local/bin/poetry run python3 src/index.py &
-          bash run_robot_tests.sh
+          while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "200" ]]; 
+            do sleep 1; 
+          done
+          /github/home/.local/bin/poetry poetry run robot src/tests
