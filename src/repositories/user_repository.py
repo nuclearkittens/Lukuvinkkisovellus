@@ -12,14 +12,16 @@ class UserRepository:
 
     def add_user(self, user):
         try:
+            username = user.username
+            password = user.password
             sql = "INSERT INTO users (username, password) VALUES (:username,:password)"
             self._db.session.execute(
-                sql, {"username": user.username, "password": user.password})
+                sql, {"username": username, "password": password})
             self._db.session.commit()
             return True
-        except exc.IntegrityError:
+        except (exc.IntegrityError, AttributeError): 
             return False
-
+        
     def delete(self):
         self._db.session.execute("DELETE FROM users CASCADE")
         self._db.session.commit()
