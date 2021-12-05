@@ -85,7 +85,7 @@ jobs:
       - name: Run robot tests
         run: |
           apt-get update
-          apt-get install -y google-chrome
+          apt-get install -y google-chrome-stable
           CHROME_VERSION=$(google-chrome --version | cut -f 3 -d ' ' | cut -d '.' -f 1)
           VERSION=$(curl --location --fail --retry 10 http://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})
           wget -c -nc --retry-connrefused --tries=0 https://chromedriver.storage.googleapis.com/${VERSION}/chromedriver_linux64.zip
@@ -105,7 +105,7 @@ jobs:
             do sleep 1; 
           done
           
-          /github/home/.local/bin/poetry poetry run robot src/tests
+          /github/home/.local/bin/poetry run robot src/tests
           
           function clean_up {
             kill $(lsof -t -i:5000)
