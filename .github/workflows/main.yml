@@ -81,6 +81,15 @@ jobs:
           curl -s https://codecov.io/bash > .codecov
           chmod +x .codecov
           ./.codecov
+
+      - name: install chromedriver
+      - uses: nanasess/setup-chromedriver@master
+    
+      - run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
+      
       - name: Run robot tests
         run: |
           export DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db
@@ -91,7 +100,6 @@ jobs:
           while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "200" ]]; 
             do sleep 1; 
           done
-<<<<<<< HEAD
           
           /github/home/.local/bin/poetry poetry run robot src/tests
           
@@ -99,8 +107,4 @@ jobs:
             kill $(lsof -t -i:5000)
           }
           trap clean_up EXIT
-=======
-          /github/home/.local/bin/poetry run robot src/tests
-          kill $(lsof -t -i:5000)
->>>>>>> e9857b14a577909dc30c83dca8b67e452c2fe989
-
+ 
