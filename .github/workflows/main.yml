@@ -89,6 +89,6 @@ jobs:
           while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "200" ]]; 
             do sleep 1; 
           done
-          /github/home/.local/bin/poetry poetry run robot src/tests
+          /github/home/.local/bin/poetry run robot src/tests
           kill $(lsof -t -i:5000)
 
