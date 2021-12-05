@@ -83,5 +83,7 @@ jobs:
           ./.codecov
       - name: Run robot tests
         run: |
+          export DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db
+          export SECRET_KEY=cd658d476cc15a67f687760f2de8b767
           /github/home/.local/bin/poetry run python3 src/index.py &
           bash run_robot_tests.sh
