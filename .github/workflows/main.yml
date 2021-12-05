@@ -90,3 +90,5 @@ jobs:
             do sleep 1; 
           done
           /github/home/.local/bin/poetry poetry run robot src/tests
+          kill $(lsof -t -i:5000)
+
