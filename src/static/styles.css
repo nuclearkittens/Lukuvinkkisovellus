@@ -1,0 +1,26 @@
+.header {
+    padding-top: 40px;
+    background-image: linear-gradient(to bottom right, rgb(28, 164, 255), rgb(3, 24, 47));
+    height: 180px;
+}
+
+.header-bottom-margin {
+    background-image: linear-gradient(to right, rgb(58, 58, 58), white);
+    height: 10px;   
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.logo {
+    display: block;
+    background-color: rgb(28, 164, 255);
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.4), 
+                0 2px 2px rgba(0,0,0,0.4), 
+                0 4px 4px rgba(0,0,0,0.4), 
+                0 8px 8px rgba(0,0,0,0.4),
+                0 16px 16px rgba(0,0,0,0.4);
+}

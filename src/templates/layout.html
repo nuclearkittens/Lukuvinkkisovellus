@@ -5,37 +5,55 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/static/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/styles.css">
     </head>
     <body>
-        
+        <div class="header">
+            <image class="logo" src="/static/pics/Lukuvinkkisovellus_logo.png" alt="lukuvinkki_logo" width="650" height="80">    
+            <h6 class="font-italic" style="text-align: center; padding-top: 15px;">Ohjelmistotuotanto, syksy 2021</h6>     
+        </div>
+        <div class="header-bottom-margin"></div>        
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
-            <a class="navbar-brand" href="/">Lukuvinkkisovellus</a>
+            <a class="navbar-brand" href="/"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         
             <div class="collapse navbar-collapse" id="navbarColor02">
                 <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/">Home
-                    <span class="visually-hidden">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Temp</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Temp</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Temp</a>
-                </li>
+                    <li class="nav-item" style="padding-right: 10px;">
+                        <a class="nav-link active" href="/">Home
+                        <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    {% if session.user_id %}
+                    <li class="nav-item" style="padding-right: 10px;">
+                        <a class="btn btn-info" href="/new_blog" role="button">Lisää kirja</a>
+                    </li>
+                    <li class="nav-item" style="padding-right: 10px;">
+                        <a class="btn btn-info" href="/new_blog" role="button">Lisää blogi</a>
+                    </li>
+                    <li class="nav-item" style="padding-right: 10px;">
+                        <a class="btn btn-info" href="/new_video" role="button">Lisää video</a>
+                    </li>
+                    <li class="nav-item" style="padding-right: 10px;">
+                        <a class="btn btn-info" href="/new_podcast" role="button">Lisää podcast</a>
+                    </li> 
+                    {% else %} 
+                    <li class="nav-item" style="padding-right: 10px;">
+                        <a class="btn btn-info" href="/register" role="button">Click here to register!</a>
+                    </li>  
+                    {% endif %}                
                 </ul>
                 {% if session.user_id %}
-                <a href="/logout" id="logout" class="btn btn-outline-success my-2 my-sm-0" role="button" >Log out, {{ session.username }}</a>
-                {% endif %}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="/logout" id="logout" class="btn btn-outline-success my-2 my-sm-0" role="button" >Log out, {{ session.username }}</a>
+                    </li>     
+                </ul> 
+                {% endif %}  
             </div>
             </div>
         </nav>
@@ -47,24 +65,23 @@
         {% block content %}{% endblock %}
         </div>
 
-        <div class="col-4">
-            <h2>Lukuvinkkisovellus</h2>
-            <p>
-                Lukuvinkkikirjasto on web-sovellus, joka toteutetaan Helsingin Yliopiston
-                 Ohjelmistotuotantokurssin projektityönä. Sovelluksen käyttäjä voi tallettaa,
-                  hakea sekä jaotella erilaisia lukuvinkkejä sekä muistiinpanoja,
-                   kuten kirjoja, podcasteja, videoita tai blogipostauksia.
-                    Tarkemmat tiedot löytyvät <a href="https://ohjelmistotuotanto-hy.github.io/speksi/">tehtävänannosta</a>
-            </p>
-                {% if session.user_id %}
-              <hr>
-              <a href="#" class="btn-secondary btn-lg active" role="button" aria-pressed="true">Nappi</a>
-                {% endif %}
-                <hr>
-                <a href="https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus">GitHub</a>
-                <hr>
-      
-
-          </div>
+          <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom">  
+            <div class="container-fluid">
+                <div class="col" style="text-align: center;">
+                    <p>@Helsingin Yliopisto | Ohjelmistotuotanto, syksy 2021 |
+                        <a href="https://ohjelmistotuotanto-hy.github.io/speksi/"style="font-weight: bold; padding-left: 5px; font-style: italic;">Tehtävänanto</a> | 
+                        <a href="https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus"style="font-weight: bold; padding-left: 5px; font-style: italic;">GitHub</a>
+                    </p>
+                </div>
+                <div class="col" style="text-align: center;">
+                    <p>
+                        Materiaali on lisenssoitu
+                        <a href="https://www.gnu.org/licenses/gpl-3.0.html" style="font-weight: bold; padding-left: 5px; font-style: italic;">GNU General Public License</a>
+                        lisenssillä
+                        <img src='/static/pics/gplv3-or-later.svg' style="padding-left: 5px;"></img> 
+                    </p>   
+                </div>
+            </div>
+          </nav>
     </body>
 </html>
