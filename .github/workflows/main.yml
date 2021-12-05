@@ -84,16 +84,14 @@ jobs:
  
       - name: Run robot tests
         run: |
-          ARCH=linux64
-          CHROMEAPP=google-chrome
-          sudo apt-get update
-          sudo apt-get install -y google-chrome
-          CHROME_VERSION=$("$CHROMEAPP" --version | cut -f 3 -d ' ' | cut -d '.' -f 1)
+          apt-get update
+          apt-get install -y google-chrome
+          CHROME_VERSION=$(google-chrome --version | cut -f 3 -d ' ' | cut -d '.' -f 1)
           VERSION=$(curl --location --fail --retry 10 http://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})
-          wget -c -nc --retry-connrefused --tries=0 https://chromedriver.storage.googleapis.com/${VERSION}/chromedriver_${ARCH}.zip
-          unzip -o -q chromedriver_${ARCH}.zip
+          wget -c -nc --retry-connrefused --tries=0 https://chromedriver.storage.googleapis.com/${VERSION}/chromedriver_linux64.zip
+          unzip -o -q chromedriver_linux64.zip
           sudo mv chromedriver /usr/local/bin/chromedriver
-          rm chromedriver_${ARCH}.zip
+          rm chromedriver_linux64.zip
           
           export DISPLAY=:99
           chromedriver --url-base=/wd/hub &
