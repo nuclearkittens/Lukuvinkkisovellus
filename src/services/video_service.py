@@ -7,3 +7,9 @@ class VideoService:
 
     def get_my_videos(self, user_id):
         return self._video_repository.get_users_videos(user_id)
+
+    def mark_video_finished(self, video_id):
+        return self._video_repository.mark_finished(video_id)
+
+    def is_video_mine(self, user_id, video_id):
+        return self._video_repository.is_owner(user_id, video_id)

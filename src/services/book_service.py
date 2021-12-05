@@ -7,3 +7,9 @@ class BookService:
 
     def get_my_books(self, user_id):
         return self._book_repository.get_users_books(user_id)
+
+    def mark_book_finished(self, book_id):
+        return self._book_repository.mark_finished(book_id)
+
+    def is_book_mine(self, user_id, book_id):
+        return self._book_repository.is_owner(user_id, book_id)

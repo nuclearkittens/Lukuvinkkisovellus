@@ -29,6 +29,26 @@ class PodcastRepository:
         except:
             return False
 
+    def mark_finished(self, podcast_id):
+        try:
+            sql = "UPDATE podcasts SET marked_read=NOW() WHERE id=:podcast_id"
+            self._db.session.execute(sql, {"id": podcast_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
+    def is_owner(self, user_id, podcast_id):
+        try:
+            sql = "SELECT * FROM podcasts WHERE user_id=:user_id AND id=:podcast_id"
+            result = self._db.session.execute(sql, {"user_id": user_id, "id": podcast_id})
+            if result.fetchone() != None:
+                return True
+            else:
+                return False
+        except:
+            return False
+
     def get_users_podcasts(self, user_id):
         """
         Gets all added podcasts by the given user-id.

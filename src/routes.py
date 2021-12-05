@@ -102,13 +102,17 @@ def book(book_id):
     # Tässä pitäis olla joku user_service.check_user()
     # joka tarkistaa, että user_id on sama kuin kyseisen kirjan tekijän user_id
     # jos ei, niin abort(403)
-
+    # ^ Toteutin tän tarkastuksen book_servicen ja book_repositoryn kautta, kuten alla näkyy T: Jirko
     book_info = [book_id]
-    if request.method == "POST":
-        if "mark_as_read" in request.form:
+    if book_service.is_book_mine(session["user_id"], book_id):
+        if request.method == "POST":
+            if "mark_as_read" in request.form:
             # WIP
-            # book_service.mark_as_read()...
-            return redirect("/")
+                book_service.mark_book_finished(book_id)
+                return redirect("/")
+    else:
+        # Tähän "pääsy kielletty"-herja tms ja redirect indexiin.
+        pass
     return render_template("book.html", book_info=book_info)
 
 

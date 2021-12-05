@@ -29,6 +29,26 @@ class BookRepository:
         except:
             return False
 
+    def mark_finished(self, book_id):
+        try:
+            sql = "UPDATE books SET marked_read=NOW() WHERE id=:book_id"
+            self._db.session.execute(sql, {"id": book_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
+    def is_owner(self, user_id, book_id):
+        try:
+            sql = "SELECT * FROM books WHERE user_id=:user_id AND id=:book_id"
+            result = self._db.session.execute(sql, {"user_id": user_id, "id": book_id})
+            if result.fetchone() != None:
+                return True
+            else:
+                return False
+        except:
+            return False
+
     def get_users_books(self, user_id):
         """
         Gets all added books by the given user-id.
@@ -45,3 +65,4 @@ class BookRepository:
             return result.fetchall()
         except:
             return None
+

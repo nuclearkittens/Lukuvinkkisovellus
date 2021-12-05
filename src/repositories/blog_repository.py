@@ -30,6 +30,26 @@ class BlogRepository:
         except:
             return False
 
+    def mark_finished(self, blog_id):
+        try:
+            sql = "UPDATE blogs SET marked_read=NOW() WHERE id=:blog_id"
+            self._db.session.execute(sql, {"id": blog_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
+    def is_owner(self, user_id, blog_id):
+        try:
+            sql = "SELECT * FROM blogs WHERE user_id=:user_id AND id=:blog_id"
+            result = self._db.session.execute(sql, {"user_id": user_id, "id": blog_id})
+            if result.fetchone() != None:
+                return True
+            else:
+                return False
+        except:
+            return False
+
     def get_users_blogs(self, user_id):
         """
         Gets all added blogs by the given user-id.

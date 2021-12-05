@@ -29,6 +29,26 @@ class VideoRepository:
         except:
             return False
 
+    def mark_finished(self, video_id):
+        try:
+            sql = "UPDATE videos SET marked_read=NOW() WHERE id=:video_id"
+            self._db.session.execute(sql, {"id": video_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
+    def is_owner(self, user_id, video_id):
+        try:
+            sql = "SELECT * FROM videos WHERE user_id=:user_id AND id=:video_id"
+            result = self._db.session.execute(sql, {"user_id": user_id, "id": video_id})
+            if result.fetchone() != None:
+                return True
+            else:
+                return False
+        except:
+            return False
+
     def get_users_videos(self, user_id):
         """
         Gets all added videos by the given user-id.

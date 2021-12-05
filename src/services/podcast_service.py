@@ -7,3 +7,9 @@ class PodcastService:
 
     def get_my_podcasts(self, user_id):
         return self._podcast_repository.get_users_podcasts(user_id)
+
+    def mark_podcast_finished(self, podcast_id):
+        return self._podcast_repository.mark_finished(podcast_id)
+
+    def is_podcast_mine(self, user_id, podcast_id):
+        return self._podcast_repository.is_owner(user_id, podcast_id)

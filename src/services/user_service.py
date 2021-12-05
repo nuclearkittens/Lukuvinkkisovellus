@@ -26,3 +26,4 @@ class UserService:
         del self._session["user_id"]
         del self._session["username"]
         del self._session["csrf_token"]
+
