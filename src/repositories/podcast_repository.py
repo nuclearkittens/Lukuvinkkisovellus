@@ -32,7 +32,7 @@ class PodcastRepository:
     def mark_finished(self, podcast_id):
         try:
             sql = "UPDATE podcasts SET marked_read=NOW() WHERE id=:podcast_id"
-            self._db.session.execute(sql, {"id": podcast_id})
+            self._db.session.execute(sql, {"podcast_id": podcast_id})
             self._db.session.commit()
             return True
         except:

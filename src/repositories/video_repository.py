@@ -32,7 +32,7 @@ class VideoRepository:
     def mark_finished(self, video_id):
         try:
             sql = "UPDATE videos SET marked_read=NOW() WHERE id=:video_id"
-            self._db.session.execute(sql, {"id": video_id})
+            self._db.session.execute(sql, {"video_id": video_id})
             self._db.session.commit()
             return True
         except:
