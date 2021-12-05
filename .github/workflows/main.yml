@@ -39,11 +39,6 @@ jobs:
       - name: Find schema
         run: cat schema.sql
       
-      - name: Read schema
-        run: psql -h postgres -d postgres_db -U postgres_user -f schema.sql
-        env:
-          PGPASSWORD: postgres_password
-
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
@@ -70,23 +65,23 @@ jobs:
       - name: Run tests
         run: /github/home/.local/bin/poetry run coverage run --branch -m pytest 
       
-      - name: Run pylint
-        run: /github/home/.local/bin/poetry run pylint src/
+#      - name: Run pylint
+#        run: /github/home/.local/bin/poetry run pylint src/
 
-      - name: Coverage report
-        run: /github/home/.local/bin/poetry run coverage xml
+#      - name: Coverage report
+#        run: /github/home/.local/bin/poetry run coverage xml
       
-      - name: Coverage report to Codecov
-        run: |
-          curl -s https://codecov.io/bash > .codecov
-          chmod +x .codecov
-          ./.codecov
+#      - name: Coverage report to Codecov
+#        run: |
+#          curl -s https://codecov.io/bash > .codecov
+#          chmod +x .codecov
+#          ./.codecov
  
       - name: Execute robot tests
         uses: joonvena/robotframework-docker-action@v0.1
         env:
           BROWSER: chrome
-          ROBOT_TESTS_DIR: ${{ github.workspace }}/robot_tests
+          ROBOT_TESTS_DIR: ${{ github.workspace }}/tests
           ROBOT_REPORTS_DIR: ${{ github.workspace }}/reports
           DATABASE_URL: postgres://postgres_user:postgres_password@postgres:5432/postgres_db
           SECRET_KEY: cd658d476cc15a67f687760f2de8b767
