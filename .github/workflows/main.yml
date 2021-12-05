@@ -35,6 +35,7 @@ jobs:
           apt-get install --yes postgresql-client
 
       - uses: actions/checkout@v2
+      - uses: nanasess/setup-chromedriver@master
 
       - name: Find schema
         run: cat schema.sql
@@ -84,6 +85,9 @@ jobs:
  
       - name: Run robot tests
         run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
           export DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db
           export SECRET_KEY=cd658d476cc15a67f687760f2de8b767
           
