@@ -33,7 +33,7 @@ class BlogRepository:
     def mark_finished(self, blog_id):
         try:
             sql = "UPDATE blogs SET marked_read=NOW() WHERE id=:blog_id"
-            self._db.session.execute(sql, {"id": blog_id})
+            self._db.session.execute(sql, {"blog_id": blog_id})
             self._db.session.commit()
             return True
         except:
@@ -43,7 +43,7 @@ class BlogRepository:
         try:
             sql = "SELECT * FROM blogs WHERE user_id=:user_id AND id=:blog_id"
             result = self._db.session.execute(sql, {"user_id": user_id, "id": blog_id})
-            if result.fetchone() != None:
+            if result.fetchone() is not None:
                 return True
             else:
                 return False
