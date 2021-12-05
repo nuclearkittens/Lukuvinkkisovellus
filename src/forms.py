@@ -51,8 +51,8 @@ class VideoForm(FlaskForm):
 
 
 class PodcastForm(FlaskForm):
-    podcast_name = StringField(
-        "Podcastin nimi (*)", validators=[DataRequired()])
-    title = StringField("Otsikko (*)", validators=[DataRequired()])
+    episode = StringField(
+        "Jakson nimi (*)", validators=[DataRequired()])
+    title = StringField("Podcastin nimi (*)", validators=[DataRequired()])
     description = StringField("Kuvaus")
     submit = SubmitField("Submit")

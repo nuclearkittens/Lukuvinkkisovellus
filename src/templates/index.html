@@ -25,7 +25,6 @@ Lukuvinkkisovellus
     <a class="btn btn-primary" href="/new_podcast" role="button">Podcast</a>
 
     <hr>
-    <p>Tähän alas pitäs listata kirjoja sitten ku on joku kirjojen haku luokka</p>
     <ul>
       {% if books is not none %}
         {% for book in books %}
@@ -40,7 +39,31 @@ Lukuvinkkisovellus
             </a>
           </div>
   
-          {% endfor %}
+        {% endfor %}
+      {% endif %}
+      {% if podcasts is not none %}
+        {% for podcast in podcasts %}
+        <div class="list-group">
+          <a href="/podcasts/{{ podcast[0] }}" class="list-group-item list-group-item-action">
+          </a>
+        </div>
+        {% endfor %}
+      {% endif %}
+      {% if blogs is not none %}
+        {% for blog in blogs %}
+        <div class="list-group">
+          <a href="/blogs/{{ blog[0] }}" class="list-group-item list-group-item-action">
+          </a>
+        </div>
+        {% endfor %}
+      {% endif %}
+      {% if videos is not none %}
+        {% for video in videos %}
+        <div class="list-group">
+          <a href="/videos/{{ video[0] }}" class="list-group-item list-group-item-action">
+          </a>
+        </div>
+        {% endfor %}
       {% endif %}
     </ul>
 

@@ -1,6 +1,6 @@
 class Book:
     # tags and related_courses as String-lists
-    def __init__(self, author, title, isbn=None, tags=None, related_courses=None):
+    def __init__(self, author, title, description, isbn=None):
         """
         Creates book object.
 
@@ -8,14 +8,12 @@ class Book:
             author (String): Author of the book.
             title (String): Title of the book.
             isbn (String, optional): ISBN-code of the book. Defaults to None.
-            tags ([type], optional): WIP. Defaults to None.
-            related_courses ([type], optional): WIP. Defaults to None.
         """
         self._author = author
         self._title = title
+        self._description = description
         self._isbn = isbn
-        self._tags = tags
-        self._related_courses = related_courses
+        
 
     def get_author(self):
         """
@@ -34,6 +32,15 @@ class Book:
             String: Title given when this book-object was constructed.
         """
         return self._title
+
+    def get_description(self):
+        """
+        Return description of the book.
+
+        Returns:
+            String: Description given when this book-object was constructed.
+        """
+        return self._description
 
     def get_isbn(self):
         """

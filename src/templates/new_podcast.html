@@ -22,17 +22,17 @@ Lukuvinkkisovellus
 <form action="/new_podcast" method="POST">
     {{ form.csrf_token }}
     <div class="form-group">
-        {{ form.podcast_name.label(class='form-control-label') }}
+        {{ form.episode.label(class='form-control-label') }}
 
-        {% if form.podcast_name.errors %}
-        {{ form.podcast_name(class='form-control form-control is-invalid') }}
+        {% if form.episode.errors %}
+        {{ form.episode(class='form-control form-control is-invalid') }}
         <div class='invalid-feedback'>
-            {% for error in form.podcast_name.errors %}
+            {% for error in form.episode.errors %}
             <span>{{ error }}</span>
             {% endfor %}
         </div>
         {% else %}
-        {{ form.podcast_name(class='form-control form-control') }}
+        {{ form.episode(class='form-control form-control') }}
         {% endif %}
     </div>
     <div class="form-group">

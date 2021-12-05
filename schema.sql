@@ -40,8 +40,8 @@ CREATE TABLE videos (
   id SERIAL PRIMARY KEY,
   title TEXT,
   url TEXT,
-  type TEXT,
   description TEXT,
+  type TEXT,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   marked_read TIMESTAMP
 );
