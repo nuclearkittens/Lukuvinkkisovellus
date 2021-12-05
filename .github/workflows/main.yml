@@ -83,13 +83,13 @@ jobs:
           ./.codecov
  
       - name: Execute robot tests
-          uses: joonvena/robotframework-docker-action@v0.1
-          env:
-            BROWSER: chrome
-            ROBOT_TESTS_DIR: ${{ github.workspace }}/robot_tests
-            ROBOT_REPORTS_DIR: ${{ github.workspace }}/reports
-            DATABASE_URL: postgres://postgres_user:postgres_password@postgres:5432/postgres_db
-            SECRET_KEY: cd658d476cc15a67f687760f2de8b767
+        uses: joonvena/robotframework-docker-action@v0.1
+        env:
+          BROWSER: chrome
+          ROBOT_TESTS_DIR: ${{ github.workspace }}/robot_tests
+          ROBOT_REPORTS_DIR: ${{ github.workspace }}/reports
+          DATABASE_URL: postgres://postgres_user:postgres_password@postgres:5432/postgres_db
+          SECRET_KEY: cd658d476cc15a67f687760f2de8b767
 
 #      - name: Run robot tests
 #        run: |
