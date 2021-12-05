@@ -81,5 +81,5 @@ jobs:
           curl -s https://codecov.io/bash > .codecov
           chmod +x .codecov
           ./.codecov
-      - name: Run robot tests
-        run: bash run_robot_tests.sh postgres_db postgres_user
+#      - name: Run robot tests
+ #       run: bash run_robot_tests.sh postgres_db postgres_user
