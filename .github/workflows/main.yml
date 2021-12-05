@@ -82,4 +82,6 @@ jobs:
           chmod +x .codecov
           ./.codecov
       - name: Run robot tests
-        run: bash run_robot_tests.sh
+        run: |
+          /github/home/.local/bin/poetry run python3 src/index.py &
+          bash run_robot_tests.sh
