@@ -1,3 +1,6 @@
+from sqlalchemy import exc
+
+
 class UserRepository:
     def __init__(self, db):
         self._db = db
@@ -14,7 +17,7 @@ class UserRepository:
                 sql, {"username": user.username, "password": user.password})
             self._db.session.commit()
             return True
-        except:
+        except exc.IntegrityError:
             return False
 
     def delete(self):
