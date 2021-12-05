@@ -32,10 +32,11 @@ Lukuvinkkisovellus
             <a href="/books/{{ book[0] }}" class="list-group-item list-group-item-action">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{ book[2] }}</h5>
-                <small>{{ book[3] }}</small>
+                <h8 class="mb-1">{{ book[1] }}</h8>
+                <small>{{ book[4] }}</small>
               </div>
-              <p class="mb-1">{{ book[1] }}</p>
-              <small class="text-muted">ISBN: {{ book[4] }}</small>
+              <p class="mb-1">{{ book[5] }}</p>
+              <small class="text-muted">ISBN: {{ book[3] }}</small>
             </a>
           </div>
   
@@ -45,6 +46,12 @@ Lukuvinkkisovellus
         {% for podcast in podcasts %}
         <div class="list-group">
           <a href="/podcasts/{{ podcast[0] }}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{ podcast[2] }}</h5>
+              <h8 class="mb-1">{{ podcast[1] }}</h8>
+              <small>{{ podcast[4] }}</small>
+            </div>
+            <p class="mb-1">{{ podcast[3] }}</p>
           </a>
         </div>
         {% endfor %}
@@ -53,6 +60,13 @@ Lukuvinkkisovellus
         {% for blog in blogs %}
         <div class="list-group">
           <a href="/blogs/{{ blog[0] }}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{ blog[2] }}</h5>
+              <h8 class="mb-1">{{ blog[1] }}</h8>
+              <small>{{ blog[5] }}</small>
+            </div>
+            <p class="mb-1">{{ blog[4] }}</p>
+            <p class="text-muted">{{ blog[3] }}</p>
           </a>
         </div>
         {% endfor %}
@@ -61,6 +75,12 @@ Lukuvinkkisovellus
         {% for video in videos %}
         <div class="list-group">
           <a href="/videos/{{ video[0] }}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{ video[1] }}</h5>
+              <small>{{ video[4] }}</small>
+            </div>
+            <p class="mb-1">{{ video[3] }}</p>
+            <p class="text-muted">{{ video[2] }}</p>
           </a>
         </div>
         {% endfor %}

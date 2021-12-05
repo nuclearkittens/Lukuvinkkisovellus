@@ -67,3 +67,12 @@ class BookRepository:
         except:
             return None
 
+    def mark_finished(self, book_id):
+        try:
+            sql = "UPDATE books SET marked_read=NOW() WHERE id=:book_id"
+            self._db.session.execute(sql, {"book_id": book_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
