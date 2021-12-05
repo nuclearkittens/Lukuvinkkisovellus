@@ -42,3 +42,17 @@ class TestBookRepository(unittest.TestCase):
         books = self.book_repository.get_users_books(self.user_id)
 
         self.assertTrue(len(books), 1)
+    
+    def test_user_marks_book_finished_and_it_is(self):
+        self.book_repository.add_book(self.test_book, self.user_id)
+        
+        books = self.book_repository.get_users_books(self.user_id)
+        book_id = books[0][0]
+        self.book_repository.mark_finished(book_id)
+        
+        books = self.book_repository.get_users_books(self.user_id)
+        book = books[0]
+        time_stamp = book.marked_read
+        
+        self.assertIsNotNone(time_stamp)
+    
