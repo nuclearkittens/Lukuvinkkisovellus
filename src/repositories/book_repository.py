@@ -20,10 +20,11 @@ class BookRepository:
             author = book.get_author()
             title = book.get_title()
             isbn = book.get_isbn()
-            sql = "INSERT INTO books (author, title, type, isbn, user_id) \
-                    VALUES (:author, :title, 'Book', :isbn, :user_id)"
+            description = book.get_description()
+            sql = "INSERT INTO books (author, title, description, type, isbn, user_id) \
+                    VALUES (:author, :title, :description, 'Book', :isbn, :user_id)"
             self._db.session.execute(
-                sql, {"author": author, "title": title, "isbn": isbn, "user_id": user_id})
+                sql, {"author": author, "title": title, "description": description, "isbn": isbn, "user_id": user_id})
             self._db.session.commit()
             return True
         except:
