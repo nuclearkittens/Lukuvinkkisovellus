@@ -17,7 +17,7 @@ Add New Blog Without Title
     Set Description  ${test_video_description}
     Click Element  submit
     Page Should Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
-    
+
 Add New Video Without Url
     Go To Home Page
     Click Link  xpath://a[@href="/new_video"]
@@ -34,7 +34,7 @@ Add New Video
     Set Description  ${test_video_description}
     Click Element  submit
     Page Should Not Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
-    
+
 Add New Video Without Description
     Go To Home Page
     Click Link  xpath://a[@href="/new_video"]

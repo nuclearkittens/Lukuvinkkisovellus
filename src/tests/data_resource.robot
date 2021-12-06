@@ -27,6 +27,14 @@ Set Videotitle
     [arguments]  ${videotitle}
     Input Text  title  ${videotitle}
     
+Set Podcasttitle
+    [arguments]  ${podcasttitle}
+    Input Text  title  ${podcasttitle}
+    
+Set Episode
+    [arguments]  ${episode}
+    Input Text  episode  ${episode}
+    
 Set Url
     [Arguments]  ${url}
     Input Text  url  ${url}

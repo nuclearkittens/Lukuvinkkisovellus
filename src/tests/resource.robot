@@ -48,6 +48,10 @@ ${test_video_url_2}  https://www.youtube.com/watch?v=_2uVLtjAtQw
 ${test_video_description}  Vihdoin aivan saatanan halpaa ruokaa joka sopii persereikä aukisille ja opiskelijoille varsin hyvin.
 
 #Podcast
+${test_episode}  Jakso 7: Testaajan rooli ohjelmistokehityksessä
+${test_episode_2}  Jakso 3: Alan opiskelu korkeakouluissa
+${test_podcast_title}  Koodikahvit
+${test_podcast_description}  Miten varmistetaan, että softa toimii kuten sen oletetaan toimivan?
 
 *** Keywords ***
 Open And Configure Browser
