@@ -18,3 +18,11 @@ Set Description
 Adding Item Should Return Message
     [Arguments]  ${message}
     Page Should Contain  ${message}
+
+Set Blogtitle
+    [Arguments]  ${blogtitle}
+    Input Text  title  ${blogtitle}
+
+Set Url
+    [Arguments]  ${url}
+    Input Text  url  ${url}

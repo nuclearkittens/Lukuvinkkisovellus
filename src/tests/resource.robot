@@ -7,7 +7,7 @@ Library  ../AppLibrary.py
 *** Variables ***
 ${SERVER}  localhost:5000
 ${BROWSER}  chrome
-${DELAY}  0.2 seconds
+${DELAY}  0 seconds
 ${HOME URL}  http://${SERVER}
 
 #Tietokanta muuttujat
@@ -32,6 +32,13 @@ ${test_description}  Ajan luonne purkaa ajan vyyhtiä fysiikan, filosofian ja ta
 ${test_author_2}  William King
 ${test_title_2}  Gotrek & Felix
 
+#Blogi
+${test_blog_writer}  Teemu Öhman
+${test_blog_title}  Kraaterin reunalta
+${test_blog_title_2}  Olutpostin olutblogit
+${test_blog_url}  https://www.ursa.fi/blogi/kraatterin-reunalta.html
+${test_blog_url2}  https://olutposti.fi/olutblogit/
+${test_blog_description}  Planeettageologi ja kraatteritutkija Teemu Öhman käsittelee teksteissään aurinkokunnan kiinteäpintaisia kappaleita kokoon ja määritelmään katsomatta.
 
 *** Keywords ***
 Open And Configure Browser
