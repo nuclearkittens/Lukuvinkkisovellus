@@ -175,6 +175,18 @@ def new_podcast():
             return redirect("/")
     return render_template("new_podcast.html", form=form)
 
+@app.route("/podcasts/<int:podcast_id>", methods=["GET", "POST"])
+def podcast(podcast_id):
+    podcast_info = [podcast_id]
+    if podcast_service.is_podcast_mine(session["user_id"], podcast_id):
+        if request.method == "POST":
+            if "mark_as_read" in request.form:
+                podcast_service.mark_podcast_finished(podcast_id)
+                return redirect("/")
+    else:
+        abort(403)
+    return render_template("podcast.html", podcast_info=podcast_info)
+
 
 @app.route("/ping")
 def ping():
