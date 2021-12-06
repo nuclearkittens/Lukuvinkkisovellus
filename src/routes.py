@@ -150,6 +150,18 @@ def new_video():
             return redirect("/")
     return render_template("new_video.html", form=form)
 
+@app.route("/videos/<int:video_id>", methods=["GET", "POST"])
+def video(video_id):
+    video_info = [video_id]
+    if video_service.is_video_mine(session["user_id"], video_id):
+        if request.method == "POST":
+            if "mark_as_read" in request.form:
+                video_service.mark_video_finished(video_id)
+                return redirect("/")
+    else:
+        abort(403)
+    return render_template("video.html", video_info=video_info)
+
 
 @app.route("/new_podcast", methods=["GET", "POST"])
 def new_podcast():

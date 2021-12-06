@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Lukuvinkkisovellus
+{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <p class=flashes>
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+            </p>
+        {% endif %}
+    {% endwith %}
+
+<hr>
+<p>
+    <p>
+    <h3>Videon muokkaus</h3>
+
+    ID: {{ video_info[0] }}
+    <hr>
+    <form action="/videos/{{  video_info[0] }}" method="POST">
+        <button type="submit" class="btn btn-primary" name="mark_as_read">Merkitse luetuksi</button>
+    </form>
+      
+{% endblock %}
