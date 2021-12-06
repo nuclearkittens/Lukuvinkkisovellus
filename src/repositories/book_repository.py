@@ -42,8 +42,8 @@ class BookRepository:
     def is_owner(self, user_id, book_id):
         try:
             sql = "SELECT * FROM books WHERE user_id=:user_id AND id=:book_id"
-            result = self._db.session.execute(sql, {"user_id": user_id, "id": book_id})
-            if result.fetchone() != None:
+            result = self._db.session.execute(sql, {"user_id": user_id, "book_id": book_id})
+            if result.fetchone() is not None:
                 return True
             else:
                 return False

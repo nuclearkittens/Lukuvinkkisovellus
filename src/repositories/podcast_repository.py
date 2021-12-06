@@ -41,7 +41,7 @@ class PodcastRepository:
     def is_owner(self, user_id, podcast_id):
         try:
             sql = "SELECT * FROM podcasts WHERE user_id=:user_id AND id=:podcast_id"
-            result = self._db.session.execute(sql, {"user_id": user_id, "id": podcast_id})
+            result = self._db.session.execute(sql, {"user_id": user_id, "podcast_id": podcast_id})
             if result.fetchone() != None:
                 return True
             else:

@@ -42,7 +42,7 @@ class BlogRepository:
     def is_owner(self, user_id, blog_id):
         try:
             sql = "SELECT * FROM blogs WHERE user_id=:user_id AND id=:blog_id"
-            result = self._db.session.execute(sql, {"user_id": user_id, "id": blog_id})
+            result = self._db.session.execute(sql, {"user_id": user_id, "blog_id": blog_id})
             if result.fetchone() is not None:
                 return True
             else:

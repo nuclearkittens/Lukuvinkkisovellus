@@ -41,7 +41,7 @@ class VideoRepository:
     def is_owner(self, user_id, video_id):
         try:
             sql = "SELECT * FROM videos WHERE user_id=:user_id AND id=:video_id"
-            result = self._db.session.execute(sql, {"user_id": user_id, "id": video_id})
+            result = self._db.session.execute(sql, {"user_id": user_id, "video_id": video_id})
             if result.fetchone() != None:
                 return True
             else:
