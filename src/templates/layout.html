@@ -7,65 +7,62 @@
         <link rel="stylesheet" href="/static/bootstrap.min.css">
         <link rel="stylesheet" href="/static/styles.css">
     </head>
+
     <body>
         <div class="header">
             <image class="logo" src="/static/pics/Lukuvinkkisovellus_logo.png" alt="lukuvinkki_logo" width="650" height="80">    
             <h6 class="font-italic" style="text-align: center; padding-top: 15px;">Ohjelmistotuotanto, syksy 2021</h6>     
         </div>
+
         <div class="header-bottom-margin"></div>        
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
-            <a class="navbar-brand" href="/"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        
-            <div class="collapse navbar-collapse" id="navbarColor02">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item" style="padding-right: 10px;">
-                        <a class="nav-link active" href="/">Home
-                        <span class="visually-hidden">(current)</span>
-                        </a>
-                    </li>
+                <a class="navbar-brand" href="/"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            
+                <div class="collapse navbar-collapse" id="navbarColor02">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item" style="padding-right: 10px;">
+                            <a class="nav-link active" href="/">Home
+                                <span class="visually-hidden">(current)</span>
+                            </a>
+                        </li>
+                        {% if session.user_id %}
+                        <li class="nav-item" style="padding-right: 10px;">
+                            <a class="btn btn-info" href="/new_book" role="button">Lisää kirja</a>
+                        </li>
+                        <li class="nav-item" style="padding-right: 10px;">
+                            <a class="btn btn-info" href="/new_blog" role="button">Lisää blogi</a>
+                        </li>
+                        <li class="nav-item" style="padding-right: 10px;">
+                            <a class="btn btn-info" href="/new_video" role="button">Lisää video</a>
+                        </li>
+                        <li class="nav-item" style="padding-right: 10px;">
+                            <a class="btn btn-info" href="/new_podcast" role="button">Lisää podcast</a>
+                        </li> 
+                        {% else %} 
+                        <li class="nav-item" style="padding-right: 10px;">
+                            <a class="btn btn-info" href="/register" role="button">Click here to register!</a>
+                        </li>  
+                        {% endif %}                
+                    </ul>
+
                     {% if session.user_id %}
-                    <li class="nav-item" style="padding-right: 10px;">
-                        <a class="btn btn-info" href="/new_book" role="button">Lisää kirja</a>
-                    </li>
-                    <li class="nav-item" style="padding-right: 10px;">
-                        <a class="btn btn-info" href="/new_blog" role="button">Lisää blogi</a>
-                    </li>
-                    <li class="nav-item" style="padding-right: 10px;">
-                        <a class="btn btn-info" href="/new_video" role="button">Lisää video</a>
-                    </li>
-                    <li class="nav-item" style="padding-right: 10px;">
-                        <a class="btn btn-info" href="/new_podcast" role="button">Lisää podcast</a>
-                    </li> 
-                    {% else %} 
-                    <li class="nav-item" style="padding-right: 10px;">
-                        <a class="btn btn-info" href="/register" role="button">Click here to register!</a>
-                    </li>  
-                    {% endif %}                
-                </ul>
-                {% if session.user_id %}
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a href="/logout" id="logout" class="btn btn-outline-success my-2 my-sm-0" role="button" >Log out, {{ session.username }}</a>
-                    </li>     
-                </ul> 
-                {% endif %}  
-            </div>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="/logout" id="logout" class="btn btn-outline-success my-2 my-sm-0" role="button" >Log out, {{ session.username }}</a>
+                        </li>     
+                    </ul> 
+                    {% endif %}
+                </div>
             </div>
         </nav>
         
-        <div class="container" >
-            <div class="row">
-              <div class="col-8">
-        
         {% block content %}{% endblock %}
-        </div>
-
-          <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom">  
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom">  
             <div class="container-fluid">
                 <div class="col" style="text-align: center;">
                     <p>@Helsingin Yliopisto | Ohjelmistotuotanto, syksy 2021 |
@@ -82,6 +79,6 @@
                     </p>   
                 </div>
             </div>
-          </nav>
+        </nav>
     </body>
 </html>

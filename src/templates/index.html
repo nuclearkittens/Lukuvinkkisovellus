@@ -5,132 +5,127 @@ Lukuvinkkisovellus
 {% endblock %}
 
 {% block content %}
+<div class="content">
 
-{% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <p class=flashes>
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-            </p>
-        {% endif %}
-    {% endwith %}
-    <p>
-<ul>
-    {% if session.user_id %}
-    <h4>Syötä uusi</h2>
-    <a class="btn btn-primary" href="/new_book" role="button">Kirja</a>
-    <a class="btn btn-primary" href="/new_blog" role="button">Blogi</a>
-    <a class="btn btn-primary" href="/new_video" role="button">Video</a>
-    <a class="btn btn-primary" href="/new_podcast" role="button">Podcast</a>
-
-    <hr>
-    <ul>
-      {% if books is not none %}
-        {% for book in books %}
-          <div class="list-group">
+  {% with messages = get_flashed_messages() %}
+          {% if messages %}
+              <p class=flashes>
+              {% for message in messages %}
+                  {{ message }}
+              {% endfor %}
+              </p>
+          {% endif %}
+      {% endwith %}
+      <p>
+  <ul>
+      {% if session.user_id %}
+      <h3>Tervetuloa {{ session.username }}</h3>
+      <hr>
+      <h4>Lukuvinkkilista</h4>
+ 
+        {% if books is not none %}
+          {% for book in books %}
+          <div class="list-group" style="padding-top: 5px;">
             <a href="/books/{{ book[0] }}" class="list-group-item list-group-item-action">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{ book[2] }}</h5>
-                <h8 class="mb-1">{{ book[1] }}</h8>
-                <small>{{ book[4] }}</small>
+              <div class="d-flex justify-content-between">
+                <h5 class="mb-1">Otsikko: {{ book[2] }}</h5>
+                <small>Tyyppi: {{ book[4] }}</small>
               </div>
-              <p class="mb-1">{{ book[5] }}</p>
+              <h8 class="mb-1">Kirjoittaja: {{ book[1] }}</h8>
+              <p class="mb-1">Kuvaus: {{ book[5] }}</p>
               <small class="text-muted">ISBN: {{ book[3] }}</small>
             </a>
           </div>
-  
-        {% endfor %}
+          {% endfor %}
+          {% endif %}
+
+        {% if podcasts is not none %}
+          {% for podcast in podcasts %}
+          <div class="list-group" style="padding-top: 5px;">
+            <a href="/podcasts/{{ podcast[0] }}" class="list-group-item list-group-item-action">
+              <div class="d-flex justify-content-between">
+                <h5 class="mb-1">Nimi: {{ podcast[1] }}</h5>
+                <small>Tyyppi: {{ podcast[4] }}</small>
+              </div>
+              <h8 class="mb-1">Jakso: {{ podcast[2] }}</h8>
+              <p class="mb-1">Kuvaus: {{ podcast[3] }}</p>
+            </a>
+          </div>
+          {% endfor %}
+        {% endif %}
+
+        {% if blogs is not none %}
+          {% for blog in blogs %}
+          <div class="list-group" style="padding-top: 5px;">
+            <a href="/blogs/{{ blog[0] }}" class="list-group-item list-group-item-action">
+              <div class="d-flex justify-content-between">
+                <h5 class="mb-1">Otsikko: {{ blog[2] }}</h5>
+                <small>Tyyppi: {{ blog[5] }}</small>
+              </div>
+              <h8 class="mb-1">Kirjoittaja: {{ blog[1] }}</h8>
+              <p class="mb-1">Kuvaus: {{ blog[4] }}</p>
+              <small class="text-muted">URL: {{ blog[3] }}</small>
+            </a>
+          </div>
+          {% endfor %}
+        {% endif %}
+
+        {% if videos is not none %}
+          {% for video in videos %}
+          <div class="list-group" style="padding-top: 5px;">
+            <a href="/videos/{{ video[0] }}" class="list-group-item list-group-item-action">
+              <div class="d-flex justify-content-between">
+                <h5 class="mb-1">Otsikko: {{ video[1] }}</h5>
+                <small>Tyyppi: {{ video[3] }}</small>
+              </div>
+              <p class="mb-1">Kuvaus: {{ video[4] }}</p>
+              <small class="text-muted">URL: {{ video[2] }}</small>
+            </a>
+          </div>
+          {% endfor %}
+        {% endif %}
+
+      {% else %}
+      <h3>Start by logging in!</h3>
+      <form action="/login" method="POST">
+          {{ form.csrf_token }}
+          <div class="form-group">
+            {{ form.username.label(class='form-control-label') }}
+
+              {% if form.username.errors %}
+              {{ form.username(class='form-control form-control is-invalid') }}
+              <div class='invalid-feedback'>
+                  {% for error in form.username.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+              {% else %}
+              {{ form.username(class='form-control form-control-') }}
+              {% endif %}
+          </div>
+          <div class="form-group">
+              {{ form.password.label(class='form-control-label') }}
+
+              {% if form.password.errors %}
+              {{ form.password(class='form-control form-control- is-invalid') }}
+              <div class='invalid-feedback'>
+                  {% for error in form.password.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+              {% else %}
+              {{ form.password(class='form-control form-control') }}
+              {% endif %}
+          </div>
+          <p style="color: tomato;">{{ error }}</p>
+          {{ form.submit(class="btn btn-primary") }}
+        </form>
+        <hr>
+        <medium class="text-muted">
+            <a href="/register">Click here to register!</a>
+        </medium>
       {% endif %}
-      {% if podcasts is not none %}
-        {% for podcast in podcasts %}
-        <div class="list-group">
-          <a href="/podcasts/{{ podcast[0] }}" class="list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{ podcast[2] }}</h5>
-              <h8 class="mb-1">{{ podcast[1] }}</h8>
-              <small>{{ podcast[4] }}</small>
-            </div>
-            <p class="mb-1">{{ podcast[3] }}</p>
-            <small></small>
-          </a>
-        </div>
-        {% endfor %}
-      {% endif %}
-      {% if blogs is not none %}
-        {% for blog in blogs %}
-        <div class="list-group">
-          <a href="/blogs/{{ blog[0] }}" class="list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{ blog[2] }}</h5>
-              <h8 class="mb-1">{{ blog[1] }}</h8>
-              <small>{{ blog[5] }}</small>
-            </div>
-            <p class="mb-1">{{ blog[4] }}</p>
-            <small class="text-muted">{{ blog[3] }}</small>
-          </a>
-        </div>
-        {% endfor %}
-      {% endif %}
-      {% if videos is not none %}
-        {% for video in videos %}
-        <div class="list-group">
-          <a href="/videos/{{ video[0] }}" class="list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{ video[1] }}</h5>
-              <small>{{ video[4] }}</small>
-            </div>
-            <p class="mb-1">{{ video[3] }}</p>
-            <small class="text-muted">{{ video[2] }}</small>
-          </a>
-        </div>
-        {% endfor %}
-      {% endif %}
-    </ul>
 
-
-    {% else %}
-
-    Start by logging in!
-    <form action="/login" method="POST">
-        {{ form.csrf_token }}
-        <div class="form-group">
-          {{ form.username.label(class='form-control-label') }}
-
-            {% if form.username.errors %}
-            {{ form.username(class='form-control form-control is-invalid') }}
-            <div class='invalid-feedback'>
-                {% for error in form.username.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-            {% else %}
-            {{ form.username(class='form-control form-control-') }}
-            {% endif %}
-        </div>
-        <div class="form-group">
-            {{ form.password.label(class='form-control-label') }}
-
-            {% if form.password.errors %}
-            {{ form.password(class='form-control form-control- is-invalid') }}
-            <div class='invalid-feedback'>
-                {% for error in form.password.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-            {% else %}
-            {{ form.password(class='form-control form-control') }}
-            {% endif %}
-        </div>
-        <p style="color: tomato;">{{ error }}</p>
-        {{ form.submit(class="btn btn-primary") }}
-      </form>
-      <hr>
-      <medium class="text-muted">
-          <a href="/register">Click here to register!</a>
-      </medium>
-    {% endif %}
-
-</ul>
-
+  </ul>
+</div>
 {% endblock %}

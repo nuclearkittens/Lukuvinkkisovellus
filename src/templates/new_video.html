@@ -5,7 +5,7 @@ Lukuvinkkisovellus
 {% endblock %}
 
 {% block content %}
-
+<div class="content">
 {% with messages = get_flashed_messages() %}
         {% if messages %}
             <p class=flashes>
@@ -16,7 +16,7 @@ Lukuvinkkisovellus
         {% endif %}
     {% endwith %}
 <p>
-<h5>Lisää uusi video</h4>
+<h3>Lisää uusi video</h3>
 <hr>
 <p>
 <form action="/new_video" method="POST">
@@ -66,10 +66,11 @@ Lukuvinkkisovellus
     <hr>
     {{ form.submit(class="btn btn-primary") }}
 
-    <hr>
+    <p></p>
     <medium class="text-muted">
         Tähdellä (*) merkityt kohdat ovat pakollisia
     </medium>
     </form>
     
 {% endblock %}
+</div>

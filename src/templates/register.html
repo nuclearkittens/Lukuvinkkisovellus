@@ -5,71 +5,69 @@ Lukuvinkkisovellus
 {% endblock %}
 
 {% block content %}
-
-{% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <p class=flashes>
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-            </p>
-        {% endif %}
+<div class="content">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <p class=flashes>
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </p>
+    {% endif %}
     {% endwith %}
 
-<hr>
-<p>
-    <p>
     <h3>Register</h3>
-    <form action="" method="POST">
-        {{ form.csrf_token }}
-        <div class="form-group">
-          {{ form.username.label(class='form-control-label') }}
+        <form action="" method="POST">
+            {{ form.csrf_token }}
+            <div class="form-group">
+            {{ form.username.label(class='form-control-label') }}
 
-            {% if form.username.errors %}
-            {{ form.username(class='form-control form-control is-invalid') }}
-            <div class='invalid-feedback'>
-                {% for error in form.username.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
+                {% if form.username.errors %}
+                {{ form.username(class='form-control form-control is-invalid') }}
+                <div class='invalid-feedback'>
+                    {% for error in form.username.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.username(class='form-control form-control-') }}
+                {% endif %}
             </div>
-            {% else %}
-            {{ form.username(class='form-control form-control-') }}
-            {% endif %}
-        </div>
-        <div class="form-group">
-          {{ form.password.label(class='form-control-label') }}
+            <div class="form-group">
+            {{ form.password.label(class='form-control-label') }}
 
-            {% if form.password.errors %}
-            {{ form.password(class='form-control form-control- is-invalid') }}
-            <div class='invalid-feedback'>
-                {% for error in form.password.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
+                {% if form.password.errors %}
+                {{ form.password(class='form-control form-control- is-invalid') }}
+                <div class='invalid-feedback'>
+                    {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.password(class='form-control form-control') }}
+                {% endif %}
             </div>
-            {% else %}
-            {{ form.password(class='form-control form-control') }}
-            {% endif %}
-        </div>
-        <div class="form-group">
-          {{ form.password_confirm.label(class='form-control-label') }}
+            <div class="form-group">
+            {{ form.password_confirm.label(class='form-control-label') }}
 
-            {% if form.password_confirm.errors %}
-            {{ form.password_confirm(class='form-control form-control is-invalid') }}
-            <div class='invalid-feedback'>
-                {% for error in form.password_confirm.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
+                {% if form.password_confirm.errors %}
+                {{ form.password_confirm(class='form-control form-control is-invalid') }}
+                <div class='invalid-feedback'>
+                    {% for error in form.password_confirm.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.password_confirm(class='form-control form-control') }}
+                {% endif %}
             </div>
-            {% else %}
-            {{ form.password_confirm(class='form-control form-control') }}
-            {% endif %}
-        </div>
-        {{ form.submit(class="btn btn-primary") }}
-
-        <hr>
-        <medium class="text-muted">
-            Already have an account? <a href="/">Log In</a>
-        </medium>
-      </form>
-      
+            <p></p>
+            {{ form.submit(class="btn btn-primary") }}
+            </form>
+            <hr>
+            <medium class="text-muted">
+                Already have an account? <a href="/">Log In</a>
+            </medium>
+        
+</div>      
 {% endblock %}

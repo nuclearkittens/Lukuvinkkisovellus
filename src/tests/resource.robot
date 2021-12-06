@@ -6,14 +6,14 @@ Library  ../AppLibrary.py
 
 *** Variables ***
 ${SERVER}  localhost:5000
-${BROWSER}  headlesschrome
+${BROWSER}  chrome
 ${DELAY}  0.2 seconds
 ${HOME URL}  http://${SERVER}
 
 #Tietokanta muuttujat
 # Vaihda vastaamaan käytettävää tietokantaa
-${dbname}  lukuvinkki
-${dbuser}  tino
+${dbname}  lukuvinkkitest
+${dbuser}  harjutop
 ${dbpasswd}  ""
 ${script_file}  ./src/tests/robot_db_test.sql
 
