@@ -82,6 +82,9 @@ jobs:
           chmod +x .codecov
           ./.codecov
  
+      - name: Run robot tests
+        run: bash run_robot_tests.sh
+
 #      - name: Run robot tests
 #        run: |
 #            SE VALMIS SCRIPTI JUMITTI CHROMEN ASENNUKSEN KOHALLA NIIN KELASIN ET VOIS KOKEILLA ASENTAA TÄSSÄ SUORAAN
