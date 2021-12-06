@@ -99,15 +99,10 @@ def new_book():
 
 @app.route("/books/<int:book_id>", methods=["GET", "POST"])
 def book(book_id):
-    # Tässä pitäis olla joku user_service.check_user()
-    # joka tarkistaa, että user_id on sama kuin kyseisen kirjan tekijän user_id
-    # jos ei, niin abort(403)
-    # ^ Toteutin tän tarkastuksen book_servicen ja book_repositoryn kautta, kuten alla näkyy T: Jirko
     book_info = [book_id]
     if book_service.is_book_mine(session["user_id"], book_id):
         if request.method == "POST":
             if "mark_as_read" in request.form:
-            # WIP
                 book_service.mark_book_finished(book_id)
                 return redirect("/")
     else:
@@ -128,6 +123,19 @@ def new_blog():
             return redirect("/")
         flash("Something went wrong...")
     return render_template("new_blog.html", form=form)
+
+@app.route("/blogs/<int:blog_id>", methods=["GET", "POST"])
+def blog(blog_id):
+    blog_info = [blog_id]
+    if blog_service.is_blog_mine(session["user_id"], blog_id):
+        if request.method == "POST":
+            if "mark_as_read" in request.form:
+                blog_service.mark_blog_finished(blog_id)
+                return redirect("/")
+    else:
+        abort(403)
+    return render_template("blog.html", blog_info=blog_info)
+
 
 
 @app.route("/new_video", methods=["GET", "POST"])
