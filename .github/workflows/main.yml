@@ -82,27 +82,23 @@ jobs:
           chmod +x .codecov
           ./.codecov
  
-      
-#      - name: Run robot tests
-#        run: |
-#            SE VALMIS SCRIPTI JUMITTI CHROMEN ASENNUKSEN KOHALLA NIIN KELASIN ET VOIS KOKEILLA ASENTAA TÄSSÄ SUORAAN
-#            ELIKKÄS INSERT CHROME ASENNUS HERE: 
-#            
-#            CHROMEDRIVERIN ASENNUS (kopioitu nanasess scriptistä):
-      -name:
-      -run: |
+      - name: Run robot tests
+        run: |
+            SE VALMIS SCRIPTI JUMITTI CHROMEN ASENNUKSEN KOHALLA NIIN KELASIN ET VOIS KOKEILLA ASENTAA TÄSSÄ SUORAAN
+            ELIKKÄS INSERT CHROME ASENNUS HERE: 
+            
+            CHROMEDRIVERIN ASENNUS (kopioitu nanasess scriptistä):
             CHROME_VERSION=$(google-chrome --version | cut -f 3 -d ' ' | cut -d '.' -f 1)
             VERSION=$(curl --location --fail --retry 10 http://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})
             wget -c -nc --retry-connrefused --tries=0 https://chromedriver.storage.googleapis.com/${VERSION}/chromedriver_linux64.zip
             unzip -o -q chromedriver_linux64.zip
-            mv chromedriver /usr/local/bin/chromedriver
+            sudo mv chromedriver /usr/local/bin/chromedriver
             rm chromedriver_linux64.zip
             
             export DISPLAY=:99
             chromedriver --url-base=/wd/hub &
             sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
-      - name:
-        run: |         
+        
             export DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db
             export SECRET_KEY=cd658d476cc15a67f687760f2de8b767
             
