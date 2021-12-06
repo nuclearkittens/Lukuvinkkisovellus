@@ -44,3 +44,7 @@ Add New Book Without Additional Info
     Set Booktitle  ${test_title_2}
     Click Element  submit
     Page Should Contain  Lukuvinkkilista
+
+Video Is Found From List
+    Go To Home Page
+    Page Should Contain  Otsikko: ${test_title}

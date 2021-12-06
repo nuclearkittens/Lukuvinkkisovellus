@@ -42,3 +42,7 @@ Add New Video Without Description
     Set Url  ${test_video_url_2}
     Click Element  submit
     Page Should Not Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
+
+Video Is Found From List
+    Go To Home Page
+    Page Should Contain  Otsikko: ${test_video_title}
