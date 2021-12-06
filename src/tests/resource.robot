@@ -12,8 +12,8 @@ ${HOME URL}  http://${SERVER}
 
 #Tietokanta muuttujat
 # Vaihda vastaamaan käytettävää tietokantaa
-${dbname}  lukuvinkkitest
-${dbuser}  harjutop
+${dbname}  lukuvinkki
+${dbuser}  tino
 ${dbpasswd}  ""
 ${script_file}  ./src/tests/robot_db_test.sql
 
