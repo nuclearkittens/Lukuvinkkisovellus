@@ -8,41 +8,37 @@ Test Setup  Go To Home Page
 
 
 *** Test Cases ***
-
 Add New Blog Without Title
     Set Username  ${test_user_1}
     Set Password  ${test_passwd_1}
     Submit Login Credentials    
-    Click Link  xpath://a[@href="/new_blog"]
-    Set Writer  ${test_blog_writer}
-    Set Url  ${test_blog_url}
-    Set Description  ${test_blog_description}
+    Click Link  xpath://a[@href="/new_video"]
+    Set Url  ${test_video_url}
+    Set Description  ${test_video_description}
+    Click Element  submit
+    Page Should Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
+    
+Add New Video Without Url
+    Go To Home Page
+    Click Link  xpath://a[@href="/new_video"]
+    Set Videotitle  ${test_video_title}
+    Set Description  ${test_video_description}
     Click Element  submit
     Page Should Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
 
-Add New Blog Without Url
+Add New Video
     Go To Home Page
-    Click Link  xpath://a[@href="/new_blog"]
-    Set Writer  ${test_blog_writer}
-    Set Blogtitle  ${test_blog_title}
-    Set Description  ${test_blog_description}
-    Click Element  submit
-    Page Should Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
-    
-Add New Blog Into List
-    Go To Home Page
-    Click Link  xpath://a[@href="/new_blog"]
-    Set Writer  ${test_blog_writer}
-    Set Blogtitle  ${test_blog_title}
-    Set Url  ${test_blog_url}
-    Set Description  ${test_blog_description}
+    Click Link  xpath://a[@href="/new_video"]
+    Set Videotitle  ${test_video_title}
+    Set Url  ${test_video_url}
+    Set Description  ${test_video_description}
     Click Element  submit
     Page Should Not Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
     
-Add New Blog Without Writer And Description
+Add New Video Without Description
     Go To Home Page
-    Click Link  xpath://a[@href="/new_blog"]
-    Set Blogtitle  ${test_blog_title_2}
-    Set Url  ${test_blog_url_2}
+    Click Link  xpath://a[@href="/new_video"]
+    Set Videotitle  ${test_video_title_2}
+    Set Url  ${test_video_url_2}
     Click Element  submit
     Page Should Not Contain  Tähdellä (*) merkityt kohdat ovat pakollisia

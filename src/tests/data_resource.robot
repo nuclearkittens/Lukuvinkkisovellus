@@ -23,6 +23,11 @@ Set Blogtitle
     [Arguments]  ${blogtitle}
     Input Text  title  ${blogtitle}
 
+Set Videotitle
+    [arguments]  ${videotitle}
+    Input Text  title  ${videotitle}
+    
 Set Url
     [Arguments]  ${url}
     Input Text  url  ${url}
+    
