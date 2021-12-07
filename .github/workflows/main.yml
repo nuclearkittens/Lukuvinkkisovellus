@@ -60,27 +60,28 @@ jobs:
       - name: Install dependencies
         run: /github/home/.local/bin/poetry install
       
-      - name: Create env.test file
-        run: |
-          touch .env.test
-          echo DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db >> .env.test
-          echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env.test
-          cat .env.test
+      # - name: Create env.test file
+      #   run: |
+      #     touch .env.test
+      #     echo DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db >> .env.test
+      #     echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env.test
+      #     cat .env.test
 
-      - name: Run tests
-        run: /github/home/.local/bin/poetry run coverage run --branch -m pytest 
+      # - name: Run tests
+      #   run: /github/home/.local/bin/poetry run coverage run --branch -m pytest 
       
-      - name: Run pylint
-        run: /github/home/.local/bin/poetry run pylint src/
+      # - name: Run pylint
+      #   run: /github/home/.local/bin/poetry run pylint src/
 
-      - name: Coverage report
-        run: /github/home/.local/bin/poetry run coverage xml
+      # - name: Coverage report
+      #   run: /github/home/.local/bin/poetry run coverage xml
       
-      - name: Coverage report to Codecov
-        run: |
-          curl -s https://codecov.io/bash > .codecov
-          chmod +x .codecov
-          ./.codecov
+      # - name: Coverage report to Codecov
+      #   run: |
+      #     curl -s https://codecov.io/bash > .codecov
+      #     chmod +x .codecov
+      #     ./.codecov
+      
       - name: Robot tests
         run: |
         
@@ -89,7 +90,12 @@ jobs:
           
           mv chromedriver /usr/bin/chromedriver 
           chown root:root /usr/bin/chromedriver 
-          chmod +x /usr/bin/chromedriver 
+          chmod +x /usr/bin/chromedriver
+
+          apt-get install -y libglib2.0-0=2.50.3-2 \
+          libnss3=2:3.26.2-1.1+deb9u1 \
+          libgconf-2-4=3.2.6-4+b1 \
+          libfontconfig1=2.11.0-6.7+b1
           
           /github/home/.local/bin/poetry run python3 src/index.py &
           
