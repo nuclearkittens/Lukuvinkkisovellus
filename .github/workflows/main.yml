@@ -27,115 +27,115 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-    steps:
-      - name: Install PostgreSQL client
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes postgresql-client
+      steps:
+        - name: Install PostgreSQL client
+          run: |
+            sudo apt-get update
+            sudo apt-get install --yes postgresql-client
 
-      - uses: actions/checkout@v2
+        - uses: actions/checkout@v2
 
-      - name: Find schema
-        run: cat schema.sql
-      
-      - name: Read schema
-        run: psql -h postgres -d postgres_db -U postgres_user -f schema.sql
-        env:
-          PGPASSWORD: postgres_password
-
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      
-      - name: Install pip
-        run: python -m ensurepip --upgrade
-
-      - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          export PATH="/github/home/.local/bin:$PATH"
-
-      - name: Install dependencies
-        run: /github/home/.local/bin/poetry install
-      
-      - name: Create env.test file
-        run: |
-          touch .env.test
-          echo DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db >> .env.test
-          echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env.test
-          cat .env.test
-
-      - name: Run tests
-        run: /github/home/.local/bin/poetry run coverage run --branch -m pytest 
-      
-      - name: Run pylint
-        run: /github/home/.local/bin/poetry run pylint src/
-
-      - name: Coverage report
-        run: /github/home/.local/bin/poetry run coverage xml
-      
-      - name: Coverage report to Codecov
-        run: |
-          curl -s https://codecov.io/bash > .codecov
-          sudo chmod +x .codecov
-          ./.codecov
-      
-       - name: Robot tests
-         run: |
+        - name: Find schema
+          run: cat schema.sql
         
-          sudo wget https://chromedriver.storage.googleapis.com/94.0.4606.61/chromedriver_linux64.zip 
-          sudo unzip chromedriver_linux64.zip 
-          
-          sudo mv chromedriver /usr/bin/chromedriver 
-          sudo chown root:root /usr/bin/chromedriver 
-          sudo chmod +x /usr/bin/chromedriver
-          
-          /github/home/.local/bin/poetry run python3 src/index.py &
-          
-          # odetetaan, että palvelin on valmiina ottamaan vastaan pyyntöjä
-          while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "200" ]]; 
-            do sleep 1; 
-          done
+        - name: Read schema
+          run: psql -h postgres -d postgres_db -U postgres_user -f schema.sql
+          env:
+            PGPASSWORD: postgres_password
 
-          # suoritetaan testit
-          /github/home/.local/bin/poetry run robot src/tests
-
-          status=$?
-
-          kill $(lsof -t -i:5000)
-
-          exit $status
-          
-      # - name: Run robot tests
-      #   run: |
-      #       SE VALMIS SCRIPTI JUMITTI CHROMEN ASENNUKSEN KOHALLA NIIN KELASIN ET VOIS KOKEILLA ASENTAA TÄSSÄ SUORAAN
-      #       ELIKKÄS INSERT CHROME ASENNUS HERE: 
-            
-      #       CHROMEDRIVERIN ASENNUS (kopioitu nanasess scriptistä):
-      #       CHROME_VERSION=$(google-chrome --version | cut -f 3 -d ' ' | cut -d '.' -f 1)
-      #       VERSION=$(curl --location --fail --retry 10 http://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})
-      #       wget -c -nc --retry-connrefused --tries=0 https://chromedriver.storage.googleapis.com/${VERSION}/chromedriver_linux64.zip
-      #       unzip -o -q chromedriver_linux64.zip
-      #       mv chromedriver /usr/local/bin/chromedriver
-      #       rm chromedriver_linux64.zip
-            
-      #       export DISPLAY=:99
-      #       chromedriver --url-base=/wd/hub &
-      #       sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+        - name: Set up Python 3.8
+          uses: actions/setup-python@v2
+          with:
+            python-version: 3.8
         
-      #       export DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db
-      #       export SECRET_KEY=cd658d476cc15a67f687760f2de8b767
+        - name: Install pip
+          run: python -m ensurepip --upgrade
+
+        - name: Install Poetry
+          run: |
+            curl -sSL https://install.python-poetry.org | python3 -
+            export PATH="/github/home/.local/bin:$PATH"
+
+        - name: Install dependencies
+          run: /github/home/.local/bin/poetry install
+        
+        - name: Create env.test file
+          run: |
+            touch .env.test
+            echo DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db >> .env.test
+            echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env.test
+            cat .env.test
+
+        - name: Run tests
+          run: /github/home/.local/bin/poetry run coverage run --branch -m pytest 
+        
+        - name: Run pylint
+          run: /github/home/.local/bin/poetry run pylint src/
+
+        - name: Coverage report
+          run: /github/home/.local/bin/poetry run coverage xml
+        
+        - name: Coverage report to Codecov
+          run: |
+            curl -s https://codecov.io/bash > .codecov
+            sudo chmod +x .codecov
+            ./.codecov
+        
+        - name: Robot tests
+          run: |
+          
+            sudo wget https://chromedriver.storage.googleapis.com/94.0.4606.61/chromedriver_linux64.zip 
+            sudo unzip chromedriver_linux64.zip 
             
-      #       /github/home/.local/bin/poetry run python3 src/index.py &
+            sudo mv chromedriver /usr/bin/chromedriver 
+            sudo chown root:root /usr/bin/chromedriver 
+            sudo chmod +x /usr/bin/chromedriver
             
-      #       while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "200" ]]; 
-      #         do sleep 1; 
-      #       done
+            /github/home/.local/bin/poetry run python3 src/index.py &
             
-      #       /github/home/.local/bin/poetry run robot src/tests
+            # odetetaan, että palvelin on valmiina ottamaan vastaan pyyntöjä
+            while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "200" ]]; 
+              do sleep 1; 
+            done
+
+            # suoritetaan testit
+            /github/home/.local/bin/poetry run robot src/tests
+
+            status=$?
+
+            kill $(lsof -t -i:5000)
+
+            exit $status
             
-      #       function clean_up {
-      #         kill $(lsof -t -i:5000)
-      #       }
-      #       trap clean_up EXIT
+        # - name: Run robot tests
+        #   run: |
+        #       SE VALMIS SCRIPTI JUMITTI CHROMEN ASENNUKSEN KOHALLA NIIN KELASIN ET VOIS KOKEILLA ASENTAA TÄSSÄ SUORAAN
+        #       ELIKKÄS INSERT CHROME ASENNUS HERE: 
+              
+        #       CHROMEDRIVERIN ASENNUS (kopioitu nanasess scriptistä):
+        #       CHROME_VERSION=$(google-chrome --version | cut -f 3 -d ' ' | cut -d '.' -f 1)
+        #       VERSION=$(curl --location --fail --retry 10 http://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})
+        #       wget -c -nc --retry-connrefused --tries=0 https://chromedriver.storage.googleapis.com/${VERSION}/chromedriver_linux64.zip
+        #       unzip -o -q chromedriver_linux64.zip
+        #       mv chromedriver /usr/local/bin/chromedriver
+        #       rm chromedriver_linux64.zip
+              
+        #       export DISPLAY=:99
+        #       chromedriver --url-base=/wd/hub &
+        #       sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+          
+        #       export DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db
+        #       export SECRET_KEY=cd658d476cc15a67f687760f2de8b767
+              
+        #       /github/home/.local/bin/poetry run python3 src/index.py &
+              
+        #       while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "200" ]]; 
+        #         do sleep 1; 
+        #       done
+              
+        #       /github/home/.local/bin/poetry run robot src/tests
+              
+        #       function clean_up {
+        #         kill $(lsof -t -i:5000)
+        #       }
+        #       trap clean_up EXIT
