@@ -55,6 +55,8 @@ Blog Is Not Marked As Read
     Element Should Contain  //*[@id="${test_blog_title}_"]  Luettu: None
 
 Mark Blog As Read
+    Press Key  xpath://body  \ue00f
+    Sleep  1
     Click Element  xpath://*[@id="${test_blog_title}"]
     Click Button  Merkitse luetuksi
     ${time_now}=  Get Current Date  result_format=%Y-%m-%d %H:%M

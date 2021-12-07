@@ -53,6 +53,7 @@ Video Is Not Marked As Read
     
 Mark Video As Watched
     Press Key  xpath://body  \ue00f
+    Press Key  xpath://body  \ue00f
     Sleep  1
     #Scroll Element Into View  xpath://*[@id="${test_video_title}"]
     Click Element  xpath://*[@id="${test_video_title_2}"]

@@ -53,6 +53,8 @@ Book Is Not Marked As Read
     Element Should Contain  //*[@id="${test_title}_"]  Luettu: None
 
 Mark Book As Read
+    Press Key  xpath://body  \ue00f
+    Sleep  1
     Click Element  xpath://*[@id="${test_title}"]
     Click Button  Merkitse luetuksi
     ${time_now}=  Get Current Date  result_format=%Y-%m-%d %H:%M

@@ -51,6 +51,8 @@ Podcast Is Not Marked As Read
     Element Should Contain  //*[@id="${test_episode}_"]  Luettu: None
 
 Mark Podcast As Read
+    Press Key  xpath://body  \ue00f
+    Sleep  1
     Click Element  xpath://*[@id="${test_episode}"]
     Click Button  Merkitse luetuksi
     ${time_now}=  Get Current Date  result_format=%Y-%m-%d %H:%M
