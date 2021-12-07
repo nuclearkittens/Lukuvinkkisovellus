@@ -1,6 +1,6 @@
 <img src='src/static/pics/Lukuvinkkisovellus_logo.png'></img>
 
-# Helsingin yliopisto | Ohjelmistotuotanto, syksy 2021
+# Ohjelmistotuotanto, syksy 2021
 
 Lukuvinkkikirjasto on web-sovellus, joka toteutetaan Helsingin Yliopiston Ohjelmistotuotantokurssin projektityönä. Sovelluksen käyttäjä voi tallettaa, hakea sekä jaotella erilaisia lukuvinkkejä sekä muistiinpanoja, kuten kirjoja, podcasteja, videoita tai blogipostauksia. Tarkemmat tiedot löytyvät [tehtävänannosta](https://ohjelmistotuotanto-hy.github.io/speksi/).
 
@@ -15,7 +15,7 @@ Materiaali on lisenssoitu [GNU General Public License](https://www.gnu.org/licen
 
 ## Releaset
 
-- [2. Sprintin release](https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus/releases/tag/v0.10)
+- [2. Sprintin release](https://github.com/TopiasHarjunpaa/Lukuvinkkisovellus/releases/tag/v0.1.0)
 
 ## Dokumentaatio
 
