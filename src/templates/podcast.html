@@ -5,7 +5,7 @@ Lukuvinkkisovellus
 {% endblock %}
 
 {% block content %}
-
+<div class="content">
 {% with messages = get_flashed_messages() %}
         {% if messages %}
             <p class=flashes>
@@ -16,15 +16,15 @@ Lukuvinkkisovellus
         {% endif %}
     {% endwith %}
 
-<hr>
-<p>
-    <p>
     <h3>Podcastin muokkaus</h3>
-
-    ID: {{ podcast_info[0] }}
     <hr>
-    <form action="/podcasts/{{  podcast_info[0] }}" method="POST">
-        <button type="submit" class="btn btn-primary" name="mark_as_read">Merkitse luetuksi</button>
-    </form>
+
+    <div class="d-flex justify-content-between">
+        <h4>Podcastin ID: {{ podcast_info[0] }}</h4>
+        <form action="/podcasts/{{  podcast_info[0] }}" method="POST">
+            <button type="submit" class="btn btn-primary" name="mark_as_read">Merkitse luetuksi</button>
+        </form>
+    </div>    
       
 {% endblock %}
+</div>

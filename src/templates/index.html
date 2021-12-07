@@ -9,85 +9,112 @@ Lukuvinkkisovellus
 
   {% with messages = get_flashed_messages() %}
           {% if messages %}
-              <p class=flashes>
+              <h4 class=flashes>
               {% for message in messages %}
                   {{ message }}
               {% endfor %}
-              </p>
+              </h4>
           {% endif %}
       {% endwith %}
-      <p>
+
   <ul>
       {% if session.user_id %}
       <h3>Tervetuloa {{ session.username }}</h3>
-      <hr>
       <h4>Lukuvinkkilista</h4>
+      <hr>
  
         {% if books is not none %}
+          <h4>Kirjat</h4>
+          <hr>
           {% for book in books %}
           <div class="list-group" id="{{ book[2] }}" style="padding-top: 5px;">
+            {% if book[7] is not none %}
+            <a href="/books/{{ book[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
+            {% else %}
             <a href="/books/{{ book[0] }}" class="list-group-item list-group-item-action">
+            {% endif %}
               <div class="d-flex justify-content-between">
                 <h5 class="mb-1">Otsikko: {{ book[2] }}</h5>
                 <small>Tyyppi: {{ book[4] }}</small>
               </div>
-              <h8 class="mb-1">Kirjoittaja: {{ book[1] }}</h8>
-              <p class="mb-1">Kuvaus: {{ book[5] }}</p>
+              <h6 class="mb-1">Kirjoittaja: {{ book[1] }}</h6>
+              <h6 class="mb-1">Kuvaus: {{ book[5] }}</h6>
               <small class="text-muted">ISBN: {{ book[3] }}</small>
-              <p id="{{ book[2] }}_" class="text-muted">Luettu: {{ book[7] }}</p>
+              <br>
+              <small id="{{ book[2] }}_" class="text-muted">Luettu: {{ book[7] }}</small>
             </a>
           </div>
           {% endfor %}
           {% endif %}
 
         {% if podcasts is not none %}
+          <h4>Podcastit</h4>
+          <hr>
           {% for podcast in podcasts %}
           <div class="list-group" id="{{ podcast[2] }}" style="padding-top: 5px;">
+            {% if podcast[6] is not none %}
+            <a href="/podcasts/{{ podcast[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
+            {% else %}
             <a href="/podcasts/{{ podcast[0] }}" class="list-group-item list-group-item-action">
+            {% endif %}
               <div class="d-flex justify-content-between">
                 <h5 class="mb-1">Nimi: {{ podcast[1] }}</h5>
                 <small>Tyyppi: {{ podcast[4] }}</small>
               </div>
-              <h8 class="mb-1">Jakso: {{ podcast[2] }}</h8>
-              <p class="mb-1">Kuvaus: {{ podcast[3] }}</p>
-              <p id="{{ podcast[2] }}_" class="text-muted">Luettu: {{ podcast[6] }}</p>
+              <h6 class="mb-1">Jakso: {{ podcast[2] }}</h6>
+              <h6 class="mb-1">Kuvaus: {{ podcast[3] }}</h6>
+              <small id="{{ podcast[2] }}_" class="text-muted">Luettu: {{ podcast[6] }}</small>
             </a>
           </div>
           {% endfor %}
-        {% endif %}
+          {% endif %}
 
         {% if blogs is not none %}
+          <h4>Blogit</h4>
+          <hr>
           {% for blog in blogs %}
           <div class="list-group" id="{{ blog[2] }}" style="padding-top: 5px;">
+            {% if blog[7] is not none %}
+            <a href="/blogs/{{ blog[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
+            {% else %}
             <a href="/blogs/{{ blog[0] }}" class="list-group-item list-group-item-action">
+            {% endif %}
               <div class="d-flex justify-content-between">
-                <h5 class="mb-1">Otsikko: {{ blog[2] }}</h5>
+                <h6 class="mb-1">Otsikko: {{ blog[2] }}</h6>
                 <small>Tyyppi: {{ blog[5] }}</small>
               </div>
-              <h8 class="mb-1">Kirjoittaja: {{ blog[1] }}</h8>
-              <p class="mb-1">Kuvaus: {{ blog[4] }}</p>
+              <h6 class="mb-1">Kirjoittaja: {{ blog[1] }}</h6>
+              <h6 class="mb-1">Kuvaus: {{ blog[4] }}</h6>
               <small class="text-muted">URL: {{ blog[3] }}</small>
-              <p id="{{ blog[2] }}_" class="text-muted">Luettu: {{ blog[7] }}</p>
+              <br>
+              <small id="{{ blog[2] }}_" class="text-muted">Luettu: {{ blog[7] }}</small>
             </a>
           </div>
           {% endfor %}
-        {% endif %}
+          {% endif %}
 
         {% if videos is not none %}
+          <h4>Videot</h4>
+          <hr>
           {% for video in videos %}
           <div class="list-group" id="{{ video[1] }}" style="padding-top: 5px;">
+            {% if video[6] is not none %}
+            <a href="/videos/{{ video[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
+            {% else %}
             <a href="/videos/{{ video[0] }}" class="list-group-item list-group-item-action">
+            {% endif %}
               <div class="d-flex justify-content-between">
-                <h5 class="mb-1">Otsikko: {{ video[1] }}</h5>
+                <h6 class="mb-1">Otsikko: {{ video[1] }}</h6>
                 <small>Tyyppi: {{ video[4] }}</small>
               </div>
-              <p class="mb-1">Kuvaus: {{ video[3] }}</p>
+              <h6 class="mb-1">Kuvaus: {{ video[3] }}</h6>
               <small class="text-muted">URL: {{ video[2] }}</small>
-              <p id="{{ video[1] }}_" class="text-muted">Luettu: {{ video[6] }}</p>
+              <br>
+              <small id="{{ video[1] }}_" class="text-muted">Luettu: {{ video[6] }}</small>
             </a>
           </div>
           {% endfor %}
-        {% endif %}
+          {% endif %}
 
       {% else %}
       <h3>Start by logging in!</h3>
