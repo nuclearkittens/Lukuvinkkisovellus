@@ -92,7 +92,7 @@ jobs:
           chown root:root /usr/bin/chromedriver 
           chmod +x /usr/bin/chromedriver
 
-          apt-get install -y chromium-browser
+          apt install -y chromium-browser
           
           /github/home/.local/bin/poetry run python3 src/index.py &
           
