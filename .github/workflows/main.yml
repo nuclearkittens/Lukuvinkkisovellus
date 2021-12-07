@@ -9,8 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: node:latest
-
+    
     services:
       postgres:
         image: postgres:latest
@@ -31,8 +30,8 @@ jobs:
 
       - name: Install PostgreSQL client
         run: |
-          apt-get update
-          apt-get install --yes postgresql-client
+          sudo apt-get update
+          sudo apt-get install --yes postgresql-client
 
       - uses: actions/checkout@v2
 
@@ -40,7 +39,7 @@ jobs:
         run: cat schema.sql
       
       - name: Read schema
-        run: psql -h postgres -d postgres_db -U postgres_user -f schema.sql
+        run: psql -d postgresql://postgres_user:postgres_password@localhost/postgres_db -f schema.sql
         env:
           PGPASSWORD: postgres_password
 
@@ -53,28 +52,33 @@ jobs:
         run: python -m ensurepip --upgrade
 
       - name: Install Poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          export PATH="/github/home/.local/bin:$PATH"
+        run: pip install poetry
 
       - name: Install dependencies
-        run: /github/home/.local/bin/poetry install
+        run: poetry install
       
       - name: Create env.test file
         run: |
           touch .env.test
-          echo DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db >> .env.test
+          echo DATABASE_URL=postgresql://postgres_user:postgres_password@localhost/postgres_db >> .env.test
           echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env.test
           cat .env.test
 
+          touch .env
+          echo DATABASE_URL=postgresql://postgres_user:postgres_password@localhost/postgres_db >> .env
+          echo SECRET_KEY=cd658d476cc15a67f687760f2de8b767 >> .env
+          cat .env.test
+        env:
+          PGPASSWORD: postgres_password
+
       - name: Run tests
-        run: /github/home/.local/bin/poetry run coverage run --branch -m pytest 
+        run: poetry run coverage run --branch -m pytest 
       
       - name: Run pylint
-        run: /github/home/.local/bin/poetry run pylint src/
+        run: poetry run pylint src/
 
       - name: Coverage report
-        run: /github/home/.local/bin/poetry run coverage xml
+        run: poetry run coverage xml
       
       - name: Coverage report to Codecov
         run: |
@@ -82,56 +86,61 @@ jobs:
           chmod +x .codecov
           ./.codecov
       
-      # - name: Robot tests
-      #   run: |
-        
-      #     wget https://chromedriver.storage.googleapis.com/94.0.4606.61/chromedriver_linux64.zip 
-      #     unzip chromedriver_linux64.zip 
+      - name: Robot tests
+        run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
+    
+          poetry run python3 src/index.py &
           
-      #     mv chromedriver /usr/bin/chromedriver 
-      #     chown root:root /usr/bin/chromedriver 
-      #     chmod +x /usr/bin/chromedriver
-          
-      #     /github/home/.local/bin/poetry run python3 src/index.py &
-          
-      #     # odetetaan, että palvelin on valmiina ottamaan vastaan pyyntöjä
-      #     while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "200" ]]; 
-      #       do sleep 1; 
-      #     done
+          # odetetaan, että palvelin on valmiina ottamaan vastaan pyyntöjä
+          while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "200" ]]; 
+            do sleep 1; 
+          done
 
-      #     # suoritetaan testit
-      #     /github/home/.local/bin/poetry run robot src/tests
+          export DATABASE_URL=postgresql://postgres_user:postgres_password@localhost/postgres_db
+          export SECRET_KEY=cd658d476cc15a67f687760f2de8b767
 
-      #     status=$?
+          # suoritetaan testit
+          poetry run robot src/tests
 
-      #     kill $(lsof -t -i:5000)
+          status=$?
 
-      #     exit $status
+          kill $(lsof -t -i:5000)
+
+          exit $status
+        env:
+          PGPASSWORD: postgres_password
+
           
       # - name: Run robot tests
       #   run: |
-      #     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-      #     apt install -y ./google-chrome-stable_current_amd64.deb
-           
-      #     CHROME_VERSION=$(google-chrome --version | cut -f 3 -d ' ' | cut -d '.' -f 1)
-      #     VERSION=$(curl --location --fail --retry 10 http://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})
-      #     wget -c -nc --retry-connrefused --tries=0 https://chromedriver.storage.googleapis.com/${VERSION}/chromedriver_linux64.zip
-      #     unzip -o -q chromedriver_linux64.zip
-      #     mv chromedriver /usr/local/bin/chromedriver
-      #     rm chromedriver_linux64.zip
+      #       SE VALMIS SCRIPTI JUMITTI CHROMEN ASENNUKSEN KOHALLA NIIN KELASIN ET VOIS KOKEILLA ASENTAA TÄSSÄ SUORAAN
+      #       ELIKKÄS INSERT CHROME ASENNUS HERE: 
             
-      #     export DISPLAY=:99
-           
-      #     export DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db
-      #     export SECRET_KEY=cd658d476cc15a67f687760f2de8b767
+      #       CHROMEDRIVERIN ASENNUS (kopioitu nanasess scriptistä):
+      #       CHROME_VERSION=$(google-chrome --version | cut -f 3 -d ' ' | cut -d '.' -f 1)
+      #       VERSION=$(curl --location --fail --retry 10 http://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})
+      #       wget -c -nc --retry-connrefused --tries=0 https://chromedriver.storage.googleapis.com/${VERSION}/chromedriver_linux64.zip
+      #       unzip -o -q chromedriver_linux64.zip
+      #       mv chromedriver /usr/local/bin/chromedriver
+      #       rm chromedriver_linux64.zip
             
-      #     /github/home/.local/bin/poetry run python3 src/index.py &
+      #       export DISPLAY=:99
+      #       chromedriver --url-base=/wd/hub &
+      #       sudo Xvfb -ac :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
+        
+      #       export DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db
+      #       export SECRET_KEY=cd658d476cc15a67f687760f2de8b767
             
-      #     while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "200" ]]; 
-      #       do sleep 1; 
-      #     done
+      #       /github/home/.local/bin/poetry run python3 src/index.py &
             
-      #     /github/home/.local/bin/poetry run robot src/tests
+      #       while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "200" ]]; 
+      #         do sleep 1; 
+      #       done
+            
+      #       /github/home/.local/bin/poetry run robot src/tests
             
       #       function clean_up {
       #         kill $(lsof -t -i:5000)
