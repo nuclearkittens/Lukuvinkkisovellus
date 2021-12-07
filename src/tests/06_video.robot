@@ -46,3 +46,12 @@ Add New Video Without Description
 Video Is Found From List
     Go To Home Page
     Page Should Contain  Otsikko: ${test_video_title}
+
+Mark Video As Watched
+    Press Key  xpath://body  \ue00f
+    Sleep  1
+    #Scroll Element Into View  xpath://*[@id="${test_video_title}"]
+    Click Element  xpath://*[@id="${test_video_title_2}"]
+    Click Button  Merkitse luetuksi
+    ${time_now}=  Get Current Date  result_format=%Y-%m-%d %H:%M
+    Element Should Contain  //*[@id="${test_video_title_2}_"]  ${time_now}
