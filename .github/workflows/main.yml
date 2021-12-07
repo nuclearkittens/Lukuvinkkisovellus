@@ -120,7 +120,7 @@ jobs:
            mv chromedriver /usr/local/bin/chromedriver
            rm chromedriver_linux64.zip
             
-           export DISPLAY=:0
+           export DISPLAY=:99
            chromedriver --url-base=/wd/hub &
            export DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db
            export SECRET_KEY=cd658d476cc15a67f687760f2de8b767
