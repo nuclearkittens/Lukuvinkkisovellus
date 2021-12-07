@@ -91,8 +91,6 @@ jobs:
           mv chromedriver /usr/bin/chromedriver 
           chown root:root /usr/bin/chromedriver 
           chmod +x /usr/bin/chromedriver
-
-          apt install -y chromium-browser
           
           /github/home/.local/bin/poetry run python3 src/index.py &
           
