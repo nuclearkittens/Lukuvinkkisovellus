@@ -1,6 +1,6 @@
-# Ohjelmistotuotanto, syksy 2021
-
 <img src='src/static/pics/Lukuvinkkisovellus_logo.png'></img>
+
+# Helsingin yliopisto | Ohjelmistotuotanto, syksy 2021
 
 Lukuvinkkikirjasto on web-sovellus, joka toteutetaan Helsingin Yliopiston Ohjelmistotuotantokurssin projektityönä. Sovelluksen käyttäjä voi tallettaa, hakea sekä jaotella erilaisia lukuvinkkejä sekä muistiinpanoja, kuten kirjoja, podcasteja, videoita tai blogipostauksia. Tarkemmat tiedot löytyvät [tehtävänannosta](https://ohjelmistotuotanto-hy.github.io/speksi/).
 
