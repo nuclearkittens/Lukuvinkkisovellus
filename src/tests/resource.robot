@@ -7,7 +7,7 @@ Library  DateTime
 
 *** Variables ***
 ${SERVER}  localhost:5000
-${BROWSER}  chrome
+${BROWSER}  headlesschrome
 ${DELAY}  0 seconds
 ${HOME URL}  http://${SERVER}
 
@@ -57,7 +57,8 @@ ${test_podcast_description}  Miten varmistetaan, että softa toimii kuten sen ol
 *** Keywords ***
 Open And Configure Browser
     Open Browser  browser=${BROWSER}
-    Maximize Browser Window
+    #Maximize Browser Window
+    Set Window Size  ${1920}  ${1080}
     Set Selenium Speed  ${DELAY}
 
 Clear Database
