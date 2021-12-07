@@ -108,32 +108,32 @@ jobs:
 
       #     exit $status
           
-      - name: Run robot tests
-        run: |
-           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-           apt install -y ./google-chrome-stable_current_amd64.deb
+      # - name: Run robot tests
+      #   run: |
+      #     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+      #     apt install -y ./google-chrome-stable_current_amd64.deb
            
-           CHROME_VERSION=$(google-chrome --version | cut -f 3 -d ' ' | cut -d '.' -f 1)
-           VERSION=$(curl --location --fail --retry 10 http://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})
-           wget -c -nc --retry-connrefused --tries=0 https://chromedriver.storage.googleapis.com/${VERSION}/chromedriver_linux64.zip
-           unzip -o -q chromedriver_linux64.zip
-           mv chromedriver /usr/local/bin/chromedriver
-           rm chromedriver_linux64.zip
+      #     CHROME_VERSION=$(google-chrome --version | cut -f 3 -d ' ' | cut -d '.' -f 1)
+      #     VERSION=$(curl --location --fail --retry 10 http://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})
+      #     wget -c -nc --retry-connrefused --tries=0 https://chromedriver.storage.googleapis.com/${VERSION}/chromedriver_linux64.zip
+      #     unzip -o -q chromedriver_linux64.zip
+      #     mv chromedriver /usr/local/bin/chromedriver
+      #     rm chromedriver_linux64.zip
             
-           export DISPLAY=:99
+      #     export DISPLAY=:99
            
-           export DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db
-           export SECRET_KEY=cd658d476cc15a67f687760f2de8b767
+      #     export DATABASE_URL=postgres://postgres_user:postgres_password@postgres:5432/postgres_db
+      #     export SECRET_KEY=cd658d476cc15a67f687760f2de8b767
             
-           /github/home/.local/bin/poetry run python3 src/index.py &
+      #     /github/home/.local/bin/poetry run python3 src/index.py &
             
-           while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "200" ]]; 
-             do sleep 1; 
-           done
+      #     while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:5000/ping)" != "200" ]]; 
+      #       do sleep 1; 
+      #     done
             
-           /github/home/.local/bin/poetry run robot src/tests
+      #     /github/home/.local/bin/poetry run robot src/tests
             
-             function clean_up {
-               kill $(lsof -t -i:5000)
-             }
-             trap clean_up EXIT
+      #       function clean_up {
+      #         kill $(lsof -t -i:5000)
+      #       }
+      #       trap clean_up EXIT
