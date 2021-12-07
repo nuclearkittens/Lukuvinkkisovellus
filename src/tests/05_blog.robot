@@ -50,6 +50,9 @@ Add New Blog Without Writer And Description
 Blog Is Found From List
     Go To Home Page
     Page Should Contain  Otsikko: ${test_blog_title}
+    
+Blog Is Not Marked As Read
+    Element Should Contain  //*[@id="${test_blog_title}_"]  Luettu: None
 
 Mark Blog As Read
     Click Element  xpath://*[@id="${test_blog_title}"]

@@ -46,6 +46,9 @@ Add podcast Without Description
 Podcast Is Found From List
     Go To Home Page
     Page Should Contain  Nimi: ${test_podcast_title}
+    
+Podcast Is Not Marked As Read
+    Element Should Contain  //*[@id="${test_episode}_"]  Luettu: None
 
 Mark Podcast As Read
     Click Element  xpath://*[@id="${test_episode}"]

@@ -47,6 +47,10 @@ Video Is Found From List
     Go To Home Page
     Page Should Contain  Otsikko: ${test_video_title}
 
+Video Is Not Marked As Read
+    Press Key  xpath://body  \ue00f
+    Element Should Contain  //*[@id="${test_video_title_2}_"]  Luettu: None
+    
 Mark Video As Watched
     Press Key  xpath://body  \ue00f
     Sleep  1
