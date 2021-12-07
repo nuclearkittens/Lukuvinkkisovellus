@@ -3,6 +3,7 @@ Library  SeleniumLibrary
 Library  PostgreSQLDB
 Library  psycopg2
 Library  ../AppLibrary.py
+Library  DateTime
 
 *** Variables ***
 ${SERVER}  localhost:5000
@@ -42,7 +43,7 @@ ${test_blog_description}  Planeettageologi ja kraatteritutkija Teemu Öhman käs
 
 #Video
 ${test_video_title}  Hard Kokki: Opiskelijan kanakeitto
-${test_video_title_2}  Hard Kokki: Makaronilaatikko
+${test_video_title_2}  Makaronilaatikko
 ${test_video_url}  https://www.youtube.com/watch?v=PAa1KVqX9lk
 ${test_video_url_2}  https://www.youtube.com/watch?v=_2uVLtjAtQw
 ${test_video_description}  Vihdoin aivan saatanan halpaa ruokaa joka sopii persereikä aukisille ja opiskelijoille varsin hyvin.
@@ -74,3 +75,4 @@ Register Page Should Be Open
 
 Go To Home Page
     Go To  ${HOME URL}
+

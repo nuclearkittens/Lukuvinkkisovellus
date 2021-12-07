@@ -46,3 +46,9 @@ Add podcast Without Description
 Podcast Is Found From List
     Go To Home Page
     Page Should Contain  Nimi: ${test_podcast_title}
+
+Mark Podcast As Read
+    Click Element  xpath://*[@id="${test_episode}"]
+    Click Button  Merkitse luetuksi
+    ${time_now}=  Get Current Date  result_format=%Y-%m-%d %H:%M
+    Element Should Contain  //*[@id="${test_episode}_"]  ${time_now}

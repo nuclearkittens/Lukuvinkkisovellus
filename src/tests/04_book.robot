@@ -48,3 +48,9 @@ Add New Book Without Additional Info
 Video Is Found From List
     Go To Home Page
     Page Should Contain  Otsikko: ${test_title}
+
+Mark Book As Read
+    Click Element  xpath://*[@id="${test_title}"]
+    Click Button  Merkitse luetuksi
+    ${time_now}=  Get Current Date  result_format=%Y-%m-%d %H:%M
+    Element Should Contain  //*[@id="${test_title}_"]  ${time_now}
