@@ -91,7 +91,7 @@ jobs:
           done
 
           # suoritetaan testit
-          /github/home/.local/bin/poetry run robot src/e2e
+          /github/home/.local/bin/poetry run robot src/tests
 
           status=$?
 
