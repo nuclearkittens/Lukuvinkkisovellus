@@ -6,7 +6,7 @@ class BlogService:
         return self._blog_repository.add_blog(blog, user_id)
 
     def get_my_blogs(self, user_id):
-        my_blogs = self._book_repository.get_users_blogs(user_id)
+        my_blogs = self._blog_repository.get_users_blogs(user_id)
         if len(my_blogs) == 0:
             return None
         else:
