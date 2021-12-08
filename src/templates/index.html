@@ -42,6 +42,39 @@ Lukuvinkkisovellus
         </form>
         Hakusana: {{ keyword }}
         <p>Tää asettelu yms on aika WIP, mutta perustoiminnallisuus pitäs toimia oikein</p>
+
+        <h4>Rajaa hakua:</h4>
+        <form method="POST" action="/">
+            {% if "books" in checked_types %}
+            <input type="checkbox" class="btn-check" value="books" id="book-check" name="type_check" checked autocomplete="on">
+            {% else %}
+            <input type="checkbox" class="btn-check" value="books" id="book-check" name="type_check">
+            {% endif %}
+            <label class="btn btn-outline-primary" for="book-check">Kirjat</label>
+            {% if "podcasts" in checked_types %}
+            <input type="checkbox" class="btn-check" value="podcasts" id="podcast-check" name="type_check" checked autocomplete="on">
+            {% else %}
+            <input type="checkbox" class="btn-check" value="podcasts" id="podcast-check" name="type_check">
+            {% endif %}
+            <label class="btn btn-outline-primary" for="podcast-check">Podcastit</label>
+
+            {% if "blogs" in checked_types %}
+            <input type="checkbox" class="btn-check" value="blogs" id="blog-check" name="type_check" checked autocomplete="on">
+            {% else %}
+            <input type="checkbox" class="btn-check" value="blogs" id="blog-check" name="type_check">
+            {% endif %}
+            <label class="btn btn-outline-primary" for="blog-check">Blogit</label>
+
+            {% if "videos" in checked_types %}
+            <input type="checkbox" class="btn-check" value="videos" id="video-check" name="type_check" checked autocomplete="on">
+            {% else %}
+            <input type="checkbox" class="btn-check" value="videos" id="video-check" name="type_check">
+            {% endif %}
+            <label class="btn btn-outline-primary" for="video-check">Videot</label>
+            
+            <button type="submit" class="btn btn-success">Suodata</button>
+        </form>
+
         {% if books is not none %}
           <h4>Kirjat</h4>
           <hr>

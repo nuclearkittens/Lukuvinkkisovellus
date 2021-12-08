@@ -39,19 +39,25 @@ def render_home():
     blogs = None
     videos = None
     keyword = ""
+    checked_types = ["books", "podcasts", "blogs", "videos"]
+    if request.method == "POST":
+        checked_types = request.form.getlist("type_check")
     if "user_id" in session.keys():
-        books = book_service.get_my_books(session["user_id"])
-        podcasts = podcast_service.get_my_podcasts(session["user_id"])
-        blogs = blog_service.get_my_blogs(session["user_id"])
-        videos = video_service.get_my_videos(session["user_id"])
-    
+        if "books" in checked_types:
+            books = book_service.get_my_books(session["user_id"])
+        if "podcasts" in checked_types:
+            podcasts = podcast_service.get_my_podcasts(session["user_id"])
+        if "blogs" in checked_types:
+            blogs = blog_service.get_my_blogs(session["user_id"])
+        if "videos" in checked_types:
+            videos = video_service.get_my_videos(session["user_id"])
+
     search_form = SearchForm()
     if search_form.validate_on_submit():
         keyword = search_form.keyword.data
 
-
     return render_template("index.html", form=form, search_form=search_form,
-     books=books, podcasts=podcasts, blogs=blogs, videos=videos, keyword=keyword)
+     books=books, podcasts=podcasts, blogs=blogs, videos=videos, keyword=keyword, checked_types=checked_types)
 
 
 @app.route("/login", methods=["GET", "POST"])
