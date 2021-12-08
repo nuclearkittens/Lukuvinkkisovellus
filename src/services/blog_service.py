@@ -5,6 +5,27 @@ class BlogService:
     def new_blog(self, blog, user_id):
         return self._blog_repository.add_blog(blog, user_id)
 
+    def update_blog(self, author, title, url, description, blog_id):
+        """
+        First searches that blog to be updated exists based on blog_id. 
+        Then updates its fields.
+
+        Args:
+            author (String): Updated author of the blog.
+            title (String): Updated title of the blog.
+            url (String): Updated url of the blog.
+            description (String): Updated description of the blog.
+            blog_id (Integer): Id of the blog to be updated.
+
+        Returns:
+            Boolean: True if update was successful.
+        """
+        blog_db_row = self._blog_repository.get_blog(blog_id)
+        # Update only if blog was actually found
+        if blog_db_row != None and len(blog_db_row) > 0:
+            return self._blog_repository.update_blog(author, title, url, description, blog_id)
+        return False
+
     def get_my_blogs(self, user_id):
         """
         Matches given user_id to found blogs from the database and returns them.

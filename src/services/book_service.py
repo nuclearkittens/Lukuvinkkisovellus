@@ -5,6 +5,27 @@ class BookService:
     def new_book(self, book, user_id):
         return self._book_repository.add_book(book, user_id)
 
+    def update_book(self, author, title, description, isbn, book_id):
+        """
+        First searches that book to be updated exists based on book_id. 
+        Then updates its fields.
+
+        Args:
+            author (String): Updated author of the book.
+            title (String): Updated title of the book.
+            description (String): Updated description of the book.
+            isbn (String): Updated isbn of the book.
+            book_id (Integer): Id of the book to be updated.
+
+        Returns:
+            Boolean: True if update was successful.
+        """
+        book_db_row = self._book_repository.get_book(book_id)
+        # Update only if book was actually found
+        if book_db_row != None and len(book_db_row) > 0:
+            return self._book_repository.update_book(author, title, description, isbn, book_id)
+        return False
+
     def get_my_books(self, user_id):
         """
         Matches given user_id to found books from the database and returns them.

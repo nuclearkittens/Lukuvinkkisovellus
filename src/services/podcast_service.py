@@ -5,6 +5,26 @@ class PodcastService:
     def new_podcast(self, podcast, user_id):
         return self._podcast_repository.add_podcast(podcast, user_id)
 
+    def update_podcast(self, title, episode, description, podcast_id):
+        """
+        First searches that podcast to be updated exists based on podcast_id. 
+        Then updates its fields.
+
+        Args:
+            title (String): Updated title of the podcast.
+            episode (String): Updated episode to the podcast.
+            description (String): Updated description of the podcast.
+            podcast_id (Integer): Id of the podcast to be updated.
+
+        Returns:
+            Boolean: True if update was successful.
+        """
+        podcast_db_row = self._podcast_repository.get_podcast(podcast_id)
+        # Update only if podcast was actually found
+        if podcast_db_row != None and len(podcast_db_row) > 0:
+            return self._podcast_repository.update_podcast(title, episode, description, podcast_id)
+        return False
+
     def get_my_podcasts(self, user_id):
         """
         Matches given user_id to found podcasts from the database and returns them.
