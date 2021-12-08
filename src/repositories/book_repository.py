@@ -31,6 +31,15 @@ class BookRepository:
             return False
 
     def mark_finished(self, book_id):
+        """
+        Adds timestamp to the marked_read field on the row of this book-id.
+
+        Args:
+            book_id (Integer): Id of the book to be marked finished.
+
+        Returns:
+            Boolean: True, if marking was successful.
+        """
         try:
             sql = "UPDATE books SET marked_read=NOW() WHERE id=:book_id"
             self._db.session.execute(sql, {"id": book_id})
@@ -40,6 +49,16 @@ class BookRepository:
             return False
 
     def is_owner(self, user_id, book_id):
+        """
+        Checks if the user-id anf the book-id are in the same row in the database.
+
+        Args:
+            user_id (Integer): User-id of the currently logged in user.
+            book_id (Integer): Book-id of the book to be checked.
+
+        Returns:
+            Boolean: True if logged user and book-id matches.
+        """
         try:
             sql = "SELECT * FROM books WHERE user_id=:user_id AND id=:book_id"
             result = self._db.session.execute(sql, {"user_id": user_id, "book_id": book_id})

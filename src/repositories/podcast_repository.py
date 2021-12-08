@@ -39,6 +39,16 @@ class PodcastRepository:
             return False
 
     def is_owner(self, user_id, podcast_id):
+        """
+        Checks if the user-id and the podcast-id are in the same row in the database.
+
+        Args:
+            user_id (Integer): User-id of the currently logged in user.
+            podcast_id (Integer): podcast-id of the podcast to be checked.
+
+        Returns:
+            Boolean: True if logged user and podcast-id matches.
+        """
         try:
             sql = "SELECT * FROM podcasts WHERE user_id=:user_id AND id=:podcast_id"
             result = self._db.session.execute(sql, {"user_id": user_id, "podcast_id": podcast_id})
