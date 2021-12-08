@@ -6,7 +6,7 @@ class PodcastService:
         return self._podcast_repository.add_podcast(podcast, user_id)
 
     def get_my_podcasts(self, user_id):
-        my_podcasts = self._book_repository.get_users_podcasts(user_id)
+        my_podcasts = self._podcast_repository.get_users_podcasts(user_id)
         if len(my_podcasts) == 0:
             return None
         else:

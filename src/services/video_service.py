@@ -13,7 +13,7 @@ class VideoService:
         return self._video_repository.add_video(video, user_id)
 
     def get_my_videos(self, user_id):
-        my_videos = self._book_repository.get_users_videos(user_id)
+        my_videos = self._video_repository.get_users_videos(user_id)
         if len(my_videos) == 0:
             return None
         else:
