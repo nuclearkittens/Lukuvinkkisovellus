@@ -23,10 +23,10 @@ class VideoService:
 
     def get_title_from_url(self, url):
         """
-        Palauttaa videon otsikon kun annetaan pelkkä URL.
+        Returns the title of a Youtube video when given an url.
 
         Args:
-            url (String): Youtube-videon url-osoite
+            url (String): URL of a Youtube video.
         """
 
         params = {"format": "json", "url": url}
