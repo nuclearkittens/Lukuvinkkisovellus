@@ -13,3 +13,5 @@ URI = os.getenv("DATABASE_URL")
 
 if URI.startswith('postgres://'):
     URI = URI.replace('postgres://', 'postgresql://', 1)
+
+isbn_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:"
