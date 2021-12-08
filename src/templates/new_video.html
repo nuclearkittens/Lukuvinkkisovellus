@@ -18,23 +18,12 @@ Lukuvinkkisovellus
 <p>
 <h3>Lisää uusi video</h3>
 <hr>
+<medium class="text-muted">
+    Hakee otsikon automaattisesti Youtube-videoista
+</medium>
 <p>
 <form action="/new_video" method="POST">
     {{ form.csrf_token }}
-    <div class="form-group">
-        {{ form.title.label(class='form-control-label') }}
-
-        {% if form.title.errors %}
-        {{ form.title(class='form-control form-control- is-invalid') }}
-        <div class='invalid-feedback'>
-            {% for error in form.title.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
-        </div>
-        {% else %}
-        {{ form.title(class='form-control form-control') }}
-        {% endif %}
-    </div>
     <div class="form-group">
         {{ form.url.label(class='form-control-label') }}
 
@@ -47,6 +36,20 @@ Lukuvinkkisovellus
         </div>
         {% else %}
         {{ form.url(class='form-control form-control') }}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ form.title.label(class='form-control-label') }}
+
+        {% if form.title.errors %}
+        {{ form.title(class='form-control form-control- is-invalid') }}
+        <div class='invalid-feedback'>
+            {% for error in form.title.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.title(class='form-control form-control') }}
         {% endif %}
     </div>
     <div class="form-group">

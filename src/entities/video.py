@@ -23,6 +23,16 @@ class Video:
         """
         return self._title
 
+    def set_title(self, title):
+        """
+        Sets a new title for the video.
+
+        Args:
+            title (String): Title of the video.
+        """
+
+        self._title = title
+
     def get_url(self):
         """
         Return url of the video.
