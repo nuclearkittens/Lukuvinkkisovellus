@@ -22,6 +22,7 @@ Lukuvinkkisovellus
       <h3>Tervetuloa {{ session.username }}</h3>
       <h4>Lukuvinkkilista</h4>
       <hr>
+
       <form action="/#keyword=" method="POST">
         {{ search_form.csrf_token }}
         <div class="form-group">
@@ -38,42 +39,42 @@ Lukuvinkkisovellus
             {{ search_form.keyword(class='form-control form-control-') }}
             {% endif %}
         </div>
-        {{ search_form.submit(class="btn btn-primary") }}
-        </form>
         Hakusana: {{ keyword }}
-        <p>Tää asettelu yms on aika WIP, mutta perustoiminnallisuus pitäs toimia oikein</p>
+        <br>
+        <br>
+        <p>Hae tyypin mukaan:<p>
+        {% if "books" in checked_types %}
+        <input type="checkbox" class="btn-check" value="books" id="book-check" name="type_check" checked autocomplete="on">
+        {% else %}
+        <input type="checkbox" class="btn-check" value="books" id="book-check" name="type_check">
+        {% endif %}
+        <label class="btn btn-outline-primary" for="book-check">Kirjat</label>
+        {% if "podcasts" in checked_types %}
+        <input type="checkbox" class="btn-check" value="podcasts" id="podcast-check" name="type_check" checked autocomplete="on">
+        {% else %}
+        <input type="checkbox" class="btn-check" value="podcasts" id="podcast-check" name="type_check">
+        {% endif %}
+        <label class="btn btn-outline-primary" for="podcast-check">Podcastit</label>
 
-        <h4>Rajaa hakua:</h4>
-        <form method="POST" action="/">
-            {% if "books" in checked_types %}
-            <input type="checkbox" class="btn-check" value="books" id="book-check" name="type_check" checked autocomplete="on">
-            {% else %}
-            <input type="checkbox" class="btn-check" value="books" id="book-check" name="type_check">
-            {% endif %}
-            <label class="btn btn-outline-primary" for="book-check">Kirjat</label>
-            {% if "podcasts" in checked_types %}
-            <input type="checkbox" class="btn-check" value="podcasts" id="podcast-check" name="type_check" checked autocomplete="on">
-            {% else %}
-            <input type="checkbox" class="btn-check" value="podcasts" id="podcast-check" name="type_check">
-            {% endif %}
-            <label class="btn btn-outline-primary" for="podcast-check">Podcastit</label>
+        {% if "blogs" in checked_types %}
+        <input type="checkbox" class="btn-check" value="blogs" id="blog-check" name="type_check" checked autocomplete="on">
+        {% else %}
+        <input type="checkbox" class="btn-check" value="blogs" id="blog-check" name="type_check">
+        {% endif %}
+        <label class="btn btn-outline-primary" for="blog-check">Blogit</label>
 
-            {% if "blogs" in checked_types %}
-            <input type="checkbox" class="btn-check" value="blogs" id="blog-check" name="type_check" checked autocomplete="on">
-            {% else %}
-            <input type="checkbox" class="btn-check" value="blogs" id="blog-check" name="type_check">
-            {% endif %}
-            <label class="btn btn-outline-primary" for="blog-check">Blogit</label>
-
-            {% if "videos" in checked_types %}
-            <input type="checkbox" class="btn-check" value="videos" id="video-check" name="type_check" checked autocomplete="on">
-            {% else %}
-            <input type="checkbox" class="btn-check" value="videos" id="video-check" name="type_check">
-            {% endif %}
-            <label class="btn btn-outline-primary" for="video-check">Videot</label>
-            
-            <button type="submit" class="btn btn-success">Suodata</button>
+        {% if "videos" in checked_types %}
+        <input type="checkbox" class="btn-check" value="videos" id="video-check" name="type_check" checked autocomplete="on">
+        {% else %}
+        <input type="checkbox" class="btn-check" value="videos" id="video-check" name="type_check">
+        {% endif %}
+        <label class="btn btn-outline-primary" for="video-check">Videot</label>
+        <br>
+        <br>
+        {{ search_form.submit(class="btn btn-success") }}
         </form>
+        <hr>
+        <p>Tää asettelu yms on aika WIP, mutta perustoiminnallisuus pitäs toimia oikein</p>
 
         {% if books is not none %}
           <h4>Kirjat</h4>

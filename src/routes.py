@@ -40,8 +40,12 @@ def render_home():
     videos = None
     keyword = ""
     checked_types = ["books", "podcasts", "blogs", "videos"]
-    if request.method == "POST":
+    
+    search_form = SearchForm()
+    if search_form.validate_on_submit():
+        keyword = search_form.keyword.data
         checked_types = request.form.getlist("type_check")
+
     if "user_id" in session.keys():
         if "books" in checked_types:
             books = book_service.get_my_books(session["user_id"])
@@ -51,10 +55,6 @@ def render_home():
             blogs = blog_service.get_my_blogs(session["user_id"])
         if "videos" in checked_types:
             videos = video_service.get_my_videos(session["user_id"])
-
-    search_form = SearchForm()
-    if search_form.validate_on_submit():
-        keyword = search_form.keyword.data
 
     return render_template("index.html", form=form, search_form=search_form,
      books=books, podcasts=podcasts, blogs=blogs, videos=videos, keyword=keyword, checked_types=checked_types)
