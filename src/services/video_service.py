@@ -13,7 +13,6 @@ class VideoService:
         return self._video_repository.add_video(video, user_id)
 
     def get_my_videos(self, user_id):
-<<<<<<< HEAD
         """
         Matches given user_id to found videos from the database and returns them.
 
@@ -23,8 +22,6 @@ class VideoService:
         Returns:
             List(Tuple) / None: List of videos if any is found. Else None.
         """
-=======
->>>>>>> 5c93c7191d28f84dbbf6987a1342615407a5414f
         my_videos = self._video_repository.get_users_videos(user_id)
         if len(my_videos) == 0:
             return None

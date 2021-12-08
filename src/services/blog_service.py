@@ -6,7 +6,6 @@ class BlogService:
         return self._blog_repository.add_blog(blog, user_id)
 
     def get_my_blogs(self, user_id):
-<<<<<<< HEAD
         """
         Matches given user_id to found blogs from the database and returns them.
 
@@ -16,8 +15,6 @@ class BlogService:
         Returns:
             List(Tuple) / None: List of blogs if any is found. Else None.
         """
-=======
->>>>>>> 5c93c7191d28f84dbbf6987a1342615407a5414f
         my_blogs = self._blog_repository.get_users_blogs(user_id)
         if len(my_blogs) == 0:
             return None

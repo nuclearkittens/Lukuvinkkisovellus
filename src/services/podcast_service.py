@@ -6,7 +6,6 @@ class PodcastService:
         return self._podcast_repository.add_podcast(podcast, user_id)
 
     def get_my_podcasts(self, user_id):
-<<<<<<< HEAD
         """
         Matches given user_id to found podcasts from the database and returns them.
 
@@ -16,8 +15,6 @@ class PodcastService:
         Returns:
             List(Tuple) / None: List of podcasts if any is found. Else None.
         """
-=======
->>>>>>> 5c93c7191d28f84dbbf6987a1342615407a5414f
         my_podcasts = self._podcast_repository.get_users_podcasts(user_id)
         if len(my_podcasts) == 0:
             return None
