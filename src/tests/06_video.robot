@@ -8,7 +8,7 @@ Test Setup  Go To Home Page
 
 
 *** Test Cases ***
-Add New Blog Without Title
+Add New Video Without Title
     Set Username  ${test_user_1}
     Set Password  ${test_passwd_1}
     Submit Login Credentials    
@@ -16,7 +16,7 @@ Add New Blog Without Title
     Set Url  ${test_video_url}
     Set Description  ${test_video_description}
     Click Element  submit
-    Page Should Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
+    Page Should Not Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
 
 Add New Video Without Url
     Go To Home Page
