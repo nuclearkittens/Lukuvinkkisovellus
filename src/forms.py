@@ -56,3 +56,7 @@ class PodcastForm(FlaskForm):
     title = StringField("Podcastin nimi (*)", validators=[DataRequired()])
     description = StringField("Kuvaus")
     submit = SubmitField("Submit")
+
+class SearchForm(FlaskForm):
+    keyword = StringField("Hae otsikolla")
+    submit = SubmitField("Hae")

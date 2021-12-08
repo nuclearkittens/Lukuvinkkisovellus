@@ -16,7 +16,7 @@ from repositories.book_repository import BookRepository
 from repositories.podcast_repository import PodcastRepository
 from repositories.blog_repository import BlogRepository
 from repositories.video_repository import VideoRepository
-from forms import BlogForm, BookForm, LoginForm, PodcastForm, RegisterForm, VideoForm
+from forms import BlogForm, BookForm, LoginForm, PodcastForm, RegisterForm, SearchForm, VideoForm
 
 user_repository = UserRepository(db)
 user_service = UserService(user_repository, session)
@@ -31,19 +31,27 @@ video_service = VideoService(video_repository)
 
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def render_home():
     form = LoginForm()
     books = None
     podcasts = None
     blogs = None
     videos = None
+    keyword = ""
     if "user_id" in session.keys():
         books = book_service.get_my_books(session["user_id"])
         podcasts = podcast_service.get_my_podcasts(session["user_id"])
         blogs = blog_service.get_my_blogs(session["user_id"])
         videos = video_service.get_my_videos(session["user_id"])
-    return render_template("index.html", form=form, books=books, podcasts=podcasts, blogs=blogs, videos=videos)
+    
+    search_form = SearchForm()
+    if search_form.validate_on_submit():
+        keyword = search_form.keyword.data
+
+
+    return render_template("index.html", form=form, search_form=search_form,
+     books=books, podcasts=podcasts, blogs=blogs, videos=videos, keyword=keyword)
 
 
 @app.route("/login", methods=["GET", "POST"])

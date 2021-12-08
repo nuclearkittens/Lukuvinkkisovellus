@@ -22,11 +22,31 @@ Lukuvinkkisovellus
       <h3>Tervetuloa {{ session.username }}</h3>
       <h4>Lukuvinkkilista</h4>
       <hr>
- 
+      <form action="/#keyword=" method="POST">
+        {{ search_form.csrf_token }}
+        <div class="form-group">
+            {{ search_form.keyword.label(class='form-control-label') }}
+    
+            {% if search_form.keyword.errors %}
+            {{ search_form.keyword(class='form-control form-control is-invalid') }}
+            <div class='invalid-feedback'>
+                {% for error in search_form.keyword.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ search_form.keyword(class='form-control form-control-') }}
+            {% endif %}
+        </div>
+        {{ search_form.submit(class="btn btn-primary") }}
+        </form>
+        Hakusana: {{ keyword }}
+        <p>Tää asettelu yms on aika WIP, mutta perustoiminnallisuus pitäs toimia oikein</p>
         {% if books is not none %}
           <h4>Kirjat</h4>
           <hr>
           {% for book in books %}
+          {% if keyword.lower() in book[2].lower() %}
           <div class="list-group" id="{{ book[2] }}" style="padding-top: 5px;">
             {% if book[7] is not none %}
             <a href="/books/{{ book[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
@@ -44,13 +64,15 @@ Lukuvinkkisovellus
               <small id="{{ book[2] }}_" class="text-muted">Luettu: {{ book[7] }}</small>
             </a>
           </div>
-          {% endfor %}
           {% endif %}
+          {% endfor %}
+        {% endif %}
 
         {% if podcasts is not none %}
           <h4>Podcastit</h4>
           <hr>
           {% for podcast in podcasts %}
+          {% if keyword.lower() in podcast[2].lower() %}
           <div class="list-group" id="{{ podcast[2] }}" style="padding-top: 5px;">
             {% if podcast[6] is not none %}
             <a href="/podcasts/{{ podcast[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
@@ -66,13 +88,15 @@ Lukuvinkkisovellus
               <small id="{{ podcast[2] }}_" class="text-muted">Luettu: {{ podcast[6] }}</small>
             </a>
           </div>
-          {% endfor %}
           {% endif %}
+          {% endfor %}
+        {% endif %}
 
         {% if blogs is not none %}
           <h4>Blogit</h4>
           <hr>
           {% for blog in blogs %}
+          {% if keyword.lower() in blog[2].lower() %}
           <div class="list-group" id="{{ blog[2] }}" style="padding-top: 5px;">
             {% if blog[7] is not none %}
             <a href="/blogs/{{ blog[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
@@ -90,13 +114,15 @@ Lukuvinkkisovellus
               <small id="{{ blog[2] }}_" class="text-muted">Luettu: {{ blog[7] }}</small>
             </a>
           </div>
-          {% endfor %}
           {% endif %}
+          {% endfor %}
+        {% endif %}
 
         {% if videos is not none %}
           <h4>Videot</h4>
           <hr>
           {% for video in videos %}
+          {% if keyword.lower() in video[1].lower() %}
           <div class="list-group" id="{{ video[1] }}" style="padding-top: 5px;">
             {% if video[6] is not none %}
             <a href="/videos/{{ video[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
@@ -113,8 +139,9 @@ Lukuvinkkisovellus
               <small id="{{ video[1] }}_" class="text-muted">Luettu: {{ video[6] }}</small>
             </a>
           </div>
-          {% endfor %}
           {% endif %}
+          {% endfor %}
+        {% endif %}
 
       {% else %}
       <h3>Start by logging in!</h3>
