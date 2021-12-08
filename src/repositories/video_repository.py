@@ -59,6 +59,23 @@ class VideoRepository:
         except:
             return False
 
+    def get_video(self, video_id):
+        try:
+            sql = "SELECT * FROM videos WHERE id=:video_id"
+            result = self._db.session.execute(sql, {"video_id": video_id})
+            return result.fetchone()
+        except:
+            return None
+
+    def update_video(self, title, url, description, video_id):
+        try:
+            sql = "UPDATE videos SET title=:title, url=:url, description=:description WHERE id=:video_id"
+            self._db.session.execute(sql, {"title": title, "url": url, "description": description, "video_id": video_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
     def get_users_videos(self, user_id):
         """
         Gets all added videos by the given user-id.

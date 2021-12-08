@@ -14,7 +14,7 @@ class PodcastRepository:
             user_id (Integer): Id of the user adding the podcast.
 
         Returns:
-            Boolen: True if successful.
+            Boolean: True if successful.
         """
         try:
             title = podcast.get_title()
@@ -24,6 +24,23 @@ class PodcastRepository:
                     VALUES (:title, :episode, :description, 'Podcast', :user_id, NULL)"
             self._db.session.execute(
                 sql, {"title": title, "episode": episode, "description": description, "user_id": user_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
+    def get_podcast(self, podcast_id):
+        try:
+            sql = "SELECT * FROM podcasts WHERE id=:podcast_id"
+            result = self._db.session.execute(sql, {"podcast_id": podcast_id})
+            return result.fetchone()
+        except:
+            return None
+
+    def update_podcast(self, title, episode, description, podcast_id):
+        try:
+            sql = "UPDATE podcasts SET title=:title, episode=:episode, description=:description WHERE id=:podcast_id"
+            self._db.session.execute(sql, {"title": title, "episode": episode, "description": description, "podcast_id": podcast_id})
             self._db.session.commit()
             return True
         except:

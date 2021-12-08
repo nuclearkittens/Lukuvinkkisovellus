@@ -12,7 +12,36 @@ class VideoService:
             
         return self._video_repository.add_video(video, user_id)
 
+    def update_video(self, title, url, description, video_id):
+        """
+        First searches that video to be updated exists based on video_id. 
+        Then updates its fields.
+
+        Args:
+            title (String): Updated title of the video.
+            url (String): Updated url to the video.
+            description (String): Updated description of the video.
+            video_id (Integer): Id of the video to be updated.
+
+        Returns:
+            Boolean: True if update was successful.
+        """
+        video_db_row = self._video_repository.get_video(video_id)
+        # Update only if video was actually found
+        if video_db_row != None and len(video_db_row) > 0:
+            return self._video_repository.update_video(title, url, description, video_id)
+        return False
+
     def get_my_videos(self, user_id):
+        """
+        Matches given user_id to found videos from the database and returns them.
+
+        Args:
+            user_id (Integer): user_id of the logged in user.
+
+        Returns:
+            List(Tuple) / None: List of videos if any is found. Else None.
+        """
         my_videos = self._video_repository.get_users_videos(user_id)
         if len(my_videos) == 0:
             return None

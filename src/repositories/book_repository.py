@@ -50,7 +50,7 @@ class BookRepository:
 
     def is_owner(self, user_id, book_id):
         """
-        Checks if the user-id anf the book-id are in the same row in the database.
+        Checks if the user-id and the book-id are in the same row in the database.
 
         Args:
             user_id (Integer): User-id of the currently logged in user.
@@ -66,6 +66,23 @@ class BookRepository:
                 return True
             else:
                 return False
+        except:
+            return False
+
+    def get_book(self, book_id):
+        try:
+            sql = "SELECT * FROM books WHERE id=:book_id"
+            result = self._db.session.execute(sql, {"book_id": book_id})
+            return result.fetchone()
+        except:
+            return None
+
+    def update_book(self, author, title, description, isbn, book_id):
+        try:
+            sql = "UPDATE books SET author=:author, title=:title, description=:description, isbn=:isbn WHERE id=:book_id"
+            self._db.session.execute(sql, {"author": author, "title": title, "description": description, "isbn": isbn, "book_id": book_id})
+            self._db.session.commit()
+            return True
         except:
             return False
 
