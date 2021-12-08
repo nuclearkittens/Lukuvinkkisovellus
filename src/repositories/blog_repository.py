@@ -40,6 +40,16 @@ class BlogRepository:
             return False
 
     def is_owner(self, user_id, blog_id):
+        """
+        Checks if the user-id and the blog-id are in the same row in the database.
+
+        Args:
+            user_id (Integer): User-id of the currently logged in user.
+            blog_id (Integer): blog-id of the blog to be checked.
+
+        Returns:
+            Boolean: True if logged user and blog-id matches.
+        """
         try:
             sql = "SELECT * FROM blogs WHERE user_id=:user_id AND id=:blog_id"
             result = self._db.session.execute(sql, {"user_id": user_id, "blog_id": blog_id})

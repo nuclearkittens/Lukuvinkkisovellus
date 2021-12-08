@@ -39,6 +39,16 @@ class VideoRepository:
             return False
 
     def is_owner(self, user_id, video_id):
+        """
+        Checks if the user-id and the video-id are in the same row in the database.
+
+        Args:
+            user_id (Integer): User-id of the currently logged in user.
+            video_id (Integer): video-id of the video to be checked.
+
+        Returns:
+            Boolean: True if logged user and video-id matches.
+        """
         try:
             sql = "SELECT * FROM videos WHERE user_id=:user_id AND id=:video_id"
             result = self._db.session.execute(sql, {"user_id": user_id, "video_id": video_id})
