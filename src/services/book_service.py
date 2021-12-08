@@ -61,7 +61,7 @@ class BookService:
         isbn (String): ISBN code of book.
         """
 
-            query_url = isbn_url + isbn
+        query_url = isbn_url + isbn
     
         with urllib.request.urlopen(query_url) as response:
             response_text = response.read()
