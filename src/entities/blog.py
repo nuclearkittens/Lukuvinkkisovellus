@@ -24,6 +24,16 @@ class Blog:
         """
         return self._author
 
+    def set_author(self, author):
+        """
+        Sets a new author for the blog.
+
+        Args:
+            author (String): Author of the blog.
+        """
+
+        self._author = author
+
     def get_title(self):
         """
         Return title of the blog.
@@ -32,6 +42,16 @@ class Blog:
             String: Title given when this blog-object was constructed.
         """
         return self._title
+
+    def set_title(self, title):
+        """
+        Sets a new title for the blog.
+
+        Args:
+            title (String): Title of the blog.
+        """
+
+        self._title = title
 
     def get_url(self):
         """
@@ -42,6 +62,16 @@ class Blog:
         """
         return self._url
 
+    def set_url(self, url):
+        """
+        Sets a new url for the blog.
+
+        Args:
+            url (String): Url of the blog.
+        """
+
+        self._url = url
+
     def get_description(self):
         """
         Return description of the blog.
@@ -50,3 +80,13 @@ class Blog:
             String: Description given when this blog-object was constructed.
         """
         return self._description
+
+    def set_description(self, description):
+        """
+        Sets a new description for the blog.
+
+        Args:
+            description (String): description of the blog.
+        """
+
+        self._description = description
