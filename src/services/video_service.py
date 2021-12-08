@@ -13,7 +13,20 @@ class VideoService:
         return self._video_repository.add_video(video, user_id)
 
     def get_my_videos(self, user_id):
-        return self._video_repository.get_users_videos(user_id)
+        """
+        Matches given user_id to found videos from the database and returns them.
+
+        Args:
+            user_id (Integer): user_id of the logged in user.
+
+        Returns:
+            List(Tuple) / None: List of videos if any is found. Else None.
+        """
+        my_videos = self._video_repository.get_users_videos(user_id)
+        if len(my_videos) == 0:
+            return None
+        else:
+            return my_videos
 
     def mark_video_finished(self, video_id):
         return self._video_repository.mark_finished(video_id)

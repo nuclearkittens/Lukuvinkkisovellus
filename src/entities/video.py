@@ -42,6 +42,16 @@ class Video:
         """
         return self._url
 
+    def set_url(self, url):
+        """
+        Sets a new url for the video.
+
+        Args:
+            url (String): Url of the video.
+        """
+
+        self._url = url
+
     def get_description(self):
         """
         Return description of the video.
@@ -50,3 +60,13 @@ class Video:
             String: Description given when this video-object was constructed.
         """
         return self._description
+
+    def set_description(self, description):
+        """
+        Sets a new description for the video.
+
+        Args:
+            description (String): description of the video.
+        """
+
+        self._description = description
