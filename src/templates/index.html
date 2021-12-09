@@ -75,7 +75,7 @@ Lukuvinkkisovellus
         {% else %}
         <input type="checkbox" class="btn-check" value="unreaded" id="unreaded-check" name="type_check">
         {% endif %}
-        <label class="btn btn-outline-warning" for="unreaded-check">Vain lukemattomat</label>
+        <label id="lukemattomat" class="btn btn-outline-warning" for="unreaded-check">Vain lukemattomat</label>
 
         <br>
         <br>
@@ -88,7 +88,6 @@ Lukuvinkkisovellus
           <h4>Kirjat</h4>
           <hr>
           {% for book in books %}
-          {{ book }}
           {% if keyword.lower() in book[2].lower() %}
           {% if ("unreaded" not in checked_types) or (book[7] is none) %}
           <div class="list-group" id="{{ book[2] }}" style="padding-top: 5px;">
