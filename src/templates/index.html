@@ -22,6 +22,7 @@ Lukuvinkkisovellus
       <h3>Tervetuloa {{ session.username }}</h3>
       <h4>Lukuvinkkilista</h4>
       <hr>
+
       <form action="/#keyword=" method="POST">
         {{ search_form.csrf_token }}
         <div class="form-group">
@@ -38,15 +39,57 @@ Lukuvinkkisovellus
             {{ search_form.keyword(class='form-control form-control-') }}
             {% endif %}
         </div>
-        {{ search_form.submit(class="btn btn-primary") }}
-        </form>
         Hakusana: {{ keyword }}
+        <br>
+        <br>
+        <p>Hae tyypin mukaan:<p>
+        {% if "books" in checked_types %}
+        <input type="checkbox" class="btn-check" value="books" id="book-check" name="type_check" checked autocomplete="on">
+        {% else %}
+        <input type="checkbox" class="btn-check" value="books" id="book-check" name="type_check">
+        {% endif %}
+        <label class="btn btn-outline-primary" for="book-check">Kirjat</label>
+        {% if "podcasts" in checked_types %}
+        <input type="checkbox" class="btn-check" value="podcasts" id="podcast-check" name="type_check" checked autocomplete="on">
+        {% else %}
+        <input type="checkbox" class="btn-check" value="podcasts" id="podcast-check" name="type_check">
+        {% endif %}
+        <label class="btn btn-outline-primary" for="podcast-check">Podcastit</label>
+
+        {% if "blogs" in checked_types %}
+        <input type="checkbox" class="btn-check" value="blogs" id="blog-check" name="type_check" checked autocomplete="on">
+        {% else %}
+        <input type="checkbox" class="btn-check" value="blogs" id="blog-check" name="type_check">
+        {% endif %}
+        <label class="btn btn-outline-primary" for="blog-check">Blogit</label>
+
+        {% if "videos" in checked_types %}
+        <input type="checkbox" class="btn-check" value="videos" id="video-check" name="type_check" checked autocomplete="on">
+        {% else %}
+        <input type="checkbox" class="btn-check" value="videos" id="video-check" name="type_check">
+        {% endif %}
+        <label class="btn btn-outline-primary" for="video-check">Videot</label>
+
+        {% if "unreaded" in checked_types %}
+        <input type="checkbox" class="btn-check" value="unreaded" id="unreaded-check" name="type_check" checked autocomplete="on">
+        {% else %}
+        <input type="checkbox" class="btn-check" value="unreaded" id="unreaded-check" name="type_check">
+        {% endif %}
+        <label class="btn btn-outline-warning" for="unreaded-check">Vain lukemattomat</label>
+
+        <br>
+        <br>
+        {{ search_form.submit(class="btn btn-success") }}
+        </form>
+        <hr>
         <p>Tää asettelu yms on aika WIP, mutta perustoiminnallisuus pitäs toimia oikein</p>
+
         {% if books is not none %}
           <h4>Kirjat</h4>
           <hr>
           {% for book in books %}
           {% if keyword.lower() in book[2].lower() %}
+          {% if ("unreaded" not in checked_types) or (book[7] is none) %}
           <div class="list-group" id="{{ book[2] }}" style="padding-top: 5px;">
             {% if book[7] is not none %}
             <a href="/books/{{ book[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
@@ -65,6 +108,7 @@ Lukuvinkkisovellus
             </a>
           </div>
           {% endif %}
+          {% endif %}
           {% endfor %}
         {% endif %}
 
@@ -73,6 +117,7 @@ Lukuvinkkisovellus
           <hr>
           {% for podcast in podcasts %}
           {% if keyword.lower() in podcast[2].lower() %}
+          {% if ("unreaded" not in checked_types) or (podcast[6] is none) %}
           <div class="list-group" id="{{ podcast[2] }}" style="padding-top: 5px;">
             {% if podcast[6] is not none %}
             <a href="/podcasts/{{ podcast[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
@@ -89,6 +134,7 @@ Lukuvinkkisovellus
             </a>
           </div>
           {% endif %}
+          {% endif %}
           {% endfor %}
         {% endif %}
 
@@ -97,6 +143,7 @@ Lukuvinkkisovellus
           <hr>
           {% for blog in blogs %}
           {% if keyword.lower() in blog[2].lower() %}
+          {% if ("unreaded" not in checked_types) or (blog[7] is none) %}
           <div class="list-group" id="{{ blog[2] }}" style="padding-top: 5px;">
             {% if blog[7] is not none %}
             <a href="/blogs/{{ blog[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
@@ -115,6 +162,7 @@ Lukuvinkkisovellus
             </a>
           </div>
           {% endif %}
+          {% endif %}
           {% endfor %}
         {% endif %}
 
@@ -123,6 +171,7 @@ Lukuvinkkisovellus
           <hr>
           {% for video in videos %}
           {% if keyword.lower() in video[1].lower() %}
+          {% if ("unreaded" not in checked_types) or (video[6] is none) %}
           <div class="list-group" id="{{ video[1] }}" style="padding-top: 5px;">
             {% if video[6] is not none %}
             <a href="/videos/{{ video[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
@@ -139,6 +188,7 @@ Lukuvinkkisovellus
               <small id="{{ video[1] }}_" class="text-muted">Luettu: {{ video[6] }}</small>
             </a>
           </div>
+          {% endif %}
           {% endif %}
           {% endfor %}
         {% endif %}

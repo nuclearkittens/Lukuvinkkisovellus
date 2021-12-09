@@ -30,6 +30,23 @@ class BlogRepository:
         except:
             return False
 
+    def get_blog(self, blog_id):
+        try:
+            sql = "SELECT * FROM blogs WHERE id=:blog_id"
+            result = self._db.session.execute(sql, {"blog_id": blog_id})
+            return result.fetchone()
+        except:
+            return None
+
+    def update_blog(self, author, title, url, description, blog_id):
+        try:
+            sql = "UPDATE blogs SET author=:author, title=:title, url=:url, description=:description WHERE id=:blog_id"
+            self._db.session.execute(sql, {"author": author, "title": title, "url": url, "description": description, "blog_id": blog_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
     def mark_finished(self, blog_id):
         try:
             sql = "UPDATE blogs SET marked_read=NOW() WHERE id=:blog_id"
