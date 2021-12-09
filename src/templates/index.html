@@ -48,27 +48,27 @@ Lukuvinkkisovellus
         {% else %}
         <input type="checkbox" class="btn-check" value="books" id="book-check" name="type_check">
         {% endif %}
-        <label class="btn btn-outline-primary" for="book-check">Kirjat</label>
+        <label id="kirjat" class="btn btn-outline-primary" for="book-check">Kirjat</label>
         {% if "podcasts" in checked_types %}
         <input type="checkbox" class="btn-check" value="podcasts" id="podcast-check" name="type_check" checked autocomplete="on">
         {% else %}
         <input type="checkbox" class="btn-check" value="podcasts" id="podcast-check" name="type_check">
         {% endif %}
-        <label class="btn btn-outline-primary" for="podcast-check">Podcastit</label>
+        <label id="podcastit" class="btn btn-outline-primary" for="podcast-check">Podcastit</label>
 
         {% if "blogs" in checked_types %}
         <input type="checkbox" class="btn-check" value="blogs" id="blog-check" name="type_check" checked autocomplete="on">
         {% else %}
         <input type="checkbox" class="btn-check" value="blogs" id="blog-check" name="type_check">
         {% endif %}
-        <label class="btn btn-outline-primary" for="blog-check">Blogit</label>
+        <label id="blogit" class="btn btn-outline-primary" for="blog-check">Blogit</label>
 
         {% if "videos" in checked_types %}
         <input type="checkbox" class="btn-check" value="videos" id="video-check" name="type_check" checked autocomplete="on">
         {% else %}
         <input type="checkbox" class="btn-check" value="videos" id="video-check" name="type_check">
         {% endif %}
-        <label class="btn btn-outline-primary" for="video-check">Videot</label>
+        <label id="videot" class="btn btn-outline-primary" for="video-check">Videot</label>
 
         {% if "unreaded" in checked_types %}
         <input type="checkbox" class="btn-check" value="unreaded" id="unreaded-check" name="type_check" checked autocomplete="on">
