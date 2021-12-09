@@ -88,6 +88,7 @@ Lukuvinkkisovellus
           <h4>Kirjat</h4>
           <hr>
           {% for book in books %}
+          {{ book }}
           {% if keyword.lower() in book[2].lower() %}
           {% if ("unreaded" not in checked_types) or (book[7] is none) %}
           <div class="list-group" id="{{ book[2] }}" style="padding-top: 5px;">
@@ -101,8 +102,8 @@ Lukuvinkkisovellus
                 <small>Tyyppi: {{ book[4] }}</small>
               </div>
               <h6 class="mb-1">Kirjoittaja: {{ book[1] }}</h6>
-              <h6 class="mb-1">Kuvaus: {{ book[5] }}</h6>
-              <small class="text-muted">ISBN: {{ book[3] }}</small>
+              <h6 class="mb-1">Kuvaus: {{ book[3] }}</h6>
+              <small class="text-muted">ISBN: {{ book[5] }}</small>
               <br>
               <small id="{{ book[2] }}_" class="text-muted">Luettu: {{ book[7] }}</small>
             </a>
