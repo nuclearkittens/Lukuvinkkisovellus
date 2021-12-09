@@ -32,6 +32,8 @@ ${test_isbn}  978-952-5985-60-3
 ${test_description}  Ajan luonne purkaa ajan vyyhtiä fysiikan, filosofian ja taiteen avulla.
 ${test_author_2}  William King
 ${test_title_2}  Gotrek & Felix
+${test_title_3}  Linnunrata
+${test_isbn_3}  978-951-0-21844-0
 
 #Blogi
 ${test_blog_writer}  Teemu Öhman
