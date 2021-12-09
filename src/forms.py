@@ -35,7 +35,7 @@ class BookForm(FlaskForm):
     submit = SubmitField("Submit")
 
 class IsbnForm(FlaskForm):
-    isbn = StringField("ISBN", validators=[DataRequired()])
+    isbn = StringField("ISBN (*)", validators=[DataRequired()])
     description = StringField("Kuvaus")
     submit = SubmitField("Submit")
 
