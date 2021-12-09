@@ -46,3 +46,22 @@ class TestBookService(unittest.TestCase):
 
         self.assertEqual(len(books), 1)
         self.assertEqual(books[0][0], self.user_id)
+
+    def test_find_and_add_book_with_isbn(self):
+        isbn = "1118051076"
+        book_info = self.service.get_book_info_from_isbn(isbn)
+        author = book_info["author"]
+        title = book_info["title"]
+
+        found_book = Book(author, title, isbn, "I found me a book")
+        response = self.service.new_book(found_book, self.other_user_id)
+
+        self.assertEqual(author, "Wallace Wang")
+        self.assertEqual(title, "Beginning Programming For Dummies")
+        self.assertTrue(response)
+
+    def test_book_not_found_with_faulty_isbn(self):
+        isbn = "666"
+        book_info = self.service.get_book_info_from_isbn(isbn)
+
+        self.assertEqual(book_info, None)
