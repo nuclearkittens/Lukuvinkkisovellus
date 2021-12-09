@@ -14,7 +14,6 @@ class Book:
         self._title = title
         self._description = description
         self._isbn = isbn
-        
 
     def get_author(self):
         """

@@ -40,7 +40,7 @@ def render_home():
     videos = None
     keyword = ""
     checked_types = ["books", "podcasts", "blogs", "videos"]
-    
+
     search_form = SearchForm()
     if search_form.validate_on_submit():
         keyword = search_form.keyword.data
@@ -56,8 +56,17 @@ def render_home():
         if "videos" in checked_types:
             videos = video_service.get_my_videos(session["user_id"])
 
-    return render_template("index.html", form=form, search_form=search_form,
-     books=books, podcasts=podcasts, blogs=blogs, videos=videos, keyword=keyword, checked_types=checked_types)
+    return render_template(
+        "index.html",
+        form=form,
+        search_form=search_form,
+        books=books,
+        podcasts=podcasts,
+        blogs=blogs,
+        videos=videos,
+        keyword=keyword,
+        checked_types=checked_types
+        )
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -171,8 +180,6 @@ def blog(blog_id):
         abort(403)
     return render_template("blog.html", blog_info=blog_info)
 
-
-
 @app.route("/new_video", methods=["GET", "POST"])
 def new_video():
     form = VideoForm()
@@ -196,7 +203,6 @@ def video(video_id):
     else:
         abort(403)
     return render_template("video.html", video_info=video_info)
-
 
 @app.route("/new_podcast", methods=["GET", "POST"])
 def new_podcast():
@@ -222,11 +228,9 @@ def podcast(podcast_id):
         abort(403)
     return render_template("podcast.html", podcast_info=podcast_info)
 
-
 @app.route("/ping")
 def ping():
     return "Pong"
-
 
 @app.route("/try_db")
 def try_db():
