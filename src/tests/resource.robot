@@ -49,6 +49,8 @@ ${test_video_title_2}  Hard Kokki: Makaronilaatikko
 ${test_video_url}  https://www.youtube.com/watch?v=PAa1KVqX9lk
 ${test_video_url_2}  https://www.youtube.com/watch?v=_2uVLtjAtQw
 ${test_video_description}  Vihdoin aivan saatanan halpaa ruokaa joka sopii persereikä aukisille ja opiskelijoille varsin hyvin.
+${test_video_title_3}  INSOMNIUM - While We Sleep (OFFICIAL VIDEO)
+${test_video_url_3}  https://www.youtube.com/watch?v=vBZ5SLJmfdw
 
 #Podcast
 ${test_episode}  Jakso 7: Testaajan rooli ohjelmistokehityksessä
