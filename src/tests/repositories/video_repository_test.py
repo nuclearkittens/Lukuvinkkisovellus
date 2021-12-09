@@ -57,3 +57,23 @@ class TestvideoRepository(unittest.TestCase):
         
         self.assertIsNotNone(time_stamp)
     
+    def test_is_user_owner_of_video(self):
+        self.video_repository.add_video(self.test_video, self.user_id)
+
+        videos = self.video_repository.get_users_videos(self.user_id)
+        video = videos[0]
+        
+        result = self.video_repository.is_owner(self.user_id, video.id)
+        
+        self.assertTrue(result)
+        
+    def test_user_is_not_owner_of_video(self):
+        self.video_repository.add_video(self.test_video, self.other_id)
+
+        videos = self.video_repository.get_users_videos(self.other_id)
+        video = videos[0]
+        
+        result = self.video_repository.is_owner(self.user_id, video.id)
+        
+        self.assertFalse(result)
+    
