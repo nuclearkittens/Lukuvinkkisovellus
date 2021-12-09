@@ -65,10 +65,12 @@ class BookService:
     
         with urllib.request.urlopen(query_url) as response:
             response_text = response.read()
-            data = json.loads(response_text.decode())["items"][0]
             
-            title = data["volumeInfo"]["title"]
-            authors = ",".join(data["volumeInfo"]["authors"])
-
-        return(authors, title)
+            try: 
+                data = json.loads(response_text.decode())["items"][0]
+                title = data["volumeInfo"]["title"]
+                authors = ",".join(data["volumeInfo"]["authors"])
+                return {"author": authors, "title": title}
+            except(KeyError):
+                return None
 

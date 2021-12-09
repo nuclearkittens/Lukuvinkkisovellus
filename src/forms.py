@@ -34,6 +34,10 @@ class BookForm(FlaskForm):
     description = StringField("Kuvaus")
     submit = SubmitField("Submit")
 
+class IsbnForm(FlaskForm):
+    isbn = StringField("ISBN", validators=[DataRequired()])
+    description = StringField("Kuvaus")
+    submit = SubmitField("Submit")
 
 class BlogForm(FlaskForm):
     title = StringField("Otsikko (*)", validators=[DataRequired()])

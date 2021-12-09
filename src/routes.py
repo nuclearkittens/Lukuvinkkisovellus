@@ -16,7 +16,7 @@ from repositories.book_repository import BookRepository
 from repositories.podcast_repository import PodcastRepository
 from repositories.blog_repository import BlogRepository
 from repositories.video_repository import VideoRepository
-from forms import BlogForm, BookForm, LoginForm, PodcastForm, RegisterForm, SearchForm, VideoForm
+from forms import BlogForm, BookForm, IsbnForm, LoginForm, PodcastForm, RegisterForm, SearchForm, VideoForm
 
 user_repository = UserRepository(db)
 user_service = UserService(user_repository, session)
@@ -105,11 +105,32 @@ def new_book():
         description = form.description.data
         user_id = session["user_id"]
 
-        if book_service.new_book(Book(author, title, isbn, description), user_id):
+        if book_service.new_book(Book(author=author, title=title, isbn=isbn, description=description), user_id):
             return redirect("/")
         flash("Something went wrong...")
     return render_template("new_book.html", form=form)
 
+@app.route("/search_isbn", methods=["GET", "POST"])
+def search_isbn():
+    form = IsbnForm()
+
+    if form.validate_on_submit():
+        isbn = form.isbn.data
+        description = form.description.data
+        book_info = book_service.get_book_info_from_isbn(isbn)
+
+        if book_info is None:
+            flash("No info found with this ISBN")
+            return redirect("/search_isbn")
+
+        author = book_info["author"]
+        title = book_info["title"]
+        user_id = session["user_id"]
+
+        if book_service.new_book(Book(author=author, description=description, title=title, isbn=isbn), user_id):
+            return redirect("/")
+
+    return render_template("search_isbn.html", form=form)
 
 @app.route("/books/<int:book_id>", methods=["GET", "POST"])
 def book(book_id):
@@ -219,3 +240,5 @@ def try_db():
     name = row[0]
 
     return f"heippa {name}"
+
+
