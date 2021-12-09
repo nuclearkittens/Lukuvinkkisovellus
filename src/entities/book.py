@@ -42,7 +42,7 @@ class Book:
         Returns:
             String: title given when this book-object was constructed.
         """
-        return self._description
+        return self._title
 
     def set_title(self, title):
         """
