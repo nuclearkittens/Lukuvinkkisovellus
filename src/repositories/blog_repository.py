@@ -93,3 +93,47 @@ class BlogRepository:
             return result.fetchall()
         except:
             return None
+    
+    def get_blogs_by_tag(self, tag_id):
+        try:
+            sql = "SELECT * FROM blogs, blog_tags \
+                WHERE blog_tags.tag_id=:tag_id AND \
+                    blog_tags.blog_id=blogs.id"
+            result = self._db.session.execute(
+                sql, {"tag_id": tag_id})
+            return result.fetchall()
+        except:
+            return None
+
+    def get_tags_by_blog(self, blog_id):
+        try:
+            sql = "SELECT tags.id, tags.tag FROM tags, \
+                blog_tags WHERE blog_tags.tag_id=tags.id \
+                    AND blog_tags.blog_id=:blog_id"
+            result = self._db.session.execute(
+                sql, {"blog_id": blog_id})
+            return result.fetchall()
+        except:
+            return None
+
+    def attach_tag(self, tag_id, blog_id):
+        try:
+            sql = "INSERT INTO blog_tags (tag_id, blog_id) \
+                    VALUES (:tag_id, :blog_id)"
+            self._db.session.execute(
+                sql, {"tag_id": tag_id, "blog_id": blog_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
+    def remove_tag(self, tag_id, blog_id):
+        try:
+            sql = "DELETE FROM blog_tags \
+                WHERE tag_id=:tag_id AND blog_id=:blog_id"
+            self._db.session.execute(
+                sql, {"tag_id": tag_id, "blog_id": blog_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False

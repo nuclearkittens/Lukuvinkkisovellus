@@ -112,3 +112,46 @@ class BookRepository:
         except:
             return False
 
+    def get_books_by_tag(self, tag_id):
+        try:
+            sql = "SELECT * FROM books, book_tags \
+                WHERE book_tags.tag_id=:tag_id AND \
+                    book_tags.book_id=books.id"
+            result = self._db.session.execute(
+                sql, {"tag_id": tag_id})
+            return result.fetchall()
+        except:
+            return None
+    
+    def get_tags_by_book(self, book_id):
+        try:
+            sql = "SELECT tags.id, tags.tag FROM tags, \
+                book_tags WHERE book_tags.tag_id=tags.id \
+                    AND book_tags.book_id=:book_id"
+            result = self._db.session.execute(
+                sql, {"book_id": book_id})
+            return result.fetchall()
+        except:
+            return None
+
+    def attach_tag(self, tag_id, book_id):
+        try:
+            sql = "INSERT INTO book_tags (tag_id, book_id) \
+                    VALUES (:tag_id, :book_id)"
+            self._db.session.execute(
+                sql, {"tag_id": tag_id, "book_id": book_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
+    def remove_tag(self, tag_id, book_id):
+        try:
+            sql = "DELETE FROM book_tags \
+                WHERE tag_id=:tag_id AND book_id=:book_id"
+            self._db.session.execute(
+                sql, {"tag_id": tag_id, "book_id": book_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False

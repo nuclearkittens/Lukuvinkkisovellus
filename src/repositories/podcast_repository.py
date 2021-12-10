@@ -92,3 +92,47 @@ class PodcastRepository:
             return result.fetchall()
         except:
             return None
+
+    def get_podcasts_by_tag(self, tag_id):
+        try:
+            sql = "SELECT * FROM podcasts, podcast_tags \
+                WHERE podcast_tags.tag_id=:tag_id AND \
+                    podcast_tags.podcast_id=podcasts.id"
+            result = self._db.session.execute(
+                sql, {"tag_id": tag_id})
+            return result.fetchall()
+        except:
+            return None
+    
+    def get_tags_by_podcast(self, podcast_id):
+        try:
+            sql = "SELECT tags.id, tags.tag FROM tags, \
+                podcast_tags WHERE podcast_tags.tag_id=tags.id \
+                    AND podcast_tags.podcast_id=:podcast_id"
+            result = self._db.session.execute(
+                sql, {"podcast_id": podcast_id})
+            return result.fetchall()
+        except:
+            return None
+
+    def attach_tag(self, tag_id, podcast_id):
+        try:
+            sql = "INSERT INTO podcast_tags (tag_id, podcast_id) \
+                    VALUES (:tag_id, :podcast_id)"
+            self._db.session.execute(
+                sql, {"tag_id": tag_id, "podcast_id": podcast_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
+    def remove_tag(self, tag_id, podcast_id):
+        try:
+            sql = "DELETE FROM podcast_tags WHERE tag_id=:tag_id \
+                    AND podcast_id=:podcast_id"
+            self._db.session.execute(
+                sql, {"tag_id": tag_id, "podcast_id": podcast_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False

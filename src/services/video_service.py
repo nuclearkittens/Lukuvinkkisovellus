@@ -71,3 +71,15 @@ class VideoService:
             response_text = response.read()
             data = json.loads(response_text.decode())
             return(data["title"])
+
+    def get_videos_by_tag(self, tag_id):
+        return self._video_repository.get_videos_by_tag(tag_id)
+
+    def get_tags_by_video(self, video_id):
+        return self._video_repository.get_tags_by_video(video_id)
+
+    def attach_tag(self, tag_id, video_id):
+        return self._video_repository.attach_tag(tag_id, video_id)
+
+    def remove_tag(self, tag_id, video_id):
+        return self._video_repository.remove_tag(tag_id, video_id)

@@ -46,3 +46,15 @@ class PodcastService:
 
     def is_podcast_mine(self, user_id, podcast_id):
         return self._podcast_repository.is_owner(user_id, podcast_id)
+
+    def get_podcasts_by_tag(self, tag_id):
+        return self._podcast_repository.get_podcasts_by_tag(tag_id)
+
+    def get_tags_by_podcast(self, podcast_id):
+        return self._podcast_repository.get_tags_by_podcast(podcast_id)
+
+    def attach_tag(self, tag_id, podcast_id):
+        return self._podcast_repository.attach_tag(tag_id, podcast_id)
+
+    def remove_tag(self, tag_id, podcast_id):
+        return self._podcast_repository.remove_tag(tag_id, podcast_id)

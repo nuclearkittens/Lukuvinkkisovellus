@@ -47,3 +47,15 @@ class BlogService:
 
     def is_blog_mine(self, user_id, blog_id):
         return self._blog_repository.is_owner(user_id, blog_id)
+    
+    def get_blogs_by_tag(self, tag_id):
+        return self._blog_repository.get_blogs_by_tag(tag_id)
+
+    def get_tags_by_blog(self, blog_id):
+        return self._blog_repository.get_tags_by_blog(blog_id)
+
+    def attach_tag(self, tag_id, blog_id):
+        return self._blog_repository.attach_tag(tag_id, blog_id)
+
+    def remove_tag(self, tag_id, blog_id):
+        return self._blog_repository.remove_tag(tag_id, blog_id)

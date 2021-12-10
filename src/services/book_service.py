@@ -73,3 +73,15 @@ class BookService:
                 return {"author": authors, "title": title}
             except(KeyError):
                 return None
+
+    def get_books_by_tag(self, tag_id):
+        return self._book_repository.get_books_by_tag(tag_id)
+
+    def get_tags_by_book(self, book_id):
+        return self._book_repository.get_tags_by_book(book_id)
+
+    def attach_tag(self, tag_id, book_id):
+        return self._book_repository.attach_tag(tag_id, book_id)
+
+    def remove_tag(self, tag_id, book_id):
+        return self._book_repository.remove_tag(tag_id, book_id)

@@ -92,3 +92,47 @@ class VideoRepository:
             return result.fetchall()
         except:
             return None
+
+    def get_videos_by_tag(self, tag_id):
+        try:
+            sql = "SELECT * FROM videos, video_tags \
+                WHERE video_tags.tag_id=:tag_id AND \
+                    video_tags.video_id=videos.id"
+            result = self._db.session.execute(
+                sql, {"tag_id": tag_id})
+            return result.fetchall()
+        except:
+            return None
+
+    def get_tags_by_video(self, video_id):
+        try:
+            sql = "SELECT tags.id, tags.tag FROM tags, \
+                video_tags WHERE video_tags.tag_id=tags.id \
+                    AND video_tags.video_id=:video_id"
+            result = self._db.session.execute(
+                sql, {"video_id": video_id})
+            return result.fetchall()
+        except:
+            return None
+
+    def attach_tag(self, tag_id, video_id):
+        try:
+            sql = "INSERT INTO video_tags (tag_id, video_id) \
+                    VALUES (:tag_id, :video_id)"
+            self._db.session.execute(
+                sql, {"tag_id": tag_id, "video_id": video_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
+    def remove_tag(self, tag_id, video_id):
+        try:
+            sql = "DELETE FROM video_tags \
+                WHERE tag_id=:tag_id AND video_id=:video_id"
+            self._db.session.execute(
+                sql, {"tag_id": tag_id, "video_id": video_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
