@@ -38,4 +38,7 @@ Set Episode
 Set Url
     [Arguments]  ${url}
     Input Text  url  ${url}
-    
+
+Set Search Term
+    [Arguments]  ${keyword}
+    Input Text  keyword  ${keyword}

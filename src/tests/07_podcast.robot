@@ -51,7 +51,7 @@ Podcast Is Not Marked As Read
     Element Should Contain  //*[@id="${test_episode}_"]  Luettu: None
 
 Mark Podcast As Read
-    Press Key  xpath://body  \ue00f
+    Press Keys  None  PAGE_DOWN
     Sleep  1
     Click Element  xpath://*[@id="${test_episode}"]
     Click Button  Merkitse luetuksi

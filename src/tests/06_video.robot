@@ -8,13 +8,12 @@ Test Setup  Go To Home Page
 
 
 *** Test Cases ***
-Add New Video Without Title
+Add New Video By Url
     Set Username  ${test_user_1}
     Set Password  ${test_passwd_1}
     Submit Login Credentials    
     Click Link  xpath://a[@href="/new_video"]
-    Set Url  ${test_video_url}
-    Set Description  ${test_video_description}
+    Set Url  ${test_video_url_3}
     Click Element  submit
     Page Should Not Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
 
@@ -42,28 +41,20 @@ Add New Video Without Description
     Set Url  ${test_video_url_2}
     Click Element  submit
     Page Should Not Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
-    
-Add New video By Url
-    Go To Home Page
-    Click Link  xpath://a[@href="/new_video"]
-    Set Url  ${test_video_url_3}
-    Click Element  submit
-    Sleep  2
-    Page Should Contain  Otsikko: ${test_video_title_3}
-    
+
 Video Is Found From List
     Go To Home Page
     Page Should Contain  Otsikko: ${test_video_title}
 
 Video Is Not Marked As Read
-    Press Key  xpath://body  \ue00f
+    #Press Key  xpath://body  \ue00f
+    Press Keys  None  PAGE_DOWN
     Element Should Contain  //*[@id="${test_video_title_2}_"]  Luettu: None
-    
+
 Mark Video As Watched
-    Press Key  xpath://body  \ue00f
-    Press Key  xpath://body  \ue00f
+    Press Keys  None  PAGE_DOWN
+    Press Keys  None  PAGE_DOWN
     Sleep  1
-    #Scroll Element Into View  xpath://*[@id="${test_video_title}"]
     Click Element  xpath://*[@id="${test_video_title_2}"]
     Click Button  Merkitse luetuksi
     ${time_now}=  Get Current Date  result_format=%Y-%m-%d %H:%M
