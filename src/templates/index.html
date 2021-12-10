@@ -88,23 +88,23 @@ Lukuvinkkisovellus
           <h4>Kirjat</h4>
           <hr>
           {% for book in books %}
-          {% if keyword.lower() in book[2].lower() %}
-          {% if ("unreaded" not in checked_types) or (book[7] is none) %}
-          <div class="list-group" id="{{ book[2] }}" style="padding-top: 5px;">
-            {% if book[7] is not none %}
-            <a href="/books/{{ book[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
+          {% if keyword.lower() in book.get_title().lower() %}
+          {% if ("unreaded" not in checked_types) or (not book.get_read()) %}
+          <div class="list-group" id="{{ book.get_title() }}" style="padding-top: 5px;">
+            {% if book.get_read() %}
+            <a href="/books/{{ book.get_id() }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
             {% else %}
-            <a href="/books/{{ book[0] }}" class="list-group-item list-group-item-action">
+            <a href="/books/{{ book.get_id() }}" class="list-group-item list-group-item-action">
             {% endif %}
               <div class="d-flex justify-content-between">
-                <h5 class="mb-1">Otsikko: {{ book[2] }}</h5>
-                <small>Tyyppi: {{ book[4] }}</small>
+                <h5 class="mb-1">Otsikko: {{ book.get_title() }}</h5>
+                <small>Tyyppi: Kirja</small>
               </div>
-              <h6 class="mb-1">Kirjoittaja: {{ book[1] }}</h6>
-              <h6 class="mb-1">Kuvaus: {{ book[3] }}</h6>
-              <small class="text-muted">ISBN: {{ book[5] }}</small>
+              <h6 class="mb-1">Kirjoittaja: {{ book.get_author() }}</h6>
+              <h6 class="mb-1">Kuvaus: {{ book.get_description() }}</h6>
+              <small class="text-muted">ISBN: {{ book.get_isbn() }}</small>
               <br>
-              <small id="{{ book[2] }}_" class="text-muted">Luettu: {{ book[7] }}</small>
+              <small id="{{ book.get_title() }}_" class="text-muted">Luettu: {{ book.get_read() }}</small>
             </a>
           </div>
           {% endif %}

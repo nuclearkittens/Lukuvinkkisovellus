@@ -1,4 +1,6 @@
 from sqlalchemy import exc
+from entities.tag import Tag
+from entities.book import Book
 
 
 class BookRepository:
@@ -98,8 +100,13 @@ class BookRepository:
         """
         try:
             sql = "SELECT * FROM books WHERE user_id=:user_id"
-            result = self._db.session.execute(sql, {"user_id": user_id})
-            return result.fetchall()
+            result = self._db.session.execute(sql, {"user_id": user_id}).fetchall()
+            books = []
+            for data in result:
+                tags = self.get_tags_by_book(data[0])
+                book = Book(data[1], data[2], data[3], data[7], data[0], data[5], tags)
+                books.append(book)
+            return books
         except:
             return None
 
@@ -130,7 +137,12 @@ class BookRepository:
                     AND book_tags.book_id=:book_id"
             result = self._db.session.execute(
                 sql, {"book_id": book_id})
-            return result.fetchall()
+            result = result.fetchall()
+            tags = []
+            for data in result:
+                tag = Tag(data[0], data[1])
+                tags.append(tag)
+            return tags
         except:
             return None
 
