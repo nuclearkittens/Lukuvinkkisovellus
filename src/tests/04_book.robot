@@ -67,7 +67,7 @@ Book Is Not Marked As Read
     Element Should Contain  //*[@id="${test_title}_"]  Luettu: None
 
 Mark Book As Read
-    Press Key  xpath://body  \ue00f
+    Press Keys  None  PAGE_DOWN
     Sleep  1
     Click Element  xpath://*[@id="${test_title}"]
     Click Button  Merkitse luetuksi

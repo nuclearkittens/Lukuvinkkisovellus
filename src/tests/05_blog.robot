@@ -55,7 +55,7 @@ Blog Is Not Marked As Read
     Element Should Contain  //*[@id="${test_blog_title}_"]  Luettu: None
 
 Mark Blog As Read
-    Press Key  xpath://body  \ue00f
+    Press Keys  None  PAGE_DOWN
     Sleep  1
     Click Element  xpath://*[@id="${test_blog_title}"]
     Click Button  Merkitse luetuksi
