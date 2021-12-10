@@ -80,3 +80,4 @@ poetry run invoke lint
 ```
 
 Testeihin liittyvä koodi on jätetty pois laatutarkastuksista.
+
