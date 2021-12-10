@@ -47,12 +47,12 @@ class TestBookRepository(unittest.TestCase):
         self.book_repository.add_book(self.test_book, self.user_id)
         
         books = self.book_repository.get_users_books(self.user_id)
-        book_id = books[0][0]
+        book_id = books[0].get_id()
         self.book_repository.mark_finished(book_id)
         
         books = self.book_repository.get_users_books(self.user_id)
         book = books[0]
-        time_stamp = book.marked_read
+        time_stamp = book.get_read()
         
         self.assertIsNotNone(time_stamp)
     
@@ -62,7 +62,7 @@ class TestBookRepository(unittest.TestCase):
         books = self.book_repository.get_users_books(self.user_id)
         book = books[0]
         
-        result = self.book_repository.is_owner(self.user_id, book.id)
+        result = self.book_repository.is_owner(self.user_id, book.get_id())
         
         self.assertTrue(result)
         
@@ -72,7 +72,7 @@ class TestBookRepository(unittest.TestCase):
         books = self.book_repository.get_users_books(self.other_id)
         book = books[0]
         
-        result = self.book_repository.is_owner(self.user_id, book.id)
+        result = self.book_repository.is_owner(self.user_id, book.get_id())
         
         self.assertFalse(result)
     
