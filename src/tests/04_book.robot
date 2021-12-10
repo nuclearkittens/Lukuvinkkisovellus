@@ -44,6 +44,20 @@ Add New Book Without Additional Info
     Set Booktitle  ${test_title_2}
     Click Element  submit
     Page Should Contain  Lukuvinkkilista
+    
+Add New Book By ISBN
+    Click Link  Lisää kirja
+    Click Element  xpath://a[@href="/search_isbn"]
+    Set ISBN  ${test_isbn_3}
+    Click Element  submit
+    Page Should Contain  Otsikko: ${test_title_3}
+    
+Add New Book By Invalid ISBN
+    Click Link  Lisää kirja
+    Click Element  xpath://a[@href="/search_isbn"]
+    Set ISBN  756756-232323
+    Click Element  submit
+    Page Should Contain  No info found with this ISBN
 
 Book Is Found From List
     Go To Home Page

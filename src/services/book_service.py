@@ -27,7 +27,7 @@ class BookService:
         """
         book_db_row = self._book_repository.get_book(book_id)
         # Update only if book was actually found
-        if book_db_row != None and len(book_db_row) > 0:
+        if book_db_row is not None and len(book_db_row) > 0:
             return self._book_repository.update_book(author, title, description, isbn, book_id)
         return False
 
@@ -62,13 +62,14 @@ class BookService:
         """
 
         query_url = isbn_url + isbn
-    
+
         with urllib.request.urlopen(query_url) as response:
             response_text = response.read()
-            data = json.loads(response_text.decode())["items"][0]
-            
-            title = data["volumeInfo"]["title"]
-            authors = ",".join(data["volumeInfo"]["authors"])
 
-        return(authors, title)
-
+            try:
+                data = json.loads(response_text.decode())["items"][0]
+                title = data["volumeInfo"]["title"]
+                authors = ",".join(data["volumeInfo"]["authors"])
+                return {"author": authors, "title": title}
+            except(KeyError):
+                return None

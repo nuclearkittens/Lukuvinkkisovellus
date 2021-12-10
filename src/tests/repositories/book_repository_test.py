@@ -56,3 +56,24 @@ class TestBookRepository(unittest.TestCase):
         
         self.assertIsNotNone(time_stamp)
     
+    def test_is_user_owner_of_book(self):
+        self.book_repository.add_book(self.test_book, self.user_id)
+
+        books = self.book_repository.get_users_books(self.user_id)
+        book = books[0]
+        
+        result = self.book_repository.is_owner(self.user_id, book.id)
+        
+        self.assertTrue(result)
+        
+    def test_user_is_not_owner_of_book(self):
+        self.book_repository.add_book(self.test_book, self.other_id)
+
+        books = self.book_repository.get_users_books(self.other_id)
+        book = books[0]
+        
+        result = self.book_repository.is_owner(self.user_id, book.id)
+        
+        self.assertFalse(result)
+    
+    

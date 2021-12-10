@@ -16,7 +16,7 @@ from repositories.book_repository import BookRepository
 from repositories.podcast_repository import PodcastRepository
 from repositories.blog_repository import BlogRepository
 from repositories.video_repository import VideoRepository
-from forms import BlogForm, BookForm, LoginForm, PodcastForm, RegisterForm, SearchForm, VideoForm
+from forms import BlogForm, BookForm, IsbnForm, LoginForm, PodcastForm, RegisterForm, SearchForm, VideoForm
 
 user_repository = UserRepository(db)
 user_service = UserService(user_repository, session)
@@ -40,7 +40,7 @@ def render_home():
     videos = None
     keyword = ""
     checked_types = ["books", "podcasts", "blogs", "videos"]
-    
+
     search_form = SearchForm()
     if search_form.validate_on_submit():
         keyword = search_form.keyword.data
@@ -56,8 +56,17 @@ def render_home():
         if "videos" in checked_types:
             videos = video_service.get_my_videos(session["user_id"])
 
-    return render_template("index.html", form=form, search_form=search_form,
-     books=books, podcasts=podcasts, blogs=blogs, videos=videos, keyword=keyword, checked_types=checked_types)
+    return render_template(
+        "index.html",
+        form=form,
+        search_form=search_form,
+        books=books,
+        podcasts=podcasts,
+        blogs=blogs,
+        videos=videos,
+        keyword=keyword,
+        checked_types=checked_types
+        )
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -105,11 +114,32 @@ def new_book():
         description = form.description.data
         user_id = session["user_id"]
 
-        if book_service.new_book(Book(author, title, isbn, description), user_id):
+        if book_service.new_book(Book(author=author, title=title, isbn=isbn, description=description), user_id):
             return redirect("/")
         flash("Something went wrong...")
     return render_template("new_book.html", form=form)
 
+@app.route("/search_isbn", methods=["GET", "POST"])
+def search_isbn():
+    form = IsbnForm()
+
+    if form.validate_on_submit():
+        isbn = form.isbn.data
+        description = form.description.data
+        book_info = book_service.get_book_info_from_isbn(isbn)
+
+        if book_info is None:
+            flash("No info found with this ISBN")
+            return redirect("/search_isbn")
+
+        author = book_info["author"]
+        title = book_info["title"]
+        user_id = session["user_id"]
+
+        if book_service.new_book(Book(author=author, description=description, title=title, isbn=isbn), user_id):
+            return redirect("/")
+
+    return render_template("search_isbn.html", form=form)
 
 @app.route("/books/<int:book_id>", methods=["GET", "POST"])
 def book(book_id):
@@ -150,8 +180,6 @@ def blog(blog_id):
         abort(403)
     return render_template("blog.html", blog_info=blog_info)
 
-
-
 @app.route("/new_video", methods=["GET", "POST"])
 def new_video():
     form = VideoForm()
@@ -175,7 +203,6 @@ def video(video_id):
     else:
         abort(403)
     return render_template("video.html", video_info=video_info)
-
 
 @app.route("/new_podcast", methods=["GET", "POST"])
 def new_podcast():
@@ -201,11 +228,9 @@ def podcast(podcast_id):
         abort(403)
     return render_template("podcast.html", podcast_info=podcast_info)
 
-
 @app.route("/ping")
 def ping():
     return "Pong"
-
 
 @app.route("/try_db")
 def try_db():
@@ -219,3 +244,5 @@ def try_db():
     name = row[0]
 
     return f"heippa {name}"
+
+

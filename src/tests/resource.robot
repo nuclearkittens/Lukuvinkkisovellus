@@ -32,6 +32,8 @@ ${test_isbn}  978-952-5985-60-3
 ${test_description}  Ajan luonne purkaa ajan vyyhtiä fysiikan, filosofian ja taiteen avulla.
 ${test_author_2}  William King
 ${test_title_2}  Gotrek & Felix
+${test_title_3}  Linnunrata
+${test_isbn_3}  978-951-0-21844-0
 
 #Blogi
 ${test_blog_writer}  Teemu Öhman
@@ -47,6 +49,8 @@ ${test_video_title_2}  Hard Kokki: Makaronilaatikko
 ${test_video_url}  https://www.youtube.com/watch?v=PAa1KVqX9lk
 ${test_video_url_2}  https://www.youtube.com/watch?v=_2uVLtjAtQw
 ${test_video_description}  Vihdoin aivan saatanan halpaa ruokaa joka sopii persereikä aukisille ja opiskelijoille varsin hyvin.
+${test_video_title_3}  INSOMNIUM - While We Sleep (OFFICIAL VIDEO)
+${test_video_url_3}  https://www.youtube.com/watch?v=vBZ5SLJmfdw
 
 #Podcast
 ${test_episode}  Jakso 7: Testaajan rooli ohjelmistokehityksessä

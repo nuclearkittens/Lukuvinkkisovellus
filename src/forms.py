@@ -19,7 +19,6 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Login")
 
-
 # Myöhemmin kun isbn-haku on toteutettu, niin pitäisi varmaan toteuttaa jonkinlainen systeemi,
 # joka tarkistaa onko isbn annettu, jos on niin authoria tai titleä ei tarvitse syöttää..
 # Mennään ainakin aluksi tällä
@@ -31,6 +30,12 @@ class BookForm(FlaskForm):
     title = StringField(
         "Otsikko (*)", validators=[DataRequired(), Length(min=2, max=200)])
     isbn = StringField("ISBN")
+    description = StringField("Kuvaus")
+    submit = SubmitField("Submit")
+
+
+class IsbnForm(FlaskForm):
+    isbn = StringField("ISBN (*)", validators=[DataRequired()])
     description = StringField("Kuvaus")
     submit = SubmitField("Submit")
 
@@ -56,6 +61,7 @@ class PodcastForm(FlaskForm):
     title = StringField("Podcastin nimi (*)", validators=[DataRequired()])
     description = StringField("Kuvaus")
     submit = SubmitField("Submit")
+
 
 class SearchForm(FlaskForm):
     keyword = StringField("Hae otsikolla")

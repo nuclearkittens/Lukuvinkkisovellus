@@ -14,7 +14,6 @@ class Book:
         self._title = title
         self._description = description
         self._isbn = isbn
-        
 
     def get_author(self):
         """
@@ -42,7 +41,7 @@ class Book:
         Returns:
             String: title given when this book-object was constructed.
         """
-        return self._description
+        return self._title
 
     def set_title(self, title):
         """
