@@ -7,6 +7,18 @@ class UserService:
         self._user_repository = user_repository
         self._session = session
 
+    """
+    Fetches user data from repository and validates user.
+    Then checks password hash and creates session.
+
+    Args: 
+        user (User): User who wants to login.
+
+    Returns:
+        Boolean: True if login was successful
+
+    """
+
     def login(self, user):
         user_data = self._user_repository.get_user(user)
         if user_data is None:
@@ -26,4 +38,3 @@ class UserService:
         del self._session["user_id"]
         del self._session["username"]
         del self._session["csrf_token"]
-
