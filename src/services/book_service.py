@@ -10,6 +10,9 @@ class BookService:
     def new_book(self, book, user_id):
         return self._book_repository.add_book(book, user_id)
 
+    def get_book(self, book_id):
+        return self._book_repository.get_book(book_id)
+
     def update_book(self, author, title, description, isbn, book_id):
         """
         First searches that book to be updated exists based on book_id. 

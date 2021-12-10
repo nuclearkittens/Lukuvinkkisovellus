@@ -143,15 +143,27 @@ def search_isbn():
 
 @app.route("/books/<int:book_id>", methods=["GET", "POST"])
 def book(book_id):
-    book_info = [book_id]
+    book_info = book_service.get_book(book_id)
+    form = BookForm()
     if book_service.is_book_mine(session["user_id"], book_id):
-        if request.method == "POST":
-            if "mark_as_read" in request.form:
+        if form.validate_on_submit():
+            author = form.author.data
+            title = form.title.data
+            isbn = form.isbn.data
+            description = form.description.data
+            read_check = request.form.get("read_check")
+            if read_check == "readed":
                 book_service.mark_book_finished(book_id)
+            else:
+                # To be implemented...
+                # book_service.mark_book_unfinished(book_id)
+                pass
+            if book_service.update_book(author, title, description, isbn, book_id):
                 return redirect("/")
+            flash("Something went wrong...")
     else:
         abort(403)
-    return render_template("book.html", book_info=book_info)
+    return render_template("book.html", book_info=book_info, form=form)
 
 
 @app.route("/new_blog", methods=["GET", "POST"])
