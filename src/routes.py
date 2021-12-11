@@ -143,7 +143,7 @@ def search_isbn():
 
 @app.route("/books/<int:book_id>", methods=["GET", "POST"])
 def book(book_id):
-    book_info = book_service.get_book(book_id)
+    book = book_service.get_book(book_id)
     form = BookForm()
     if book_service.is_book_mine(session["user_id"], book_id):
         if form.validate_on_submit():
@@ -163,7 +163,7 @@ def book(book_id):
             flash("Something went wrong...")
     else:
         abort(403)
-    return render_template("book.html", book_info=book_info, form=form)
+    return render_template("book.html", book=book, form=form)
 
 
 @app.route("/new_blog", methods=["GET", "POST"])
@@ -182,7 +182,7 @@ def new_blog():
 
 @app.route("/blogs/<int:blog_id>", methods=["GET", "POST"])
 def blog(blog_id):
-    blog_info = [blog_id]
+    blog = blog_service.get_blog(blog_id)
     if blog_service.is_blog_mine(session["user_id"], blog_id):
         if request.method == "POST":
             if "mark_as_read" in request.form:
@@ -190,7 +190,7 @@ def blog(blog_id):
                 return redirect("/")
     else:
         abort(403)
-    return render_template("blog.html", blog_info=blog_info)
+    return render_template("blog.html", blog=blog)
 
 @app.route("/new_video", methods=["GET", "POST"])
 def new_video():
@@ -206,7 +206,7 @@ def new_video():
 
 @app.route("/videos/<int:video_id>", methods=["GET", "POST"])
 def video(video_id):
-    video_info = [video_id]
+    video = video_service.get_video(video_id)
     if video_service.is_video_mine(session["user_id"], video_id):
         if request.method == "POST":
             if "mark_as_read" in request.form:
@@ -214,7 +214,7 @@ def video(video_id):
                 return redirect("/")
     else:
         abort(403)
-    return render_template("video.html", video_info=video_info)
+    return render_template("video.html", video=video)
 
 @app.route("/new_podcast", methods=["GET", "POST"])
 def new_podcast():
@@ -230,7 +230,7 @@ def new_podcast():
 
 @app.route("/podcasts/<int:podcast_id>", methods=["GET", "POST"])
 def podcast(podcast_id):
-    podcast_info = [podcast_id]
+    podcast = podcast_service.get_podcast(podcast_id)
     if podcast_service.is_podcast_mine(session["user_id"], podcast_id):
         if request.method == "POST":
             if "mark_as_read" in request.form:
@@ -238,7 +238,7 @@ def podcast(podcast_id):
                 return redirect("/")
     else:
         abort(403)
-    return render_template("podcast.html", podcast_info=podcast_info)
+    return render_template("podcast.html", podcast=podcast)
 
 @app.route("/ping")
 def ping():
