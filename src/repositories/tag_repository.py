@@ -1,3 +1,5 @@
+from entities.tag import Tag
+
 class TagRepository:
     def __init__(self, db):
         self._db = db
@@ -6,8 +8,12 @@ class TagRepository:
         try:
             sql = "SELECT * FROM tags WHERE user_id=:user_id"
             result = self._db.session.execute(
-                sql, {"user_id": user_id})
-            return result.fetchall()
+                sql, {"user_id": user_id}).fetchall()
+            tags = []
+            for data in result:
+                tag = Tag(data[0], data[1])
+                tags.append(tag)
+            return tags
         except:
             return None
 
