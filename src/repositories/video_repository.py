@@ -63,8 +63,17 @@ class VideoRepository:
     def get_video(self, video_id):
         try:
             sql = "SELECT * FROM videos WHERE id=:video_id"
-            result = self._db.session.execute(sql, {"video_id": video_id})
-            return result.fetchone()
+            result = self._db.session.execute(sql, {"video_id": video_id}).fetchone()
+            tags = self.get_tags_by_video(result[0])
+            video = Video(
+                title=result[1],
+                url=result[2],
+                description=result[3],
+                read=result[6],
+                id=result[0],
+                tags=tags
+                )
+            return video
         except:
             return None
 
@@ -112,8 +121,20 @@ class VideoRepository:
                 WHERE video_tags.tag_id=:tag_id AND \
                     video_tags.video_id=videos.id"
             result = self._db.session.execute(
-                sql, {"tag_id": tag_id})
-            return result.fetchall()
+                sql, {"tag_id": tag_id}).fetchall()
+            videos = []
+            for data in result:
+                tags = self.get_tags_by_video(data[0])
+                video = Video(
+                    title=data[1],
+                    url=data[2],
+                    description=data[3],
+                    read=data[6],
+                    id=data[0],
+                    tags=tags
+                    )
+                videos.append(video)
+            return videos
         except:
             return None
 

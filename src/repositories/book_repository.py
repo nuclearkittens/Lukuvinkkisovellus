@@ -74,8 +74,18 @@ class BookRepository:
     def get_book(self, book_id):
         try:
             sql = "SELECT * FROM books WHERE id=:book_id"
-            result = self._db.session.execute(sql, {"book_id": book_id})
-            return result.fetchone()
+            result = self._db.session.execute(sql, {"book_id": book_id}).fetchone()
+            tags = self.get_tags_by_book(result[0])
+            book = Book(
+                author=result[1],
+                title=result[2],
+                description=result[3],
+                read=result[7],
+                id=result[0],
+                isbn=result[5],
+                tags=tags
+                )
+            return book
         except:
             return None
 
@@ -133,8 +143,21 @@ class BookRepository:
                 WHERE book_tags.tag_id=:tag_id AND \
                     book_tags.book_id=books.id"
             result = self._db.session.execute(
-                sql, {"tag_id": tag_id})
-            return result.fetchall()
+                sql, {"tag_id": tag_id}).fetchall()
+            books = []
+            for data in result:
+                tags = self.get_tags_by_book(data[0])
+                book = Book(
+                    author=data[1],
+                    title=data[2],
+                    description=data[3],
+                    read=data[7],
+                    id=data[0],
+                    isbn=data[5],
+                    tags=tags
+                    )
+                books.append(book)
+            return books
         except:
             return None
     

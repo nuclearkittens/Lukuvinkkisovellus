@@ -34,8 +34,18 @@ class BlogRepository:
     def get_blog(self, blog_id):
         try:
             sql = "SELECT * FROM blogs WHERE id=:blog_id"
-            result = self._db.session.execute(sql, {"blog_id": blog_id})
-            return result.fetchone()
+            result = self._db.session.execute(sql, {"blog_id": blog_id}).fetchone()
+            tags = self.get_tags_by_blog(result[0])
+            blog = Blog(
+                author=result[1],
+                title=result[2],
+                url=result[3],
+                description=result[4],
+                read=result[7],
+                id=result[0],
+                tags=tags
+                )
+            return blog
         except:
             return None
 
@@ -114,8 +124,21 @@ class BlogRepository:
                 WHERE blog_tags.tag_id=:tag_id AND \
                     blog_tags.blog_id=blogs.id"
             result = self._db.session.execute(
-                sql, {"tag_id": tag_id})
-            return result.fetchall()
+                sql, {"tag_id": tag_id}).fetchall()
+            blogs = []
+            for data in result:
+                tags = self.get_tags_by_blog(data[0])
+                blog = Blog(
+                    author=data[1],
+                    title=data[2],
+                    url=data[3],
+                    description=data[4],
+                    read=data[7],
+                    id=data[0],
+                    tags=tags
+                    )
+                blogs.append(blog)
+            return blogs
         except:
             return None
 

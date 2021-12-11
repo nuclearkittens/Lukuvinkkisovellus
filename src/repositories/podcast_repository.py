@@ -33,8 +33,17 @@ class PodcastRepository:
     def get_podcast(self, podcast_id):
         try:
             sql = "SELECT * FROM podcasts WHERE id=:podcast_id"
-            result = self._db.session.execute(sql, {"podcast_id": podcast_id})
-            return result.fetchone()
+            result = self._db.session.execute(sql, {"podcast_id": podcast_id}).fetchone()
+            tags = self.get_tags_by_podcast(result[0])
+            podcast = Podcast(
+                title=result[1],
+                episode=result[2],
+                description=result[3],
+                read=result[6],
+                id=result[0],
+                tags=tags
+                )
+            return podcast
         except:
             return None
 
@@ -112,8 +121,20 @@ class PodcastRepository:
                 WHERE podcast_tags.tag_id=:tag_id AND \
                     podcast_tags.podcast_id=podcasts.id"
             result = self._db.session.execute(
-                sql, {"tag_id": tag_id})
-            return result.fetchall()
+                sql, {"tag_id": tag_id}).fetchall()
+            podcasts = []
+            for data in result:
+                tags = self.get_tags_by_podcast(data[0])
+                podcast = Podcast(
+                    title=data[1],
+                    episode=data[2],
+                    description=data[3],
+                    read=data[6],
+                    id=data[0],
+                    tags=tags
+                    )
+                podcasts.append(podcast)
+            return podcasts
         except:
             return None
     
