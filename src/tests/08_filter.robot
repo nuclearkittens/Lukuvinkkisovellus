@@ -72,7 +72,6 @@ Search Items By Word
     Set Search Term  opiske
     Click Element  xpath://*[@class="btn btn-success"]
     Page Should Contain  ${test_video_title}
-    Page Should Contain  ${test_episode_2}
     Page Should Not Contain  ${test_title_2}
 
 Search Items By Nonexistent Read Tip
