@@ -18,7 +18,7 @@ from repositories.podcast_repository import PodcastRepository
 from repositories.blog_repository import BlogRepository
 from repositories.video_repository import VideoRepository
 from repositories.tag_repository import TagRepository
-from forms import BlogForm, BookForm, IsbnForm, LoginForm, PodcastForm, RegisterForm, SearchForm, VideoForm
+from forms import BlogForm, BookForm, IsbnForm, LoginForm, PodcastForm, RegisterForm, SearchForm, VideoForm, TagForm
 
 user_repository = UserRepository(db)
 user_service = UserService(user_repository, session)
@@ -243,6 +243,23 @@ def podcast(podcast_id):
     else:
         abort(403)
     return render_template("podcast.html", podcast=podcast)
+
+@app.route("/tags/<int:user_id>", methods=["GET", "POST"])
+def tags(user_id):
+    form = TagForm()
+    user_tags = tag_service.get_tags(user_id)
+    
+    if form.validate_on_submit():
+        name = form.name.data
+        tag_service.add_tag(name, user_id)
+        return redirect(f"/tags/{user_id}")
+
+    return render_template("tag.html", form=form, user_tags=user_tags)
+
+@app.route("/tags/<int:user_id>/<int:tag_id>", methods=["POST"])
+def delete_tag(user_id, tag_id):
+    tag_service.delete_tag(tag_id)
+    return redirect(f"/tags/{user_id}")
 
 @app.route("/ping")
 def ping():

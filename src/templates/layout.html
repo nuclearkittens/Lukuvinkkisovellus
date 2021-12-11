@@ -43,6 +43,9 @@
                         <li class="nav-item" style="padding-right: 10px;">
                             <a class="btn btn-info" href="/new_podcast" role="button">Lisää podcast</a>
                         </li> 
+                        <li class="nav-item" style="padding-right: 10px;">
+                            <a class="btn btn-info" href="/tags/{{ session.user_id }}" role="button">Hallinnoi tageja</a>
+                        </li>                         
                         {% else %} 
                         <li class="nav-item" style="padding-right: 10px;">
                             <a class="btn btn-info" href="/register" role="button">Click here to register!</a>
