@@ -11,11 +11,13 @@ from services.book_service import BookService
 from services.podcast_service import PodcastService
 from services.blog_service import BlogService
 from services.video_service import VideoService
+from services.tag_service import TagService
 from repositories.user_repository import UserRepository
 from repositories.book_repository import BookRepository
 from repositories.podcast_repository import PodcastRepository
 from repositories.blog_repository import BlogRepository
 from repositories.video_repository import VideoRepository
+from repositories.tag_repository import TagRepository
 from forms import BlogForm, BookForm, IsbnForm, LoginForm, PodcastForm, RegisterForm, SearchForm, VideoForm
 
 user_repository = UserRepository(db)
@@ -28,6 +30,8 @@ blog_repository = BlogRepository(db)
 blog_service = BlogService(blog_repository)
 video_repository = VideoRepository(db)
 video_service = VideoService(video_repository)
+tag_repository = TagRepository(db)
+tag_service = TagService(tag_repository)
 
 
 
