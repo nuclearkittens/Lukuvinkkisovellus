@@ -5,6 +5,9 @@ class BlogService:
     def new_blog(self, blog, user_id):
         return self._blog_repository.add_blog(blog, user_id)
 
+    def get_blog(self, blog_id):
+        return self._blog_repository.get_blog(blog_id)
+
     def update_blog(self, author, title, url, description, blog_id):
         """
         First searches that blog to be updated exists based on blog_id. 

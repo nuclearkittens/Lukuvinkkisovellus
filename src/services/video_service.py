@@ -12,6 +12,9 @@ class VideoService:
             
         return self._video_repository.add_video(video, user_id)
 
+    def get_video(self, video_id):
+        return self._video_repository.get_video(video_id)
+
     def update_video(self, title, url, description, video_id):
         """
         First searches that video to be updated exists based on video_id. 
