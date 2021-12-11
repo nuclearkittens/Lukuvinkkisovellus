@@ -5,12 +5,14 @@ class Book:
         Creates book object.
 
         Args:
-            id (int): Id of the book,
+            id (int): Id of the book.
             author (String): Author of the book.
             title (String): Title of the book.
             description (String): Description of the book.
+            read (boolean): read status of the book.
+            id (int): Id of the book. default to 0.
             isbn (String, optional): ISBN-code of the book. Defaults to None.
-            tags (List): list of tags attached to the book. Default to an empty list.
+            tags (List): List of tags attached to the book. Default to an empty list.
         """
         self._author = author
         self._title = title
@@ -119,6 +121,6 @@ class Book:
         Return read status of the book.
 
         Returns:
-            boolean: indicates whether or not the book si marked as read.
+            boolean: indicates whether or not the book is marked as read.
         """
         return self._read
