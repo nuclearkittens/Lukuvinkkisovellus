@@ -47,12 +47,12 @@ class TestpodcastRepository(unittest.TestCase):
         self.podcast_repository.add_podcast(self.test_podcast, self.user_id)
         
         podcasts = self.podcast_repository.get_users_podcasts(self.user_id)
-        podcast_id = podcasts[0][0]
+        podcast_id = podcasts[0].get_id()
         self.podcast_repository.mark_finished(podcast_id)
         
         podcasts = self.podcast_repository.get_users_podcasts(self.user_id)
         podcast = podcasts[0]
-        time_stamp = podcast.marked_read
+        time_stamp = podcast.get_read()
         
         self.assertIsNotNone(time_stamp)
     
@@ -62,7 +62,7 @@ class TestpodcastRepository(unittest.TestCase):
         podcasts = self.podcast_repository.get_users_podcasts(self.user_id)
         podcast = podcasts[0]
         
-        result = self.podcast_repository.is_owner(self.user_id, podcast.id)
+        result = self.podcast_repository.is_owner(self.user_id, podcast.get_id())
         
         self.assertTrue(result)
         
@@ -72,7 +72,7 @@ class TestpodcastRepository(unittest.TestCase):
         podcasts = self.podcast_repository.get_users_podcasts(self.other_id)
         podcast = podcasts[0]
         
-        result = self.podcast_repository.is_owner(self.user_id, podcast.id)
+        result = self.podcast_repository.is_owner(self.user_id, podcast.get_id())
         
         self.assertFalse(result)
     

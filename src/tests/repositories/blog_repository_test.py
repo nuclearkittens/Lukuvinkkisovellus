@@ -1,6 +1,7 @@
 import unittest
 from repositories.user_repository import UserRepository
 from repositories.blog_repository import BlogRepository
+from repositories.tag_repository import TagRepository
 from app import app
 from db import db
 from entities.blog import Blog
@@ -12,6 +13,7 @@ class TestBlogRepository(unittest.TestCase):
     def setUp(self):
         self.dth = dth(db)
         self.dth.delete()
+        self.tag_repository = TagRepository(db)
         self.blog_repository = BlogRepository(db)
         self.user_repository = UserRepository(db)
         self.test_blog = Blog("test_author", "blog_title", "www.blog.com", "a fine blog")
@@ -48,12 +50,12 @@ class TestBlogRepository(unittest.TestCase):
         self.blog_repository.add_blog(self.test_blog, self.user_id)
         
         blogs = self.blog_repository.get_users_blogs(self.user_id)
-        blog_id = blogs[0][0]
+        blog_id = blogs[0].get_id()
         self.blog_repository.mark_finished(blog_id)
 
         blogs = self.blog_repository.get_users_blogs(self.user_id)
         blog = blogs[0]
-        time_stamp = blog.marked_read
+        time_stamp = blog.get_read()
         self.assertIsNotNone(time_stamp)
 
     def test_is_user_owner_of_blog(self):
@@ -62,7 +64,7 @@ class TestBlogRepository(unittest.TestCase):
         blogs = self.blog_repository.get_users_blogs(self.user_id)
         blog = blogs[0]
         
-        result = self.blog_repository.is_owner(self.user_id, blog.id)
+        result = self.blog_repository.is_owner(self.user_id, blog.get_id())
         
         self.assertTrue(result)
         
@@ -72,7 +74,6 @@ class TestBlogRepository(unittest.TestCase):
         blogs = self.blog_repository.get_users_blogs(self.other_id)
         blog = blogs[0]
         
-        result = self.blog_repository.is_owner(self.user_id, blog.id)
+        result = self.blog_repository.is_owner(self.user_id, blog.get_id())
         
         self.assertFalse(result)
-        

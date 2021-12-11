@@ -47,13 +47,13 @@ class TestvideoRepository(unittest.TestCase):
         self.video_repository.add_video(self.test_video, self.user_id)
         
         videos = self.video_repository.get_users_videos(self.user_id)
-        video_id = videos[0][0]
+        video_id = videos[0].get_id()
         self.video_repository.mark_finished(video_id)
         
         videos = self.video_repository.get_users_videos(self.user_id)
         print(videos)
         video = videos[0]
-        time_stamp = video.marked_read
+        time_stamp = video.get_read()
         
         self.assertIsNotNone(time_stamp)
     
@@ -63,7 +63,7 @@ class TestvideoRepository(unittest.TestCase):
         videos = self.video_repository.get_users_videos(self.user_id)
         video = videos[0]
         
-        result = self.video_repository.is_owner(self.user_id, video.id)
+        result = self.video_repository.is_owner(self.user_id, video.get_id())
         
         self.assertTrue(result)
         
@@ -73,7 +73,7 @@ class TestvideoRepository(unittest.TestCase):
         videos = self.video_repository.get_users_videos(self.other_id)
         video = videos[0]
         
-        result = self.video_repository.is_owner(self.user_id, video.id)
+        result = self.video_repository.is_owner(self.user_id, video.get_id())
         
         self.assertFalse(result)
     
