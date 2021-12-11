@@ -20,8 +20,8 @@ Lukuvinkkisovellus
     <hr>
 
     <div class="d-flex justify-content-between">
-        <h4>Videon ID: {{ video_info[0] }}</h4>
-        <form action="/videos/{{  video_info[0] }}" method="POST">
+        <h4>Videon ID: {{ video.get_id() }}</h4>
+        <form action="/videos/{{  video.get_id() }}" method="POST">
             <button type="submit" class="btn btn-primary" name="mark_as_read">Merkitse luetuksi</button>
         </form>
     </div>

@@ -20,8 +20,8 @@ Lukuvinkkisovellus
     <hr>
 
     <div class="d-flex justify-content-between">
-        <h4>Podcastin ID: {{ podcast_info[0] }}</h4>
-        <form action="/podcasts/{{  podcast_info[0] }}" method="POST">
+        <h4>Podcastin ID: {{ podcast.get_id() }}</h4>
+        <form action="/podcasts/{{  podcast.get_id() }}" method="POST">
             <button type="submit" class="btn btn-primary" name="mark_as_read">Merkitse luetuksi</button>
         </form>
     </div>    

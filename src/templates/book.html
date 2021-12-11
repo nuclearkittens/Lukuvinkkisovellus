@@ -19,7 +19,7 @@ Lukuvinkkisovellus
     <h3>Kirjan muokkaus</h3>
     <hr>
 
-        <form action="/books/{{  book_info[0] }}" method="POST">
+        <form action="/books/{{  book.get_id() }}" method="POST">
             
             {{ form.csrf_token }}
             <div class="form-group">
@@ -33,7 +33,7 @@ Lukuvinkkisovellus
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.author(class='form-control form-control-', value=book_info[1]) }}
+                {{ form.author(class='form-control form-control-', value=book.get_author()) }}
                 {% endif %}
             </div>
             <div class="form-group">
@@ -47,7 +47,7 @@ Lukuvinkkisovellus
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.title(class='form-control form-control', value=book_info[2]) }}
+                {{ form.title(class='form-control form-control', value=book.get_title()) }}
                 {% endif %}
             </div>
             <div class="form-group">
@@ -61,7 +61,7 @@ Lukuvinkkisovellus
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.isbn(class='form-control form-control', value=book_info[5]) }}
+                {{ form.isbn(class='form-control form-control', value=book.get_isbn()) }}
                 {% endif %}
             </div>
             <div class="form-group">
@@ -75,11 +75,11 @@ Lukuvinkkisovellus
                     {% endfor %}
                 </div>
                 {% else %}
-                {{ form.description(class='form-control form-control', value=book_info[3]) }}
+                {{ form.description(class='form-control form-control', value=book.get_description()) }}
                 {% endif %}
             </div>
             <hr>
-            {% if book_info[7] is not none %}
+            {% if book.get_read() %}
             <input type="checkbox" class="btn-check" name="read_check" value="not_read", id="no">
             <label class="btn btn-outline-danger" for="no">Poista luetuista</label>
             {% else %}
