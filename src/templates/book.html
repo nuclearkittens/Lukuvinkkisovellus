@@ -80,11 +80,11 @@ Lukuvinkkisovellus
             </div>
             <hr>
             {% if book_info[7] is not none %}
-            <input type="checkbox" class="btn-check" name="read_check" value="not_read", id="no">
+            <input type="checkbox" class="btn-check" name="read_check" value="not_read" id="no">
             <label class="btn btn-outline-danger" for="no">Poista luetuista</label>
             {% else %}
-            <input type="checkbox" class="btn-check" name="read_check" value="readed", id="yes">
-            <label class="btn btn-outline-success" for="yes">Merkitse luetuksi</label>
+            <input type="checkbox" class="btn-check" name="read_check" value="readed" id="yes">
+            <label id="mark_read" class="btn btn-outline-success" for="yes">Merkitse luetuksi</label>
             {% endif %}
             <p></p>
             {{ form.submit(class="btn btn-primary", value="Muokkaa") }}    
