@@ -31,7 +31,7 @@ class VideoService:
         """
         video_db_row = self._video_repository.get_video(video_id)
         # Update only if video was actually found
-        if video_db_row != None and len(video_db_row) > 0:
+        if video_db_row != None:
             return self._video_repository.update_video(title, url, description, video_id)
         return False
 

@@ -30,7 +30,7 @@ class BookService:
         """
         book_db_row = self._book_repository.get_book(book_id)
         # Update only if book was actually found
-        if book_db_row is not None and len(book_db_row) > 0:
+        if book_db_row is not None:
             return self._book_repository.update_book(author, title, description, isbn, book_id)
         return False
 

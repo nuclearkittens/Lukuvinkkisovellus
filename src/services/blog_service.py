@@ -25,7 +25,7 @@ class BlogService:
         """
         blog_db_row = self._blog_repository.get_blog(blog_id)
         # Update only if blog was actually found
-        if blog_db_row != None and len(blog_db_row) > 0:
+        if blog_db_row != None:
             return self._blog_repository.update_blog(author, title, url, description, blog_id)
         return False
 

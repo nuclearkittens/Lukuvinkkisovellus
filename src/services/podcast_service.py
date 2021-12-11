@@ -24,7 +24,7 @@ class PodcastService:
         """
         podcast_db_row = self._podcast_repository.get_podcast(podcast_id)
         # Update only if podcast was actually found
-        if podcast_db_row != None and len(podcast_db_row) > 0:
+        if podcast_db_row != None:
             return self._podcast_repository.update_podcast(title, episode, description, podcast_id)
         return False
 
