@@ -8,4 +8,5 @@ class Database_test_helper:
         self._db.session.execute("DELETE FROM podcasts CASCADE")
         self._db.session.execute("DELETE FROM blogs CASCADE")
         self._db.session.execute("DELETE FROM videos CASCADE")
+        self._db.session.execute("DELETE FROM tags CASCADE")
         self._db.session.commit()
