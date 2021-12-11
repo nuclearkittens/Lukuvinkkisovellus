@@ -1,6 +1,7 @@
 import unittest
 from repositories.user_repository import UserRepository
 from repositories.video_repository import VideoRepository
+from repositories.tag_repository import TagRepository
 from app import app
 from db import db
 from entities.video import Video
@@ -13,6 +14,7 @@ class TestvideoRepository(unittest.TestCase):
         empty_database = dth(db).delete()
         self.video_repository = VideoRepository(db)
         self.user_repository = UserRepository(db)
+        self.tag_repository = TagRepository(db)
         self.test_video = Video("test_title", "www.oneurl.com", "funny catvideo")
         self.small_video = Video("small_title", "www.anotherurl.com", "even funnier dogvideo")
         self.empty_video = None
@@ -77,3 +79,46 @@ class TestvideoRepository(unittest.TestCase):
         
         self.assertFalse(result)
     
+    def test_get_videos_by_tag_returns_correct_amount(self):
+        self.video_repository.add_video(self.test_video, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        videos = self.video_repository.get_users_videos(self.user_id)
+        video_id = videos[0].get_id()
+        self.video_repository.attach_tag(tag_id, video_id)
+        self.video_repository.add_video(self.small_video, self.user_id)
+        self.assertEqual(len(self.video_repository.get_videos_by_tag(tag_id)), 1)
+
+    def test_tags_by_video_returns_correct_amount(self):
+        self.video_repository.add_video(self.test_video, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        self.tag_repository.add_tag("testtwo", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        videos = self.video_repository.get_users_videos(self.user_id)
+        video_id = videos[0].get_id()
+        self.video_repository.attach_tag(tag_id, video_id)
+        self.assertEqual(len(self.video_repository.get_tags_by_video(video_id)), 1)
+
+    def test_tag_attaches_succesfully(self):
+        self.video_repository.add_video(self.test_video, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        videos = self.video_repository.get_users_videos(self.user_id)
+        video_id = videos[0].get_id()
+        current_tags = len(self.video_repository.get_tags_by_video(video_id))
+        self.video_repository.attach_tag(tag_id, video_id)
+        self.assertFalse(len(self.video_repository.get_tags_by_video(video_id)) == current_tags)
+
+    def test_tag_removed_succesfully(self):
+        self.video_repository.add_video(self.test_video, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        videos = self.video_repository.get_users_videos(self.user_id)
+        video_id = videos[0].get_id()
+        self.video_repository.attach_tag(tag_id, video_id)
+        self.video_repository.remove_tag(tag_id, video_id)
+        self.assertFalse(len(self.video_repository.get_tags_by_video(video_id)))

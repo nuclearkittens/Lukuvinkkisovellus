@@ -1,6 +1,7 @@
 import unittest
 from repositories.user_repository import UserRepository
 from repositories.podcast_repository import PodcastRepository
+from repositories.tag_repository import TagRepository
 from app import app
 from db import db
 from entities.podcast import Podcast
@@ -13,6 +14,7 @@ class TestpodcastRepository(unittest.TestCase):
         empty_database = dth(db).delete()
         self.podcast_repository = PodcastRepository(db)
         self.user_repository = UserRepository(db)
+        self.tag_repository = TagRepository(db)
         self.test_podcast = Podcast("test_title", "test_episode", "www.oneurl.com")
         self.small_podcast = Podcast("small_title", "small_episode", "www.anotherurl.com")
         self.empty_podcast = None
@@ -76,3 +78,46 @@ class TestpodcastRepository(unittest.TestCase):
         
         self.assertFalse(result)
     
+    def test_get_podcasts_by_tag_returns_correct_amount(self):
+        self.podcast_repository.add_podcast(self.test_podcast, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        podcasts = self.podcast_repository.get_users_podcasts(self.user_id)
+        podcast_id = podcasts[0].get_id()
+        self.podcast_repository.attach_tag(tag_id, podcast_id)
+        self.podcast_repository.add_podcast(self.small_podcast, self.user_id)
+        self.assertEqual(len(self.podcast_repository.get_podcasts_by_tag(tag_id)), 1)
+
+    def test_tags_by_podcast_returns_correct_amount(self):
+        self.podcast_repository.add_podcast(self.test_podcast, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        self.tag_repository.add_tag("testtwo", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        podcasts = self.podcast_repository.get_users_podcasts(self.user_id)
+        podcast_id = podcasts[0].get_id()
+        self.podcast_repository.attach_tag(tag_id, podcast_id)
+        self.assertEqual(len(self.podcast_repository.get_tags_by_podcast(podcast_id)), 1)
+
+    def test_tag_attaches_succesfully(self):
+        self.podcast_repository.add_podcast(self.test_podcast, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        podcasts = self.podcast_repository.get_users_podcasts(self.user_id)
+        podcast_id = podcasts[0].get_id()
+        current_tags = len(self.podcast_repository.get_tags_by_podcast(podcast_id))
+        self.podcast_repository.attach_tag(tag_id, podcast_id)
+        self.assertFalse(len(self.podcast_repository.get_tags_by_podcast(podcast_id)) == current_tags)
+
+    def test_tag_removed_succesfully(self):
+        self.podcast_repository.add_podcast(self.test_podcast, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        podcasts = self.podcast_repository.get_users_podcasts(self.user_id)
+        podcast_id = podcasts[0].get_id()
+        self.podcast_repository.attach_tag(tag_id, podcast_id)
+        self.podcast_repository.remove_tag(tag_id, podcast_id)
+        self.assertFalse(len(self.podcast_repository.get_tags_by_podcast(podcast_id)))

@@ -1,6 +1,7 @@
 import unittest
 from repositories.user_repository import UserRepository
 from repositories.book_repository import BookRepository
+from repositories.tag_repository import TagRepository
 from app import app
 from db import db
 from entities.book import Book
@@ -13,6 +14,7 @@ class TestBookRepository(unittest.TestCase):
         empty_database = dth(db).delete()
         self.book_repository = BookRepository(db)
         self.user_repository = UserRepository(db)
+        self.tag_repository = TagRepository(db)
         self.test_book = Book("test_author", "test_title", "1234")
         self.small_book = Book("small_author", "small_title", "4321")
         self.empty_book = None
@@ -76,4 +78,46 @@ class TestBookRepository(unittest.TestCase):
         
         self.assertFalse(result)
     
-    
+    def test_get_books_by_tag_returns_correct_amount(self):
+        self.book_repository.add_book(self.test_book, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        books = self.book_repository.get_users_books(self.user_id)
+        book_id = books[0].get_id()
+        self.book_repository.attach_tag(tag_id, book_id)
+        self.book_repository.add_book(self.small_book, self.user_id)
+        self.assertEqual(len(self.book_repository.get_books_by_tag(tag_id)), 1)
+
+    def test_tags_by_book_returns_correct_amount(self):
+        self.book_repository.add_book(self.test_book, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        self.tag_repository.add_tag("testtwo", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        books = self.book_repository.get_users_books(self.user_id)
+        book_id = books[0].get_id()
+        self.book_repository.attach_tag(tag_id, book_id)
+        self.assertEqual(len(self.book_repository.get_tags_by_book(book_id)), 1)
+
+    def test_tag_attaches_succesfully(self):
+        self.book_repository.add_book(self.test_book, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        books = self.book_repository.get_users_books(self.user_id)
+        book_id = books[0].get_id()
+        current_tags = len(self.book_repository.get_tags_by_book(book_id))
+        self.book_repository.attach_tag(tag_id, book_id)
+        self.assertFalse(len(self.book_repository.get_tags_by_book(book_id)) == current_tags)
+
+    def test_tag_removed_succesfully(self):
+        self.book_repository.add_book(self.test_book, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        books = self.book_repository.get_users_books(self.user_id)
+        book_id = books[0].get_id()
+        self.book_repository.attach_tag(tag_id, book_id)
+        self.book_repository.remove_tag(tag_id, book_id)
+        self.assertFalse(len(self.book_repository.get_tags_by_book(book_id)))
