@@ -1,5 +1,6 @@
 from sqlalchemy import exc
-
+from entities.tag import Tag
+from entities.podcast import Podcast
 
 class PodcastRepository:
     def __init__(self, db):
@@ -88,8 +89,20 @@ class PodcastRepository:
         """
         try:
             sql = "SELECT * FROM podcasts WHERE user_id=:user_id"
-            result = self._db.session.execute(sql, {"user_id": user_id})
-            return result.fetchall()
+            result = self._db.session.execute(sql, {"user_id": user_id}).fetchall()
+            podcasts = []
+            for data in result:
+                tags = self.get_tags_by_podcast(data[0])
+                podcast = Podcast(
+                    title=data[1],
+                    episode=data[2],
+                    description=data[3],
+                    read=data[6],
+                    id=data[0],
+                    tags=tags
+                    )
+                podcasts.append(podcast)
+            return podcasts
         except:
             return None
 
@@ -110,8 +123,12 @@ class PodcastRepository:
                 podcast_tags WHERE podcast_tags.tag_id=tags.id \
                     AND podcast_tags.podcast_id=:podcast_id"
             result = self._db.session.execute(
-                sql, {"podcast_id": podcast_id})
-            return result.fetchall()
+                sql, {"podcast_id": podcast_id}).fetchall()
+            tags = []
+            for data in result:
+                tag = Tag(data[0], data[1])
+                tags.append(tag)
+            return tags
         except:
             return None
 

@@ -1,5 +1,6 @@
 from sqlalchemy import exc
-
+from entities.tag import Tag
+from entities.blog import Blog
 
 class BlogRepository:
     def __init__(self, db):
@@ -89,8 +90,21 @@ class BlogRepository:
         """
         try:
             sql = "SELECT * FROM blogs WHERE user_id=:user_id"
-            result = self._db.session.execute(sql, {"user_id": user_id})
-            return result.fetchall()
+            result = self._db.session.execute(sql, {"user_id": user_id}).fetchall()
+            blogs = []
+            for data in result:
+                tags = self.get_tags_by_blog(data[0])
+                blog = Blog(
+                    author=data[1],
+                    title=data[2],
+                    url=data[3],
+                    description=data[4],
+                    read=data[7],
+                    id=data[0],
+                    tags=tags
+                    )
+                blogs.append(blog)
+            return blogs
         except:
             return None
     
@@ -111,8 +125,12 @@ class BlogRepository:
                 blog_tags WHERE blog_tags.tag_id=tags.id \
                     AND blog_tags.blog_id=:blog_id"
             result = self._db.session.execute(
-                sql, {"blog_id": blog_id})
-            return result.fetchall()
+                sql, {"blog_id": blog_id}).fetchall()
+            tags = []
+            for data in result:
+                tag = Tag(data[0], data[1])
+                tags.append(tag)
+            return tags
         except:
             return None
 

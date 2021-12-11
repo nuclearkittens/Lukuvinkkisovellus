@@ -1,5 +1,6 @@
 from sqlalchemy import exc
-
+from entities.tag import Tag
+from entities.video import Video
 
 class VideoRepository:
     def __init__(self, db):
@@ -88,8 +89,20 @@ class VideoRepository:
         """
         try:
             sql = "SELECT * FROM videos WHERE user_id=:user_id"
-            result = self._db.session.execute(sql, {"user_id": user_id})
-            return result.fetchall()
+            result = self._db.session.execute(sql, {"user_id": user_id}).fetchall()
+            videos = []
+            for data in result:
+                tags = self.get_tags_by_video(data[0])
+                video = Video(
+                    title=data[1],
+                    url=data[2],
+                    description=data[3],
+                    read=data[6],
+                    id=data[0],
+                    tags=tags
+                    )
+                videos.append(video)
+            return videos
         except:
             return None
 
@@ -110,8 +123,12 @@ class VideoRepository:
                 video_tags WHERE video_tags.tag_id=tags.id \
                     AND video_tags.video_id=:video_id"
             result = self._db.session.execute(
-                sql, {"video_id": video_id})
-            return result.fetchall()
+                sql, {"video_id": video_id}).fetchall()
+            tags = []
+            for data in result:
+                tag = Tag(data[0], data[1])
+                tags.append(tag)
+            return tags
         except:
             return None
 

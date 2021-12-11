@@ -104,7 +104,15 @@ class BookRepository:
             books = []
             for data in result:
                 tags = self.get_tags_by_book(data[0])
-                book = Book(data[1], data[2], data[3], data[7], data[0], data[5], tags)
+                book = Book(
+                    author=data[1],
+                    title=data[2],
+                    description=data[3],
+                    read=data[7],
+                    id=data[0],
+                    isbn=data[5],
+                    tags=tags
+                    )
                 books.append(book)
             return books
         except:
@@ -136,8 +144,7 @@ class BookRepository:
                 book_tags WHERE book_tags.tag_id=tags.id \
                     AND book_tags.book_id=:book_id"
             result = self._db.session.execute(
-                sql, {"book_id": book_id})
-            result = result.fetchall()
+                sql, {"book_id": book_id}).fetchall()
             tags = []
             for data in result:
                 tag = Tag(data[0], data[1])
