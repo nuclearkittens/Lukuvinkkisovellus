@@ -80,11 +80,17 @@ Lukuvinkkisovellus
             </div>
             <br>
 
-            <hr>
-            Tämä ei aukea... Jätin toistaiseksi, jos joku haluaa tsekata.
-            <br>
+            {% if book.get_read() %}
+            <input type="checkbox" class="btn-check" name="read_check" value="not_read", id="no">
+            <label class="btn btn-outline-danger" for="no">Poista luetuista</label>
+            {% else %}
+            <input type="checkbox" class="btn-check" name="read_check" value="readed" id="yes">
+            <label id="mark_read" class="btn btn-outline-success" for="yes">Merkitse luetuksi</label>
+            {% endif %}
+            <p></p>
+
             <div class="btn-group">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Muuta tageja</button>
+                <button class="btn btn-outline-warning dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Muuta tageja</button>
                 <div class="dropdown-menu">
                     {% for tag in user_tags %}
                     <a class="dropdown-item">
@@ -100,27 +106,7 @@ Lukuvinkkisovellus
                     </a>
                 </div>
             </div>
-            <hr>
-
-            <h5>Muuta tageja:</h5>    
-            {% for tag in user_tags %}
-            {% if tag.get_id() in book.get_tag_ids() %}
-            <input type="checkbox" class="form-check-input" name="tag_check" value={{ tag.get_id() }} id="tags" checked autocomplete="on">
-            {% else %}
-            <input type="checkbox" class="form-check-input" name="tag_check" value={{ tag.get_id() }} id="tags">
-            {% endif %}
-            <label class="form-check-label" for="tags">{{ tag.get_name()}}</label>
             <br>
-            {% endfor %}
-            <hr>
-
-            {% if book.get_read() %}
-            <input type="checkbox" class="btn-check" name="read_check" value="not_read", id="no">
-            <label class="btn btn-outline-danger" for="no">Poista luetuista</label>
-            {% else %}
-            <input type="checkbox" class="btn-check" name="read_check" value="readed" id="yes">
-            <label id="mark_read" class="btn btn-outline-success" for="yes">Merkitse luetuksi</label>
-            {% endif %}
             
             <p></p>
             {{ form.submit(class="btn btn-primary", value="Muokkaa") }}    
