@@ -190,14 +190,31 @@ def new_blog():
 @app.route("/blogs/<int:blog_id>", methods=["GET", "POST"])
 def blog(blog_id):
     blog = blog_service.get_blog(blog_id)
+    user_tags = tag_service.get_tags(session["user_id"])
+    form = BlogForm()
     if blog_service.is_blog_mine(session["user_id"], blog_id):
-        if request.method == "POST":
-            if "mark_as_read" in request.form:
+        if form.validate_on_submit():
+            author = form.author.data
+            title = form.title.data
+            url = form.url.data
+            description = form.description.data
+            read_check = request.form.get("read_check")
+            tag_check = request.form.getlist("tag_check")
+            blog_service.remove_all_tags_by_book(blog_id)
+            for tag_id in tag_check:
+                blog_service.attach_tag(int(tag_id), blog_id)
+            if read_check == "readed":
                 blog_service.mark_blog_finished(blog_id)
+            if read_check == "not_read":
+                blog_service.mark_blog_unfinished(blog_id)
+            if blog_service.update_blog(author, title, url, description, blog_id):
                 return redirect("/")
+            flash("Something went wrong...")
+
     else:
         abort(403)
-    return render_template("blog.html", blog=blog)
+    return render_template("blog.html", blog=blog, form=form, user_tags=user_tags)
+
 
 @app.route("/new_video", methods=["GET", "POST"])
 def new_video():

@@ -160,6 +160,8 @@ Lukuvinkkisovellus
               <h6 class="mb-1">Kuvaus: {{ blog.get_description() }}</h6>
               <small class="text-muted">URL: {{ blog.get_url() }}</small>
               <br>
+              <small class="text-muted">Tagit: {{ blog.get_tag_names() }}</small>
+              <br>
               <small id="{{ blog.get_title() }}_" class="text-muted">Luettu: {{ blog.get_read() }}</small>
             </a>
           </div>

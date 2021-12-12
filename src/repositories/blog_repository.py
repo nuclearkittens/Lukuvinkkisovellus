@@ -67,6 +67,15 @@ class BlogRepository:
         except:
             return False
 
+    def mark_unfinished(self, blog_id):
+        try:
+            sql = "UPDATE blogs SET marked_read=NULL WHERE id=:blog_id"
+            self._db.session.execute(sql, {"blog_id": blog_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
     def is_owner(self, user_id, blog_id):
         """
         Checks if the user-id and the blog-id are in the same row in the database.

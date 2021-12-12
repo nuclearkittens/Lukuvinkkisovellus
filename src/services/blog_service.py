@@ -48,6 +48,9 @@ class BlogService:
     def mark_blog_finished(self, blog_id):
         return self._blog_repository.mark_finished(blog_id)
 
+    def mark_blog_unfinished(self, blog_id):
+        return self._blog_repository.mark_unfinished(blog_id)
+
     def is_blog_mine(self, user_id, blog_id):
         return self._blog_repository.is_owner(user_id, blog_id)
     
@@ -62,3 +65,8 @@ class BlogService:
 
     def remove_tag(self, tag_id, blog_id):
         return self._blog_repository.remove_tag(tag_id, blog_id)
+
+    def remove_all_tags_by_book(self, blog_id):
+        tags = self.get_tags_by_blog(blog_id)
+        for tag in tags:
+            self._blog_repository.remove_tag(tag.get_id(), blog_id)
