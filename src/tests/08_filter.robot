@@ -6,11 +6,30 @@ Suite Setup  Open And Configure Browser
 Suite Teardown  Close Browser
 
 *** Test Cases ***
-No Items Visible
+Set Up Filter Tests
     Go To Home Page
     Set Username  ${test_user_1}
     Set Password  ${test_passwd_1}
     Submit Login Credentials
+    #mark some items as read
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_title}"]
+    Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_read"]
+    Click Button  Muokkaa
+    Press Keys  None  PAGE_DOWN
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_blog_title}"]
+    Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_read"]
+    Click Button  Muokkaa
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_episode}"]
+    Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_read"]
+    Click Button  Muokkaa
+
+No Items Visible
     Click Element  xpath://*[@id="kirjat"]
     Click Element  xpath://*[@id="podcastit"]
     Click Element  xpath://*[@id="blogit"]
@@ -56,8 +75,8 @@ Items Not Marked As Read Visible
     Page Should Not Contain  ${test_title}
     Page Should Not Contain  ${test_episode}
     Page Should Not Contain  ${test_blog_title}
-    Page Should Not Contain  ${test_video_title_2}
     #Unread stuff should be visible
+    Page Should Contain  ${test_video_title_2}
     Page Should Contain  ${test_title_2}
 
 Search Items By Full Title
