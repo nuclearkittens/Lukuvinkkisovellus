@@ -53,6 +53,9 @@ class BookService:
     def mark_book_finished(self, book_id):
         return self._book_repository.mark_finished(book_id)
 
+    def mark_book_unfinished(self, book_id):
+        return self._book_repository.mark_unfinished(book_id)
+
     def is_book_mine(self, user_id, book_id):
         return self._book_repository.is_owner(user_id, book_id)
 

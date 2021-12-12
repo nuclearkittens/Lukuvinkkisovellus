@@ -137,6 +137,15 @@ class BookRepository:
         except:
             return False
 
+    def mark_unfinished(self, book_id):
+        try:
+            sql = "UPDATE books SET marked_read=NULL WHERE id=:book_id"
+            self._db.session.execute(sql, {"book_id": book_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
     def get_books_by_tag(self, tag_id):
         try:
             sql = "SELECT * FROM books, book_tags \

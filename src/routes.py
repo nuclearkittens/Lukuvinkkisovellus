@@ -163,10 +163,8 @@ def book(book_id):
                 book_service.attach_tag(int(tag_id), book_id)
             if read_check == "readed":
                 book_service.mark_book_finished(book_id)
-            else:
-                # To be implemented...
-                # book_service.mark_book_unfinished(book_id)
-                pass
+            if read_check == "not_read":
+                book_service.mark_book_unfinished(book_id)
             if book_service.update_book(author, title, description, isbn, book_id):
                 return redirect("/")
             flash("Something went wrong...")
