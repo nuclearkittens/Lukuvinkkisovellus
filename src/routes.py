@@ -148,6 +148,7 @@ def search_isbn():
 @app.route("/books/<int:book_id>", methods=["GET", "POST"])
 def book(book_id):
     book = book_service.get_book(book_id)
+    user_tags = tag_service.get_tags(session["user_id"])
     form = BookForm()
     if book_service.is_book_mine(session["user_id"], book_id):
         if form.validate_on_submit():
@@ -156,6 +157,10 @@ def book(book_id):
             isbn = form.isbn.data
             description = form.description.data
             read_check = request.form.get("read_check")
+            tag_check = request.form.getlist("tag_check")
+            book_service.remove_all_tags_by_book(book_id)
+            for tag_id in tag_check:
+                book_service.attach_tag(int(tag_id), book_id)
             if read_check == "readed":
                 book_service.mark_book_finished(book_id)
             else:
@@ -167,7 +172,7 @@ def book(book_id):
             flash("Something went wrong...")
     else:
         abort(403)
-    return render_template("book.html", book=book, form=form)
+    return render_template("book.html", book=book, form=form, user_tags=user_tags)
 
 
 @app.route("/new_blog", methods=["GET", "POST"])

@@ -107,6 +107,9 @@ class Book:
         """
         return self._tags
     
+    def get_tag_ids(self):
+        return [tag.get_id() for tag in self._tags]
+    
     def get_tag_names(self):
         """
         Return tag names from the tag entity list as string.

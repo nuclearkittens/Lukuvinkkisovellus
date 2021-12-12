@@ -88,3 +88,8 @@ class BookService:
 
     def remove_tag(self, tag_id, book_id):
         return self._book_repository.remove_tag(tag_id, book_id)
+    
+    def remove_all_tags_by_book(self, book_id):
+        tags = self.get_tags_by_book(book_id)
+        for tag in tags:
+            self._book_repository.remove_tag(tag.get_id(), book_id)

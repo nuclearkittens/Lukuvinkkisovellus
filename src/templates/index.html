@@ -104,6 +104,8 @@ Lukuvinkkisovellus
               <h6 class="mb-1">Kuvaus: {{ book.get_description() }}</h6>
               <small class="text-muted">ISBN: {{ book.get_isbn() }}</small>
               <br>
+              <small class="text-muted">Tagit: {{ book.get_tag_names() }}</small>
+              <br>
               <small id="{{ book.get_title() }}_" class="text-muted">Luettu: {{ book.get_read() }}</small>
             </a>
           </div>
