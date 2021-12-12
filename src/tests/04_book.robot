@@ -74,3 +74,11 @@ Mark Book As Read
     Click Button  Muokkaa
     ${time_now}=  Get Current Date  result_format=%Y-%m-%d %H:%M
     Element Should Contain  //*[@id="${test_title}_"]  ${time_now}
+
+Mark Book As Unread
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_title}"]
+    Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_not_read"]
+    Click Button  Muokkaa
+    Element Should Contain  //*[@id="${test_title}_"]  Luettu: None
