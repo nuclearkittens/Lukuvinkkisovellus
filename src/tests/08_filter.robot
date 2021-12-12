@@ -19,6 +19,7 @@ Set Up Filter Tests
     Click Button  Muokkaa
     Press Keys  None  PAGE_DOWN
     Press Keys  None  PAGE_DOWN
+    Press Keys  None  PAGE_DOWN
     Sleep  1
     Click Element  xpath://*[@id="${test_blog_title}"]
     Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_read"]
