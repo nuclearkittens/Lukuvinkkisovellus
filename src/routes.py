@@ -270,14 +270,28 @@ def new_podcast():
 @app.route("/podcasts/<int:podcast_id>", methods=["GET", "POST"])
 def podcast(podcast_id):
     podcast = podcast_service.get_podcast(podcast_id)
+    user_tags = tag_service.get_tags(session["user_id"])
+    form = PodcastForm()    
     if podcast_service.is_podcast_mine(session["user_id"], podcast_id):
-        if request.method == "POST":
-            if "mark_as_read" in request.form:
+        if form.validate_on_submit():
+            title = form.title.data
+            episode = form.episode.data
+            description = form.description.data
+            read_check = request.form.get("read_check")
+            tag_check = request.form.getlist("tag_check")
+            podcast_service.remove_all_tags_by_podcast(podcast_id)
+            for tag_id in tag_check:
+                podcast_service.attach_tag(int(tag_id), podcast_id)
+            if read_check == "readed":
                 podcast_service.mark_podcast_finished(podcast_id)
+            if read_check == "not_read":
+                podcast_service.mark_podcast_unfinished(podcast_id)
+            if podcast_service.update_podcast(title, episode, description, podcast_id):
                 return redirect("/")
+            flash("Something went wrong...")
     else:
         abort(403)
-    return render_template("podcast.html", podcast=podcast)
+    return render_template("podcast.html", podcast=podcast, form=form, user_tags=user_tags)
 
 @app.route("/tags/<int:user_id>", methods=["GET", "POST"])
 def tags(user_id):
