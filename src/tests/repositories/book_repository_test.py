@@ -121,3 +121,29 @@ class TestBookRepository(unittest.TestCase):
         self.book_repository.attach_tag(tag_id, book_id)
         self.book_repository.remove_tag(tag_id, book_id)
         self.assertFalse(len(self.book_repository.get_tags_by_book(book_id)))
+
+    def test_book_is_found_with_id(self):
+        self.book_repository.add_book(self.test_book, self.user_id)
+        books = books = self.book_repository.get_users_books(self.user_id)
+        book_title = books[0].get_title()
+
+        self.assertEqual(book_title, self.test_book.get_title())
+
+    def test_book_is_updated(self):
+        self.book_repository.add_book(self.test_book, self.user_id)
+        books = self.book_repository.get_users_books(self.user_id)
+        book_id = books[0].get_id()
+
+        self.book_repository.update_book(
+            author="new author", title="new title",
+            isbn="1", description="new description", book_id=book_id
+            )
+
+        books = self.book_repository.get_users_books(self.user_id)
+        book = books[0]
+
+        self.assertEqual(book.get_author(), "new author")
+        self.assertEqual(book.get_title(), "new title")
+        self.assertEqual(book.get_isbn(), "1")
+        self.assertEqual(book.get_description(), "new description")
+

@@ -122,3 +122,27 @@ class TestvideoRepository(unittest.TestCase):
         self.video_repository.attach_tag(tag_id, video_id)
         self.video_repository.remove_tag(tag_id, video_id)
         self.assertFalse(len(self.video_repository.get_tags_by_video(video_id)))
+
+    def test_video_is_found_with_id(self):
+        self.video_repository.add_video(self.test_video, self.user_id)
+        videos = self.video_repository.get_users_videos(self.user_id)
+        video_title = videos[0].get_title()
+
+        self.assertEqual(video_title, self.test_video.get_title())
+
+    def test_video_is_updated(self):
+        self.video_repository.add_video(self.test_video, self.user_id)
+        videos = self.video_repository.get_users_videos(self.user_id)
+        video_id = videos[0].get_id()
+
+        self.video_repository.update_video(
+            title="new title", url="juu.tuubi", 
+            description="new description", video_id=video_id
+            )
+
+        videos = self.video_repository.get_users_videos(self.user_id)
+        video = videos[0]
+
+        self.assertEqual(video.get_title(), "new title")
+        self.assertEqual(video.get_url(), "juu.tuubi")
+        self.assertEqual(video.get_description(), "new description")

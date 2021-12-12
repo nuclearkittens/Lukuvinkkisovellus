@@ -121,3 +121,29 @@ class TestpodcastRepository(unittest.TestCase):
         self.podcast_repository.attach_tag(tag_id, podcast_id)
         self.podcast_repository.remove_tag(tag_id, podcast_id)
         self.assertFalse(len(self.podcast_repository.get_tags_by_podcast(podcast_id)))
+        
+    
+    def test_podcast_is_found_with_id(self):
+        self.podcast_repository.add_podcast(self.test_podcast, self.user_id)
+        podcasts = podcasts = self.podcast_repository.get_users_podcasts(self.user_id)
+        podcast_title = podcasts[0].get_title()
+
+        self.assertEqual(podcast_title, self.test_podcast.get_title())
+
+    def test_podcast_is_updated(self):
+        self.podcast_repository.add_podcast(self.test_podcast, self.user_id)
+        podcasts = self.podcast_repository.get_users_podcasts(self.user_id)
+        podcast_id = podcasts[0].get_id()
+
+        self.podcast_repository.update_podcast(
+            title="new title", episode="1", 
+            description="new description", podcast_id=podcast_id
+            )
+
+        podcasts = self.podcast_repository.get_users_podcasts(self.user_id)
+        podcast = podcasts[0]
+
+        self.assertEqual(podcast.get_title(), "new title")
+        self.assertEqual(podcast.get_episode(), "1")
+        self.assertEqual(podcast.get_description(), "new description")
+
