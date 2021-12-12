@@ -61,8 +61,22 @@ Mark Podcast As Read
 
 Mark Podcast As Unread
     Press Keys  None  PAGE_DOWN
+    Press Keys  None  PAGE_DOWN
     Sleep  1
     Click Element  xpath://*[@id="${test_episode}"]
     Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_unread"]
     Click Button  Muokkaa
     Element Should Contain  //*[@id="${test_episode}_"]  Luettu: None
+    
+Edit Podcast
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_episode_2}"]
+    Set Episode  ${test_episode_3}
+    Set Podcasttitle  ${test_podcast_title_3}
+    Set Description  ${test_podcast_description_3}
+    Click Button  Muokkaa
+    Page Should Contain  ${test_episode_3}
+    Page Should Contain  ${test_podcast_title_3}
+    Page Should Contain  ${test_podcast_description_3}
+    

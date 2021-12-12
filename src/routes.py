@@ -219,14 +219,17 @@ def blog(blog_id):
 @app.route("/new_video", methods=["GET", "POST"])
 def new_video():
     form = VideoForm()
+    error = ""
     if form.validate_on_submit():
         title = form.title.data
         url = form.url.data
         description = form.description.data
         user_id = session["user_id"]
+        
         if video_service.new_video(Video(title, url, description), user_id):
             return redirect("/")
-    return render_template("new_video.html", form=form)
+        error = "Virheellinen URL. Tarkista osoite tai syötä otsikko manuaalisesti"
+    return render_template("new_video.html", form=form, error=error)
 
 @app.route("/videos/<int:video_id>", methods=["GET", "POST"])
 def video(video_id):

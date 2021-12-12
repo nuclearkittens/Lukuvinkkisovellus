@@ -71,3 +71,16 @@ Mark Blog As Unread
     Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_unread"]
     Click Button  Muokkaa
     Element Should Contain  //*[@id="${test_blog_title}_"]  Luettu: None
+
+Edit Blog
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_blog_title_2}"]
+    Set Writer  ${test_blog_writer_3}
+    Set Blogtitle  ${test_blog_title_3}
+    Set Url  ${test_blog_url_3}
+    Set Description  ${test_blog_description_3}
+    Click Button  Muokkaa
+    Page Should Contain  Otsikko: ${test_blog_title_3}
+    Page Should Contain  ${test_blog_writer_3}
+    Page Should Contain  ${test_blog_description_3}
