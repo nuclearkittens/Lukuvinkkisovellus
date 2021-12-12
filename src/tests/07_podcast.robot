@@ -61,7 +61,6 @@ Mark Podcast As Read
 
 Mark Podcast As Unread
     Press Keys  None  PAGE_DOWN
-    Press Keys  None  PAGE_DOWN
     Sleep  1
     Click Element  xpath://*[@id="${test_episode}"]
     Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_unread"]
@@ -79,4 +78,3 @@ Edit Podcast
     Page Should Contain  ${test_episode_3}
     Page Should Contain  ${test_podcast_title_3}
     Page Should Contain  ${test_podcast_description_3}
-    
