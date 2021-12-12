@@ -39,6 +39,15 @@ class VideoRepository:
         except:
             return False
 
+    def mark_unfinished(self, video_id):
+        try:
+            sql = "UPDATE videos SET marked_read=NULL WHERE id=:video_id"
+            self._db.session.execute(sql, {"video_id": video_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
     def is_owner(self, user_id, video_id):
         """
         Checks if the user-id and the video-id are in the same row in the database.

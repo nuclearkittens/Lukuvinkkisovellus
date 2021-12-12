@@ -54,6 +54,9 @@ class VideoService:
     def mark_video_finished(self, video_id):
         return self._video_repository.mark_finished(video_id)
 
+    def mark_video_unfinished(self, video_id):
+        return self._video_repository.mark_unfinished(video_id)
+
     def is_video_mine(self, user_id, video_id):
         return self._video_repository.is_owner(user_id, video_id)
 
@@ -86,3 +89,8 @@ class VideoService:
 
     def remove_tag(self, tag_id, video_id):
         return self._video_repository.remove_tag(tag_id, video_id)
+
+    def remove_all_tags_by_video(self, video_id):
+        tags = self.get_tags_by_video(video_id)
+        for tag in tags:
+            self._video_repository.remove_tag(tag.get_id(), video_id)

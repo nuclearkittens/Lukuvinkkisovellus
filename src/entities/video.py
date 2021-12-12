@@ -85,7 +85,22 @@ class Video:
             List: tags given when this video-object was constructed.
         """
         return self._tags
+
+    def get_tag_ids(self):
+        return [tag.get_id() for tag in self._tags]
     
+    def get_tag_names(self):
+        """
+        Return tag names from the tag entity list as string.
+
+        Returns:
+            String: tags given when this video-object was constructed.
+        """
+        names = [tag.get_name() for tag in self._tags]
+        if len(names) == 0:
+            return "-"
+        return ", ".join(names)
+
     def get_id(self):
         """
         Return id of the video.
