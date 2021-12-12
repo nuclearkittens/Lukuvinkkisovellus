@@ -40,7 +40,7 @@ Lukuvinkkisovellus
             {{ form.url.label(class='form-control-label') }}
     
             {% if form.url.errors %}
-            {{ form.isbn(class='form-control form-control is-invalid') }}
+            {{ form.url(class='form-control form-control is-invalid') }}
             <div class='invalid-feedback'>
                 {% for error in form.url.errors %}
                 <span>{{ error }}</span>
