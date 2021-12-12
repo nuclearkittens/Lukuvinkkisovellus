@@ -231,14 +231,29 @@ def new_video():
 @app.route("/videos/<int:video_id>", methods=["GET", "POST"])
 def video(video_id):
     video = video_service.get_video(video_id)
+    user_tags = tag_service.get_tags(session["user_id"])
+    form = VideoForm()
     if video_service.is_video_mine(session["user_id"], video_id):
-        if request.method == "POST":
-            if "mark_as_read" in request.form:
+        if form.validate_on_submit():
+            title = form.title.data
+            url = form.url.data
+            description = form.description.data
+            read_check = request.form.get("read_check")
+            tag_check = request.form.getlist("tag_check")
+            video_service.remove_all_tags_by_video(video_id)
+            for tag_id in tag_check:
+                video_service.attach_tag(int(tag_id), video_id)
+            if read_check == "readed":
                 video_service.mark_video_finished(video_id)
+            if read_check == "not_read":
+                video_service.mark_video_unfinished(video_id)
+            if video_service.update_video(title, url, description, video_id):
                 return redirect("/")
+            flash("Something went wrong...")
     else:
         abort(403)
-    return render_template("video.html", video=video)
+    return render_template("video.html", video=video, form=form, user_tags=user_tags)
+
 
 @app.route("/new_podcast", methods=["GET", "POST"])
 def new_podcast():

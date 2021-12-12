@@ -19,12 +19,89 @@ Lukuvinkkisovellus
     <h3>Videon muokkaus</h3>
     <hr>
 
-    <div class="d-flex justify-content-between">
-        <h4>Videon ID: {{ video.get_id() }}</h4>
-        <form action="/videos/{{  video.get_id() }}" method="POST">
-            <button type="submit" class="btn btn-primary" name="mark_as_read">Merkitse luetuksi</button>
-        </form>
-    </div>
+    <form action="/videos/{{  video.get_id() }}" method="POST">
+            
+        {{ form.csrf_token }}
+        <div class="form-group">
+            {{ form.title.label(class='form-control-label') }}
+    
+            {% if form.title.errors %}
+            {{ form.title(class='form-control form-control- is-invalid') }}
+            <div class='invalid-feedback'>
+                {% for error in form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form.title(class='form-control form-control', value=video.get_title()) }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.url.label(class='form-control-label') }}
+    
+            {% if form.url.errors %}
+            {{ form.isbn(class='form-control form-control is-invalid') }}
+            <div class='invalid-feedback'>
+                {% for error in form.url.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form.url(class='form-control form-control', value=video.get_url()) }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.description.label(class='form-control-label') }}
+    
+            {% if form.description.errors %}
+            {{ form.description(class='form-control form-control is-invalid') }}
+            <div class='invalid-feedback'>
+                {% for error in form.description.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form.description(class='form-control form-control', value=video.get_description()) }}
+            {% endif %}
+        </div>
+        <br>
+
+        {% if video.get_read() %}
+        <input type="checkbox" class="btn-check" name="read_check" value="not_read", id="no">
+        <label class="btn btn-outline-danger" for="no">Poista luetuista</label>
+        {% else %}
+        <input type="checkbox" class="btn-check" name="read_check" value="readed" id="yes">
+        <label id="mark_read" class="btn btn-outline-success" for="yes">Merkitse luetuksi</label>
+        {% endif %}
+        <p></p>
+
+        <div class="btn-group">
+            <button class="btn btn-outline-warning dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Muuta tageja</button>
+            <div class="dropdown-menu">
+                {% for tag in user_tags %}
+                <a class="dropdown-item">
+                    <div class="custom-control custom-checkbox">   
+                        {% if tag.get_id() in video.get_tag_ids() %}       
+                        <input type="checkbox" class="custom-control-input" name="tag_check" value={{ tag.get_id() }} id="tags" checked autocomplete="on">
+                        {% else %}
+                        <input type="checkbox" class="custom-control-input" name="tag_check" value={{ tag.get_id() }} id="tags">
+                        {% endif %}
+                        <label class="custom-control-label" for="tags">{{ tag.get_name()}}</label>  
+                    </div>
+                {% endfor %}
+                </a>
+            </div>
+        </div>
+        <br>
+        
+        <p></p>
+        {{ form.submit(class="btn btn-primary", value="Muokkaa") }}    
+        <hr>
+        <medium class="text-muted">
+            Tähdellä (*) merkityt kohdat ovat pakollisia
+        </medium>
+
+    </form>
       
 {% endblock %}
 </div>

@@ -132,6 +132,8 @@ Lukuvinkkisovellus
               </div>
               <h6 class="mb-1">Jakso: {{ podcast.get_episode() }}</h6>
               <h6 class="mb-1">Kuvaus: {{ podcast.get_description() }}</h6>
+              <small class="text-muted">Tagit: {{ podcast.get_tag_names() }}</small>
+              <br>
               <small id="{{ podcast.get_episode() }}_" class="text-muted">Luettu: {{ podcast.get_read() }}</small>
             </a>
           </div>
@@ -188,6 +190,8 @@ Lukuvinkkisovellus
               </div>
               <h6 class="mb-1">Kuvaus: {{ video.get_description() }}</h6>
               <small class="text-muted">URL: {{ video.get_url() }}</small>
+              <br>
+              <small class="text-muted">Tagit: {{ video.get_tag_names() }}</small>
               <br>
               <small id="{{ video.get_title() }}_" class="text-muted">Luettu: {{ video.get_read() }}</small>
             </a>
