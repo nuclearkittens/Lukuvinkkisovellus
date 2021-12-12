@@ -121,3 +121,28 @@ class TestBlogRepository(unittest.TestCase):
         self.blog_repository.attach_tag(tag_id, blog_id)
         self.blog_repository.remove_tag(tag_id, blog_id)
         self.assertFalse(len(self.blog_repository.get_tags_by_blog(blog_id)))
+
+    def test_blog_is_found_with_id(self):
+        self.blog_repository.add_blog(self.test_blog, self.user_id)
+        blogs = blogs = self.blog_repository.get_users_blogs(self.user_id)
+        blog_title = blogs[0].get_title()
+
+        self.assertEqual(blog_title, self.test_blog.get_title())
+
+    def test_blog_is_updated(self):
+        self.blog_repository.add_blog(self.test_blog, self.user_id)
+        blogs = self.blog_repository.get_users_blogs(self.user_id)
+        blog_id = blogs[0].get_id()
+
+        self.blog_repository.update_blog(
+            author="new author", title="new title",
+            url="new.url", description="new description", blog_id=blog_id
+            )
+
+        blogs = self.blog_repository.get_users_blogs(self.user_id)
+        blog = blogs[0]
+
+        self.assertEqual(blog.get_author(), "new author")
+        self.assertEqual(blog.get_title(), "new title")
+        self.assertEqual(blog.get_url(), "new.url")
+        self.assertEqual(blog.get_description(), "new description")
