@@ -54,6 +54,15 @@ Mark Podcast As Read
     Press Keys  None  PAGE_DOWN
     Sleep  1
     Click Element  xpath://*[@id="${test_episode}"]
-    Click Button  Merkitse luetuksi
+    Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_read"]
+    Click Button  Muokkaa
     ${time_now}=  Get Current Date  result_format=%Y-%m-%d %H:%M
     Element Should Contain  //*[@id="${test_episode}_"]  ${time_now}
+
+Mark Podcast As Unread
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_episode}"]
+    Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_unread"]
+    Click Button  Muokkaa
+    Element Should Contain  //*[@id="${test_episode}_"]  Luettu: None

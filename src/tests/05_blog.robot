@@ -58,6 +58,16 @@ Mark Blog As Read
     Press Keys  None  PAGE_DOWN
     Sleep  1
     Click Element  xpath://*[@id="${test_blog_title}"]
-    Click Button  Merkitse luetuksi
+    Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_read"]
+    Click Button  Muokkaa
     ${time_now}=  Get Current Date  result_format=%Y-%m-%d %H:%M
     Element Should Contain  //*[@id="${test_blog_title}_"]  ${time_now}
+
+Mark Blog As Unread
+    Press Keys  None  PAGE_DOWN
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_blog_title}"]
+    Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_unread"]
+    Click Button  Muokkaa
+    Element Should Contain  //*[@id="${test_blog_title}_"]  Luettu: None

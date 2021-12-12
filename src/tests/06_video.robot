@@ -56,6 +56,16 @@ Mark Video As Watched
     Press Keys  None  PAGE_DOWN
     Sleep  1
     Click Element  xpath://*[@id="${test_video_title_2}"]
-    Click Button  Merkitse luetuksi
+    Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_read"]
+    Click Button  Muokkaa
     ${time_now}=  Get Current Date  result_format=%Y-%m-%d %H:%M
     Element Should Contain  //*[@id="${test_video_title_2}_"]  ${time_now}
+
+Mark Video As unwatched
+    Press Keys  None  PAGE_DOWN
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_video_title_2}"]
+    Click Element  xpath://*[@name="read_check"]/following-sibling::label[@id="mark_unread"]
+    Click Button  Muokkaa
+    Element Should Contain  //*[@id="${test_video_title_2}_"]  Luettu: None

@@ -67,8 +67,8 @@ Lukuvinkkisovellus
         <br>
 
         {% if video.get_read() %}
-        <input type="checkbox" class="btn-check" name="read_check" value="not_read", id="no">
-        <label class="btn btn-outline-danger" for="no">Poista luetuista</label>
+        <input type="checkbox" class="btn-check" name="read_check" value="not_read" id="no">
+        <label id="mark_unread" class="btn btn-outline-danger" for="no">Poista luetuista</label>
         {% else %}
         <input type="checkbox" class="btn-check" name="read_check" value="readed" id="yes">
         <label id="mark_read" class="btn btn-outline-success" for="yes">Merkitse luetuksi</label>
