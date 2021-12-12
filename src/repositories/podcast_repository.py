@@ -65,6 +65,15 @@ class PodcastRepository:
         except:
             return False
 
+    def mark_unfinished(self, podcast_id):
+        try:
+            sql = "UPDATE podcasts SET marked_read=NULL WHERE id=:podcast_id"
+            self._db.session.execute(sql, {"podcast_id": podcast_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
     def is_owner(self, user_id, podcast_id):
         """
         Checks if the user-id and the podcast-id are in the same row in the database.

@@ -47,6 +47,9 @@ class PodcastService:
     def mark_podcast_finished(self, podcast_id):
         return self._podcast_repository.mark_finished(podcast_id)
 
+    def mark_podcast_unfinished(self, podcast_id):
+        return self._podcast_repository.mark_unfinished(podcast_id)
+
     def is_podcast_mine(self, user_id, podcast_id):
         return self._podcast_repository.is_owner(user_id, podcast_id)
 
@@ -61,3 +64,8 @@ class PodcastService:
 
     def remove_tag(self, tag_id, podcast_id):
         return self._podcast_repository.remove_tag(tag_id, podcast_id)
+
+    def remove_all_tags_by_podcast(self, podcast_id):
+        tags = self.get_tags_by_podcast(podcast_id)
+        for tag in tags:
+            self._podcast_repository.remove_tag(tag.get_id(), podcast_id)
