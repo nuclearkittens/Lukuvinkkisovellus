@@ -78,3 +78,19 @@ Edit Podcast
     Page Should Contain  ${test_episode_3}
     Page Should Contain  ${test_podcast_title_3}
     Page Should Contain  ${test_podcast_description_3}
+
+Delete Podcast
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_episode}"]
+    Click Button  Poista lukuvinkki
+    Sleep  1
+    Click Button  Kyllä, poista
+    Page Should Not Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
+    Page Should Not Contain  ${test_episode}
+    #Joudun luomaan uuden podcastin, koska muuten filter testit kusee
+    Click Link  xpath://a[@href="/new_podcast"]
+    Set Episode  ${test_episode}
+    Set Podcasttitle  ${test_podcast_title}
+    Set Description  ${test_podcast_description}
+    Click Element  submit

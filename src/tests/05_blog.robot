@@ -84,3 +84,21 @@ Edit Blog
     Page Should Contain  Otsikko: ${test_blog_title_3}
     Page Should Contain  ${test_blog_writer_3}
     Page Should Contain  ${test_blog_description_3}
+
+Delete Blog
+    Press Keys  None  PAGE_DOWN
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_blog_title_}"]
+    Click Button  Poista lukuvinkki
+    Sleep  1
+    Click Button  Kyllä, poista
+    Page Should Not Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
+    Page Should Not Contain  Otsikko: ${test__blog_title}
+    #Joudun luomaan uuden blogin, koska muuten filter testit kusee.
+    Click Link  xpath://a[@href="/new_blog"]
+    Set Writer  ${test_blog_writer}
+    Set Blogtitle  ${test_blog_title}
+    Set Url  ${test_blog_url}
+    Set Description  ${test_blog_description}
+    Click Element  submit

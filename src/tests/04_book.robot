@@ -96,3 +96,21 @@ Edit Book
     Page Should Contain  ${test_author_2_edit}
     Page Should Contain  ${test_isbn_2_edit}
     Page Should Contain  ${test_description_2_edit}
+
+Delete Book
+    Press Keys  None  PAGE_DOWN
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_title_}"]
+    Click Button  Poista lukuvinkki
+    Sleep  1
+    Click Button  Kyllä, poista
+    Page Should Not Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
+    Page Should Not Contain  Otsikko: ${test_title}
+    #Joudun luomaan uuden kirjan, koska muuten filter testit kusee.
+    Click Link  Lisää kirja
+    Set Writer  ${test_author}
+    Set Booktitle  ${test_title}
+    Set ISBN  ${test_isbn}
+    Set Description  ${test_description}    
+    Click Element  submit

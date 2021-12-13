@@ -88,4 +88,19 @@ Edit Video
     Page Should Contain  Otsikko: ${test_video_title_3_edit}
     Page Should Contain  ${test_video_description_3}
 
-
+Delete Video
+    Press Keys  None  PAGE_DOWN
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_video_title_2}"]
+    Click Button  Poista lukuvinkki
+    Sleep  1
+    Click Button  Kyllä, poista
+    Page Should Not Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
+    Page Should Not Contain  Otsikko: ${test_video_title_2}
+    #Joudun luomaan uuden videon, koska muuten filter testit kusee
+    Go To Home Page
+    Click Link  xpath://a[@href="/new_video"]
+    Set Videotitle  ${test_video_title_2}
+    Set Url  ${test_video_url_2}
+    Click Element  submit
