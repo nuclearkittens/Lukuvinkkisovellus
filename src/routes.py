@@ -151,6 +151,11 @@ def book(book_id):
     user_tags = tag_service.get_tags(session["user_id"])
     form = BookForm()
     if book_service.is_book_mine(session["user_id"], book_id):
+        if request.method == "POST":
+            delete = request.form["delete"]
+            if delete == "yes":
+                book_service.delete_book(book_id)
+                return redirect("/")
         if form.validate_on_submit():
             author = form.author.data
             title = form.title.data
@@ -305,7 +310,6 @@ def podcast(podcast_id):
             if read_check == "not_read":
                 podcast_service.mark_podcast_unfinished(podcast_id)
             if podcast_service.update_podcast(title, episode, description, podcast_id):
-                print("updatettiin")
                 return redirect("/")
             flash("Something went wrong...")
     else:
