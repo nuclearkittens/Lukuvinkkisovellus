@@ -50,7 +50,7 @@ Add New Book By ISBN
     Click Element  xpath://a[@href="/search_isbn"]
     Set ISBN  ${test_isbn_3}
     Click Element  submit
-    Page Should Contain  Otsikko: ${test_title_3}
+    Page Should Contain  ${test_title_3}
     
 Add New Book By Invalid ISBN
     Click Link  Lisää kirja
@@ -61,7 +61,7 @@ Add New Book By Invalid ISBN
 
 Book Is Found From List
     Go To Home Page
-    Page Should Contain  Otsikko: ${test_title}
+    Page Should Contain  ${test_title}
     
 Book Is Not Marked As Read
     Element Should Contain  //*[@id="${test_title}_"]  Luettu: None
@@ -92,7 +92,25 @@ Edit Book
     Set ISBN  ${test_isbn_2_edit}
     Set Description  ${test_description_2_edit}
     Click Button  Muokkaa
-    Page Should Contain  Otsikko: ${test_title_2_edit}
+    Page Should Contain  ${test_title_2_edit}
     Page Should Contain  ${test_author_2_edit}
     Page Should Contain  ${test_isbn_2_edit}
     Page Should Contain  ${test_description_2_edit}
+
+Delete Book
+    Press Keys  None  PAGE_DOWN
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_title_}"]
+    Click Button  Poista lukuvinkki
+    Sleep  1
+    Click Button  Kyllä, poista
+    Page Should Not Contain  Tähdellä (*) merkityt kohdat ovat pakollisia
+    Page Should Not Contain  ${test_title}
+    #Joudun luomaan uuden kirjan, koska muuten filter testit kusee.
+    Click Link  Lisää kirja
+    Set Writer  ${test_author}
+    Set Booktitle  ${test_title}
+    Set ISBN  ${test_isbn}
+    Set Description  ${test_description}    
+    Click Element  submit
