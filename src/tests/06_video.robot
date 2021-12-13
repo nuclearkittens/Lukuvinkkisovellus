@@ -87,3 +87,5 @@ Edit Video
     Click Button  Muokkaa
     Page Should Contain  Otsikko: ${test_video_title_3_edit}
     Page Should Contain  ${test_video_description_3}
+
+
