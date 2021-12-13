@@ -42,8 +42,8 @@ $ poetry install
 
 Luo projektiin juurihakemistoon tiedostot `.env` sekä `.env.test` ja lisää niihin seuraavat ympäristömuuttujat
 ```
-DATABASE URL=[*tietokannan osoite*]
-SECRET_KEY=[*salausavain*]
+DATABASE URL=*tietokannan osoite*
+SECRET_KEY=*salausavain*
 ```
 
 Ohjelma käynnistetään komennolla:
