@@ -139,8 +139,7 @@ class TestBlogRepository(unittest.TestCase):
             url="new.url", description="new description", blog_id=blog_id
             )
 
-        blogs = self.blog_repository.get_users_blogs(self.user_id)
-        blog = blogs[0]
+        blog = self.blog_repository.get_blog(blog_id)
 
         self.assertEqual(blog.get_author(), "new author")
         self.assertEqual(blog.get_title(), "new title")
