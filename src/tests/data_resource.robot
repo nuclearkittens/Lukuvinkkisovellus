@@ -42,3 +42,7 @@ Set Url
 Set Search Term
     [Arguments]  ${keyword}
     Input Text  keyword  ${keyword}
+
+Set Tag Name
+    [Arguments]  ${keyword}
+    Input Text  name  ${keyword}

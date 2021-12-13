@@ -71,6 +71,13 @@ ${test_podcast_title_3}  Koodikahvit jakso 2
 ${test_podcast_description}  Miten varmistetaan, että softa toimii kuten sen oletetaan toimivan?
 ${test_podcast_description_3}  Koodikahvien kolmas jakso jatkaa edellisen jakson aiheesta eli koodaustaitojen kehittämisestä.
 
+#Tagi
+${test_tagname}  opiskelu
+${test_tagname_2}  ab
+${test_tagname_3}  matematiikka
+${test_tagname_4}  jännitys
+${test_tagname_5}  kauhu
+
 *** Keywords ***
 Open And Configure Browser
     Open Browser  browser=${BROWSER}
