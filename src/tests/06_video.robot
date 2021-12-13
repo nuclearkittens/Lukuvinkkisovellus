@@ -87,3 +87,12 @@ Edit Video
     Click Button  Muokkaa
     Page Should Contain  Otsikko: ${test_video_title_3_edit}
     Page Should Contain  ${test_video_description_3}
+
+Delete Video
+    Press Keys  None  PAGE_DOWN
+    Press Keys  None  PAGE_DOWN
+    Sleep  1
+    Click Element  xpath://*[@id="${test_video_title_3}"]
+    Click Button  Poista lukuvinkki
+    Click Button  Poista
+    Page Should Not Contain  Otsikko: ${test_video_title_3}
