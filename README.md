@@ -40,6 +40,12 @@ Asenna seuraavaksi tarvittavat riippuvuudet:
 $ poetry install
 ```
 
+Luo projektiin juurihakemistoon tiedostot `.env` sekä `.env.test` ja lisää niihin seuraavat ympäristömuuttujat
+```
+DATABASE URL=[*tietokannan osoite*]
+SECRET_KEY=[*salausavain*]
+```
+
 Ohjelma käynnistetään komennolla:
 
 ```
@@ -63,7 +69,7 @@ Testikattavuusraportin saa generoitua komennolla:
 poetry run invoke coverage-report
 ```
 
-Raportti generoidaan kansioon nimeltä `htmlcov`. Testeihin liittyvä koodi on jätetty raportista pois.
+Raportti generoidaan kansioon nimeltä `htmlcov`. Testeihin, käyttöliittymään sekä triviaaleihin metodeihin liittyvä koodi on jätetty raportista pois. Testikattavuusraportti löytyy myös [Codecovista](https://app.codecov.io/gh/TopiasHarjunpaa/Lukuvinkkisovellus)
 
 Järjestelmätestit voidaan suorittaa komennolla:
 
