@@ -27,10 +27,10 @@ class BlogRepository:
             Boolen: True if successful.
         """
         try:
-            author = blog.get_author()
-            title = blog.get_title()
-            url = blog.get_url()
-            description = blog.get_description()
+            author = blog.author
+            title = blog.title
+            url = blog.url
+            description = blog.description
             sql = "INSERT INTO blogs (author, title, url, description, type, user_id, marked_read) \
                     VALUES (:author, :title, :url, :description, 'Blog', :user_id, NULL)"
             self._db.session.execute(

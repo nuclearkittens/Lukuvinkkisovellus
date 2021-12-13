@@ -21,7 +21,8 @@ class Blog:
         self._id = id
         self._tags = tags
 
-    def get_author(self):
+    @property
+    def author(self):
         """
         Return author of the blog.
 
@@ -30,7 +31,8 @@ class Blog:
         """
         return self._author
 
-    def set_author(self, author):
+    @author.setter
+    def author(self, new):
         """
         Sets a new author for the blog.
 
@@ -38,9 +40,10 @@ class Blog:
             author (String): Author of the blog.
         """
 
-        self._author = author
+        self._author = new
 
-    def get_title(self):
+    @property
+    def title(self):
         """
         Return title of the blog.
 
@@ -49,7 +52,8 @@ class Blog:
         """
         return self._title
 
-    def set_title(self, title):
+    @title.setter
+    def title(self, new):
         """
         Sets a new title for the blog.
 
@@ -57,9 +61,10 @@ class Blog:
             title (String): Title of the blog.
         """
 
-        self._title = title
+        self._title = new
 
-    def get_url(self):
+    @property
+    def url(self):
         """
         Return url of the blog.
 
@@ -68,7 +73,8 @@ class Blog:
         """
         return self._url
 
-    def set_url(self, url):
+    @url.setter
+    def url(self, new):
         """
         Sets a new url for the blog.
 
@@ -76,9 +82,10 @@ class Blog:
             url (String): Url of the blog.
         """
 
-        self._url = url
+        self._url = new
 
-    def get_description(self):
+    @property
+    def description(self):
         """
         Return description of the blog.
 
@@ -87,7 +94,8 @@ class Blog:
         """
         return self._description
 
-    def set_description(self, description):
+    @description.setter
+    def description(self, new):
         """
         Sets a new description for the blog.
 
@@ -95,8 +103,8 @@ class Blog:
             description (String): description of the blog.
         """
 
-        self._description = description
-    
+        self._description = new
+
     def get_tags(self):
         """
         Return tags of the blog.
