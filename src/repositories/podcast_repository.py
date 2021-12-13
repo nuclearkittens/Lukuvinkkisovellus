@@ -6,6 +6,15 @@ class PodcastRepository:
     def __init__(self, db):
         self._db = db
 
+    def delete_podcast(self, podcast_id):
+        try:
+            sql = "DELETE FROM podcasts WHERE id=:podcast_id"
+            self._db.session.execute(sql, {"podcast_id": podcast_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
     def add_podcast(self, podcast, user_id):
         """
         Adds Podcast-object to database and links it to current user with id.

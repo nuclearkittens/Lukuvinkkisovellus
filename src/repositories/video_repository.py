@@ -6,6 +6,15 @@ class VideoRepository:
     def __init__(self, db):
         self._db = db
 
+    def delete_video(self, video_id):
+        try:
+            sql = "DELETE FROM videos WHERE id=:video_id"
+            self._db.session.execute(sql, {"video_id": video_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
     def add_video(self, video, user_id):
         """
         Adds Video-object to database and links it to current user with id.

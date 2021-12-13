@@ -146,3 +146,12 @@ class TestpodcastRepository(unittest.TestCase):
         self.assertEqual(podcast.get_episode(), "1")
         self.assertEqual(podcast.get_description(), "new description")
 
+    def test_deleting_removes_podcast(self):
+        self.podcast_repository.add_podcast(self.test_podcast, self.user_id)
+        self.podcast_repository.add_podcast(self.small_podcast, self.user_id)
+        podcasts = self.podcast_repository.get_users_podcasts(self.user_id)
+        podcast_id = podcasts[0].get_id()
+        self.podcast_repository.delete_podcast(podcast_id)
+        self.assertFalse(
+            len(podcasts) == len(self.podcast_repository.get_users_podcasts(self.user_id))
+            )

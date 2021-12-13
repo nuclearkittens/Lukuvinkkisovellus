@@ -145,3 +145,13 @@ class TestBlogRepository(unittest.TestCase):
         self.assertEqual(blog.get_title(), "new title")
         self.assertEqual(blog.get_url(), "new.url")
         self.assertEqual(blog.get_description(), "new description")
+    
+    def test_deleting_removes_blog(self):
+        self.blog_repository.add_blog(self.test_blog, self.user_id)
+        self.blog_repository.add_blog(self.other_blog, self.user_id)
+        blogs = self.blog_repository.get_users_blogs(self.user_id)
+        blog_id = blogs[0].get_id()
+        self.blog_repository.delete_blog(blog_id)
+        self.assertFalse(
+            len(blogs) == len(self.blog_repository.get_users_blogs(self.user_id))
+            )

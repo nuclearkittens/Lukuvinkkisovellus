@@ -17,6 +17,9 @@ class VideoService:
     def get_video(self, video_id):
         return self._video_repository.get_video(video_id)
 
+    def delete_video(self, video_id):
+        return self._video_repository.delete_video(video_id)
+
     def update_video(self, title, url, description, video_id):
         """
         First searches that video to be updated exists based on video_id. 

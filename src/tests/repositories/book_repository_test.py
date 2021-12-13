@@ -146,3 +146,12 @@ class TestBookRepository(unittest.TestCase):
         self.assertEqual(book.get_isbn(), "1")
         self.assertEqual(book.get_description(), "new description")
 
+    def test_deleting_removes_book(self):
+        self.book_repository.add_book(self.test_book, self.user_id)
+        self.book_repository.add_book(self.small_book, self.user_id)
+        books = self.book_repository.get_users_books(self.user_id)
+        book_id = books[0].get_id()
+        self.book_repository.delete_book(book_id)
+        self.assertFalse(
+            len(books) == len(self.book_repository.get_users_books(self.user_id))
+            )

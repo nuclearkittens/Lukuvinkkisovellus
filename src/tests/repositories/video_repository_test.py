@@ -145,3 +145,13 @@ class TestvideoRepository(unittest.TestCase):
         self.assertEqual(video.get_title(), "new title")
         self.assertEqual(video.get_url(), "juu.tuubi")
         self.assertEqual(video.get_description(), "new description")
+
+    def test_deleting_removes_video(self):
+        self.video_repository.add_video(self.test_video, self.user_id)
+        self.video_repository.add_video(self.small_video, self.user_id)
+        videos = self.video_repository.get_users_videos(self.user_id)
+        video_id = videos[0].get_id()
+        self.video_repository.delete_video(video_id)
+        self.assertFalse(
+            len(videos) == len(self.video_repository.get_users_videos(self.user_id))
+            )

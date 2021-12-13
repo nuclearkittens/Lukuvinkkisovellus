@@ -13,6 +13,9 @@ class BookService:
     def get_book(self, book_id):
         return self._book_repository.get_book(book_id)
 
+    def delete_book(self, book_id):
+        return self._book_repository.delete_book(book_id)
+
     def update_book(self, author, title, description, isbn, book_id):
         """
         First searches that book to be updated exists based on book_id. 
