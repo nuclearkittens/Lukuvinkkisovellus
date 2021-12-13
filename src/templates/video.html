@@ -97,11 +97,42 @@ Lukuvinkkisovellus
         <p></p>
         {{ form.submit(class="btn btn-primary", value="Muokkaa") }}    
         <hr>
+        
+        
+
         <medium class="text-muted">
             Tähdellä (*) merkityt kohdat ovat pakollisia
         </medium>
 
     </form>
+
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Poista lukuvinkki</button>
+
+    <!-- Modal -->
+    
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Oletko varma?</h4>
+                </div>
+                 <div class="modal-body">
+                    <form action="/videos/{{ video.get_id() }}" method="POST">
+                        <input type="hidden" name="delete" value="yes">
+                        <button type="submit" class="btn btn-danger">Poista Lukuvinkki</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Eiku</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
       
 {% endblock %}
 </div>

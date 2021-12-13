@@ -237,6 +237,10 @@ def video(video_id):
     user_tags = tag_service.get_tags(session["user_id"])
     form = VideoForm()
     if video_service.is_video_mine(session["user_id"], video_id):
+        delete = request.form["delete"]
+        if delete == "yes":
+            #
+            return redirect("/")
         if form.validate_on_submit():
             title = form.title.data
             url = form.url.data
