@@ -110,13 +110,9 @@ Lukuvinkkisovellus
             <input type="hidden" name="delete" value="no">
             <p></p>
             {{ form.submit(class="btn btn-primary", value="Muokkaa") }}    
-            <hr>
-            <medium class="text-muted">
-                Tähdellä (*) merkityt kohdat ovat pakollisia
-            </medium>
-
         </form>
 
+        <p></p>
         <!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Poista lukuvinkki</button>
 
@@ -141,9 +137,13 @@ Lukuvinkkisovellus
                         <button type="button" class="btn btn-default" data-dismiss="modal">Eiku</button>
                     </div>
                 </div>
-
             </div>
         </div>
-    
+
+        <hr>
+        <medium class="text-muted">
+            Tähdellä (*) merkityt kohdat ovat pakollisia
+        </medium>
+
 {% endblock %}
 </div>
