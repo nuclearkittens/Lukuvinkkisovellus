@@ -193,6 +193,11 @@ def blog(blog_id):
     user_tags = tag_service.get_tags(session["user_id"])
     form = BlogForm()
     if blog_service.is_blog_mine(session["user_id"], blog_id):
+        if request.method == "POST":
+            delete = request.form["delete"]
+            if delete == "yes":
+                blog_service.delete_blog(blog_id)
+                return redirect("/")
         if form.validate_on_submit():
             author = form.author.data
             title = form.title.data
@@ -240,7 +245,7 @@ def video(video_id):
         if request.method == "POST":
             delete = request.form["delete"]
             if delete == "yes":
-                #
+                video_service.delete_video(video_id)
                 return redirect("/")
         if form.validate_on_submit():
             title = form.title.data
@@ -284,8 +289,7 @@ def podcast(podcast_id):
         if request.method == "POST":
             delete = request.form["delete"]
             if delete == "yes":
-                #
-                print("poistettiin")
+                podcast_service.delete_podcast(podcast_id)
                 return redirect("/")
         if form.validate_on_submit():
             title = form.title.data
