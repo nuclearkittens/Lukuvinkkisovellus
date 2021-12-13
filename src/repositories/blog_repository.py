@@ -6,6 +6,15 @@ class BlogRepository:
     def __init__(self, db):
         self._db = db
 
+    def delete_blog(self, blog_id):
+        try:
+            sql = "DELETE FROM blogs WHERE id=:blog_id"
+            self._db.session.execute(sql, {"blog_id": blog_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
     def add_blog(self, blog, user_id):
         """
         Adds Blog-object to database and links it to current user with id.

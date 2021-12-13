@@ -6,6 +6,15 @@ from entities.book import Book
 class BookRepository:
     def __init__(self, db):
         self._db = db
+    
+    def delete_book(self, book_id):
+        try:
+            sql = "DELETE FROM books WHERE id=:book_id"
+            self._db.session.execute(sql, {"book_id": book_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
 
     def add_book(self, book, user_id):
         """

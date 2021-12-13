@@ -8,6 +8,9 @@ class PodcastService:
     def get_podcast(self, podcast_id):
         return self._podcast_repository.get_podcast(podcast_id)
 
+    def delete_podcast(self, podcast_id):
+        return self._podcast_repository.delete_podcast(podcast_id)
+
     def update_podcast(self, title, episode, description, podcast_id):
         """
         First searches that podcast to be updated exists based on podcast_id. 
