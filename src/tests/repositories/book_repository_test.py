@@ -139,8 +139,7 @@ class TestBookRepository(unittest.TestCase):
             isbn="1", description="new description", book_id=book_id
             )
 
-        books = self.book_repository.get_users_books(self.user_id)
-        book = books[0]
+        book = self.book_repository.get_book(book_id)
 
         self.assertEqual(book.get_author(), "new author")
         self.assertEqual(book.get_title(), "new title")

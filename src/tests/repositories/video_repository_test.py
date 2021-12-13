@@ -140,8 +140,7 @@ class TestvideoRepository(unittest.TestCase):
             description="new description", video_id=video_id
             )
 
-        videos = self.video_repository.get_users_videos(self.user_id)
-        video = videos[0]
+        video = self.video_repository.get_video(video_id)
 
         self.assertEqual(video.get_title(), "new title")
         self.assertEqual(video.get_url(), "juu.tuubi")

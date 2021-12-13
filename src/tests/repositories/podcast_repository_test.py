@@ -140,8 +140,7 @@ class TestpodcastRepository(unittest.TestCase):
             description="new description", podcast_id=podcast_id
             )
 
-        podcasts = self.podcast_repository.get_users_podcasts(self.user_id)
-        podcast = podcasts[0]
+        podcast = self.podcast_repository.get_podcast(podcast_id)
 
         self.assertEqual(podcast.get_title(), "new title")
         self.assertEqual(podcast.get_episode(), "1")
