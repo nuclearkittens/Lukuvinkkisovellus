@@ -11,12 +11,14 @@ from services.book_service import BookService
 from services.podcast_service import PodcastService
 from services.blog_service import BlogService
 from services.video_service import VideoService
+from services.tag_service import TagService
 from repositories.user_repository import UserRepository
 from repositories.book_repository import BookRepository
 from repositories.podcast_repository import PodcastRepository
 from repositories.blog_repository import BlogRepository
 from repositories.video_repository import VideoRepository
-from forms import BlogForm, BookForm, IsbnForm, LoginForm, PodcastForm, RegisterForm, SearchForm, VideoForm
+from repositories.tag_repository import TagRepository
+from forms import BlogForm, BookForm, IsbnForm, LoginForm, PodcastForm, RegisterForm, SearchForm, VideoForm, TagForm
 
 user_repository = UserRepository(db)
 user_service = UserService(user_repository, session)
@@ -28,6 +30,8 @@ blog_repository = BlogRepository(db)
 blog_service = BlogService(blog_repository)
 video_repository = VideoRepository(db)
 video_service = VideoService(video_repository)
+tag_repository = TagRepository(db)
+tag_service = TagService(tag_repository)
 
 
 
@@ -143,15 +147,30 @@ def search_isbn():
 
 @app.route("/books/<int:book_id>", methods=["GET", "POST"])
 def book(book_id):
-    book_info = [book_id]
+    book = book_service.get_book(book_id)
+    user_tags = tag_service.get_tags(session["user_id"])
+    form = BookForm()
     if book_service.is_book_mine(session["user_id"], book_id):
-        if request.method == "POST":
-            if "mark_as_read" in request.form:
+        if form.validate_on_submit():
+            author = form.author.data
+            title = form.title.data
+            isbn = form.isbn.data
+            description = form.description.data
+            read_check = request.form.get("read_check")
+            tag_check = request.form.getlist("tag_check")
+            book_service.remove_all_tags_by_book(book_id)
+            for tag_id in tag_check:
+                book_service.attach_tag(int(tag_id), book_id)
+            if read_check == "readed":
                 book_service.mark_book_finished(book_id)
+            if read_check == "not_read":
+                book_service.mark_book_unfinished(book_id)
+            if book_service.update_book(author, title, description, isbn, book_id):
                 return redirect("/")
+            flash("Something went wrong...")
     else:
         abort(403)
-    return render_template("book.html", book_info=book_info)
+    return render_template("book.html", book=book, form=form, user_tags=user_tags)
 
 
 @app.route("/new_blog", methods=["GET", "POST"])
@@ -170,39 +189,74 @@ def new_blog():
 
 @app.route("/blogs/<int:blog_id>", methods=["GET", "POST"])
 def blog(blog_id):
-    blog_info = [blog_id]
+    blog = blog_service.get_blog(blog_id)
+    user_tags = tag_service.get_tags(session["user_id"])
+    form = BlogForm()
     if blog_service.is_blog_mine(session["user_id"], blog_id):
-        if request.method == "POST":
-            if "mark_as_read" in request.form:
+        if form.validate_on_submit():
+            author = form.author.data
+            title = form.title.data
+            url = form.url.data
+            description = form.description.data
+            read_check = request.form.get("read_check")
+            tag_check = request.form.getlist("tag_check")
+            blog_service.remove_all_tags_by_book(blog_id)
+            for tag_id in tag_check:
+                blog_service.attach_tag(int(tag_id), blog_id)
+            if read_check == "readed":
                 blog_service.mark_blog_finished(blog_id)
+            if read_check == "not_read":
+                blog_service.mark_blog_unfinished(blog_id)
+            if blog_service.update_blog(author, title, url, description, blog_id):
                 return redirect("/")
+            flash("Something went wrong...")
+
     else:
         abort(403)
-    return render_template("blog.html", blog_info=blog_info)
+    return render_template("blog.html", blog=blog, form=form, user_tags=user_tags)
+
 
 @app.route("/new_video", methods=["GET", "POST"])
 def new_video():
     form = VideoForm()
+    error = ""
     if form.validate_on_submit():
         title = form.title.data
         url = form.url.data
         description = form.description.data
         user_id = session["user_id"]
+        
         if video_service.new_video(Video(title, url, description), user_id):
             return redirect("/")
-    return render_template("new_video.html", form=form)
+        error = "Virheellinen URL. Tarkista osoite tai syötä otsikko manuaalisesti"
+    return render_template("new_video.html", form=form, error=error)
 
 @app.route("/videos/<int:video_id>", methods=["GET", "POST"])
 def video(video_id):
-    video_info = [video_id]
+    video = video_service.get_video(video_id)
+    user_tags = tag_service.get_tags(session["user_id"])
+    form = VideoForm()
     if video_service.is_video_mine(session["user_id"], video_id):
-        if request.method == "POST":
-            if "mark_as_read" in request.form:
+        if form.validate_on_submit():
+            title = form.title.data
+            url = form.url.data
+            description = form.description.data
+            read_check = request.form.get("read_check")
+            tag_check = request.form.getlist("tag_check")
+            video_service.remove_all_tags_by_video(video_id)
+            for tag_id in tag_check:
+                video_service.attach_tag(int(tag_id), video_id)
+            if read_check == "readed":
                 video_service.mark_video_finished(video_id)
+            if read_check == "not_read":
+                video_service.mark_video_unfinished(video_id)
+            if video_service.update_video(title, url, description, video_id):
                 return redirect("/")
+            flash("Something went wrong...")
     else:
         abort(403)
-    return render_template("video.html", video_info=video_info)
+    return render_template("video.html", video=video, form=form, user_tags=user_tags)
+
 
 @app.route("/new_podcast", methods=["GET", "POST"])
 def new_podcast():
@@ -218,15 +272,46 @@ def new_podcast():
 
 @app.route("/podcasts/<int:podcast_id>", methods=["GET", "POST"])
 def podcast(podcast_id):
-    podcast_info = [podcast_id]
+    podcast = podcast_service.get_podcast(podcast_id)
+    user_tags = tag_service.get_tags(session["user_id"])
+    form = PodcastForm()    
     if podcast_service.is_podcast_mine(session["user_id"], podcast_id):
-        if request.method == "POST":
-            if "mark_as_read" in request.form:
+        if form.validate_on_submit():
+            title = form.title.data
+            episode = form.episode.data
+            description = form.description.data
+            read_check = request.form.get("read_check")
+            tag_check = request.form.getlist("tag_check")
+            podcast_service.remove_all_tags_by_podcast(podcast_id)
+            for tag_id in tag_check:
+                podcast_service.attach_tag(int(tag_id), podcast_id)
+            if read_check == "readed":
                 podcast_service.mark_podcast_finished(podcast_id)
+            if read_check == "not_read":
+                podcast_service.mark_podcast_unfinished(podcast_id)
+            if podcast_service.update_podcast(title, episode, description, podcast_id):
                 return redirect("/")
+            flash("Something went wrong...")
     else:
         abort(403)
-    return render_template("podcast.html", podcast_info=podcast_info)
+    return render_template("podcast.html", podcast=podcast, form=form, user_tags=user_tags)
+
+@app.route("/tags/<int:user_id>", methods=["GET", "POST"])
+def tags(user_id):
+    form = TagForm()
+    user_tags = tag_service.get_tags(user_id)
+    
+    if form.validate_on_submit():
+        name = form.name.data
+        tag_service.add_tag(name, user_id)
+        return redirect(f"/tags/{user_id}")
+
+    return render_template("tag.html", form=form, user_tags=user_tags)
+
+@app.route("/tags/<int:user_id>/<int:tag_id>", methods=["POST"])
+def delete_tag(user_id, tag_id):
+    tag_service.delete_tag(tag_id)
+    return redirect(f"/tags/{user_id}")
 
 @app.route("/ping")
 def ping():

@@ -1,6 +1,6 @@
 class Video:
     
-    def __init__(self, title, url, description):
+    def __init__(self, title, url, description, read=False, id=0, tags=[]):
         """
         Creates video object.
 
@@ -8,10 +8,16 @@ class Video:
             title (String): Title of the video.
             url (String): Url to the video.
             description (String): Description of the video.
+            read (boolean): read status of the video.
+            id (int): Id of the video. default to 0.
+            tags (List): List of tags attached to the video. Default to an empty list.
         """
         self._title = title
         self._url = url
         self._description = description
+        self._read = read
+        self._id = id
+        self._tags = tags
 
 
     def get_title(self):
@@ -70,3 +76,45 @@ class Video:
         """
 
         self._description = description
+    
+    def get_tags(self):
+        """
+        Return tags of the video.
+
+        Returns:
+            List: tags given when this video-object was constructed.
+        """
+        return self._tags
+
+    def get_tag_ids(self):
+        return [tag.get_id() for tag in self._tags]
+    
+    def get_tag_names(self):
+        """
+        Return tag names from the tag entity list as string.
+
+        Returns:
+            String: tags given when this video-object was constructed.
+        """
+        names = [tag.get_name() for tag in self._tags]
+        if len(names) == 0:
+            return "-"
+        return ", ".join(names)
+
+    def get_id(self):
+        """
+        Return id of the video.
+
+        Returns:
+            int: id given when this video-object was constructed.
+        """
+        return self._id
+    
+    def get_read(self):
+        """
+        Return read status of the video.
+
+        Returns:
+            boolean: indicates whether or not the video is marked as read.
+        """
+        return self._read

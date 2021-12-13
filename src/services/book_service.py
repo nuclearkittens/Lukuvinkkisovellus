@@ -10,6 +10,9 @@ class BookService:
     def new_book(self, book, user_id):
         return self._book_repository.add_book(book, user_id)
 
+    def get_book(self, book_id):
+        return self._book_repository.get_book(book_id)
+
     def update_book(self, author, title, description, isbn, book_id):
         """
         First searches that book to be updated exists based on book_id. 
@@ -27,7 +30,7 @@ class BookService:
         """
         book_db_row = self._book_repository.get_book(book_id)
         # Update only if book was actually found
-        if book_db_row is not None and len(book_db_row) > 0:
+        if book_db_row is not None:
             return self._book_repository.update_book(author, title, description, isbn, book_id)
         return False
 
@@ -49,6 +52,9 @@ class BookService:
 
     def mark_book_finished(self, book_id):
         return self._book_repository.mark_finished(book_id)
+
+    def mark_book_unfinished(self, book_id):
+        return self._book_repository.mark_unfinished(book_id)
 
     def is_book_mine(self, user_id, book_id):
         return self._book_repository.is_owner(user_id, book_id)
@@ -73,3 +79,20 @@ class BookService:
                 return {"author": authors, "title": title}
             except(KeyError):
                 return None
+
+    def get_books_by_tag(self, tag_id):
+        return self._book_repository.get_books_by_tag(tag_id)
+
+    def get_tags_by_book(self, book_id):
+        return self._book_repository.get_tags_by_book(book_id)
+
+    def attach_tag(self, tag_id, book_id):
+        return self._book_repository.attach_tag(tag_id, book_id)
+
+    def remove_tag(self, tag_id, book_id):
+        return self._book_repository.remove_tag(tag_id, book_id)
+    
+    def remove_all_tags_by_book(self, book_id):
+        tags = self.get_tags_by_book(book_id)
+        for tag in tags:
+            self._book_repository.remove_tag(tag.get_id(), book_id)

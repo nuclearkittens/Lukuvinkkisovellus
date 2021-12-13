@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Lukuvinkkisovellus
+{% endblock %}
+
+{% block content %}
+<div class="content">
+
+  {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          <h4 class=flashes>
+          {% for message in messages %}
+              {{ message }}
+          {% endfor %}
+          </h4>
+      {% endif %}
+  {% endwith %}
+
+  <h4>Lisää uusi tagi</h4>
+  <hr>
+  <form action="/tags/{{ session.user_id }}" method="POST">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.name.label(class='form-control-label') }}
+
+        {% if form.name.errors %}
+        {{ form.name(class='form-control form-control is-invalid') }}
+        <div class='invalid-feedback'>
+            {% for error in form.name.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.name(class='form-control form-control-') }}
+        {% endif %}
+    </div>
+    <br>
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+  <hr>
+
+  <h4>Lista tageista</h4>
+  <br>    
+  {% for tag in user_tags %}
+
+  <div class="list-group" id="{{ tag.get_name() }}" style="padding-top: 5px;">
+    <a class="list-group-item">    
+      <div class="d-flex justify-content-between">
+        <h5 class="mb-1">{{ tag.get_name() }}</h5>
+        <form action="/tags/{{ session.user_id }}/{{ tag.get_id()}}" method="POST">
+          <input type="submit" class="btn btn-danger" value="Poista">
+        </form>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+
+</div>
+{% endblock %}

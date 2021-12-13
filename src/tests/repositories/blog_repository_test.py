@@ -1,6 +1,7 @@
 import unittest
 from repositories.user_repository import UserRepository
 from repositories.blog_repository import BlogRepository
+from repositories.tag_repository import TagRepository
 from app import app
 from db import db
 from entities.blog import Blog
@@ -12,6 +13,7 @@ class TestBlogRepository(unittest.TestCase):
     def setUp(self):
         self.dth = dth(db)
         self.dth.delete()
+        self.tag_repository = TagRepository(db)
         self.blog_repository = BlogRepository(db)
         self.user_repository = UserRepository(db)
         self.test_blog = Blog("test_author", "blog_title", "www.blog.com", "a fine blog")
@@ -48,12 +50,12 @@ class TestBlogRepository(unittest.TestCase):
         self.blog_repository.add_blog(self.test_blog, self.user_id)
         
         blogs = self.blog_repository.get_users_blogs(self.user_id)
-        blog_id = blogs[0][0]
+        blog_id = blogs[0].get_id()
         self.blog_repository.mark_finished(blog_id)
 
         blogs = self.blog_repository.get_users_blogs(self.user_id)
         blog = blogs[0]
-        time_stamp = blog.marked_read
+        time_stamp = blog.get_read()
         self.assertIsNotNone(time_stamp)
 
     def test_is_user_owner_of_blog(self):
@@ -62,7 +64,7 @@ class TestBlogRepository(unittest.TestCase):
         blogs = self.blog_repository.get_users_blogs(self.user_id)
         blog = blogs[0]
         
-        result = self.blog_repository.is_owner(self.user_id, blog.id)
+        result = self.blog_repository.is_owner(self.user_id, blog.get_id())
         
         self.assertTrue(result)
         
@@ -72,7 +74,75 @@ class TestBlogRepository(unittest.TestCase):
         blogs = self.blog_repository.get_users_blogs(self.other_id)
         blog = blogs[0]
         
-        result = self.blog_repository.is_owner(self.user_id, blog.id)
+        result = self.blog_repository.is_owner(self.user_id, blog.get_id())
         
         self.assertFalse(result)
-        
+    
+    def test_get_blogs_by_tag_returns_correct_amount(self):
+        self.blog_repository.add_blog(self.test_blog, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        blogs = self.blog_repository.get_users_blogs(self.user_id)
+        blog_id = blogs[0].get_id()
+        self.blog_repository.attach_tag(tag_id, blog_id)
+        self.blog_repository.add_blog(self.other_blog, self.user_id)
+        self.assertEqual(len(self.blog_repository.get_blogs_by_tag(tag_id)), 1)
+
+    def test_tags_by_blog_returns_correct_amount(self):
+        self.blog_repository.add_blog(self.test_blog, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        self.tag_repository.add_tag("testtwo", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        blogs = self.blog_repository.get_users_blogs(self.user_id)
+        blog_id = blogs[0].get_id()
+        self.blog_repository.attach_tag(tag_id, blog_id)
+        self.assertEqual(len(self.blog_repository.get_tags_by_blog(blog_id)), 1)
+
+    def test_tag_attaches_succesfully(self):
+        self.blog_repository.add_blog(self.test_blog, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        blogs = self.blog_repository.get_users_blogs(self.user_id)
+        blog_id = blogs[0].get_id()
+        current_tags = len(self.blog_repository.get_tags_by_blog(blog_id))
+        self.blog_repository.attach_tag(tag_id, blog_id)
+        self.assertFalse(len(self.blog_repository.get_tags_by_blog(blog_id)) == current_tags)
+
+    def test_tag_removed_succesfully(self):
+        self.blog_repository.add_blog(self.test_blog, self.user_id)
+        self.tag_repository.add_tag("test", self.user_id)
+        tags = self.tag_repository.get_tags(self.user_id)
+        tag_id = tags[0].get_id()
+        blogs = self.blog_repository.get_users_blogs(self.user_id)
+        blog_id = blogs[0].get_id()
+        self.blog_repository.attach_tag(tag_id, blog_id)
+        self.blog_repository.remove_tag(tag_id, blog_id)
+        self.assertFalse(len(self.blog_repository.get_tags_by_blog(blog_id)))
+
+    def test_blog_is_found_with_id(self):
+        self.blog_repository.add_blog(self.test_blog, self.user_id)
+        blogs = blogs = self.blog_repository.get_users_blogs(self.user_id)
+        blog_title = blogs[0].get_title()
+
+        self.assertEqual(blog_title, self.test_blog.get_title())
+
+    def test_blog_is_updated(self):
+        self.blog_repository.add_blog(self.test_blog, self.user_id)
+        blogs = self.blog_repository.get_users_blogs(self.user_id)
+        blog_id = blogs[0].get_id()
+
+        self.blog_repository.update_blog(
+            author="new author", title="new title",
+            url="new.url", description="new description", blog_id=blog_id
+            )
+
+        blogs = self.blog_repository.get_users_blogs(self.user_id)
+        blog = blogs[0]
+
+        self.assertEqual(blog.get_author(), "new author")
+        self.assertEqual(blog.get_title(), "new title")
+        self.assertEqual(blog.get_url(), "new.url")
+        self.assertEqual(blog.get_description(), "new description")

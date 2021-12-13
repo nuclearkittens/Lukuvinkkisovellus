@@ -88,23 +88,25 @@ Lukuvinkkisovellus
           <h4>Kirjat</h4>
           <hr>
           {% for book in books %}
-          {% if keyword.lower() in book[2].lower() %}
-          {% if ("unreaded" not in checked_types) or (book[7] is none) %}
-          <div class="list-group" id="{{ book[2] }}" style="padding-top: 5px;">
-            {% if book[7] is not none %}
-            <a href="/books/{{ book[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
+          {% if keyword.lower() in book.get_title().lower() %}
+          {% if ("unreaded" not in checked_types) or (not book.get_read()) %}
+          <div class="list-group" id="{{ book.get_title() }}" style="padding-top: 5px;">
+            {% if book.get_read() %}
+            <a href="/books/{{ book.get_id() }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
             {% else %}
-            <a href="/books/{{ book[0] }}" class="list-group-item list-group-item-action">
+            <a href="/books/{{ book.get_id() }}" class="list-group-item list-group-item-action">
             {% endif %}
               <div class="d-flex justify-content-between">
-                <h5 class="mb-1">Otsikko: {{ book[2] }}</h5>
-                <small>Tyyppi: {{ book[4] }}</small>
+                <h5 class="mb-1">Otsikko: {{ book.get_title() }}</h5>
+                <small>Tyyppi: Kirja</small>
               </div>
-              <h6 class="mb-1">Kirjoittaja: {{ book[1] }}</h6>
-              <h6 class="mb-1">Kuvaus: {{ book[3] }}</h6>
-              <small class="text-muted">ISBN: {{ book[5] }}</small>
+              <h6 class="mb-1">Kirjoittaja: {{ book.get_author() }}</h6>
+              <h6 class="mb-1">Kuvaus: {{ book.get_description() }}</h6>
+              <small class="text-muted">ISBN: {{ book.get_isbn() }}</small>
               <br>
-              <small id="{{ book[2] }}_" class="text-muted">Luettu: {{ book[7] }}</small>
+              <small class="text-muted">Tagit: {{ book.get_tag_names() }}</small>
+              <br>
+              <small id="{{ book.get_title() }}_" class="text-muted">Luettu: {{ book.get_read() }}</small>
             </a>
           </div>
           {% endif %}
@@ -116,21 +118,23 @@ Lukuvinkkisovellus
           <h4>Podcastit</h4>
           <hr>
           {% for podcast in podcasts %}
-          {% if keyword.lower() in podcast[2].lower() %}
-          {% if ("unreaded" not in checked_types) or (podcast[6] is none) %}
-          <div class="list-group" id="{{ podcast[2] }}" style="padding-top: 5px;">
-            {% if podcast[6] is not none %}
-            <a href="/podcasts/{{ podcast[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
+          {% if keyword.lower() in podcast.get_title().lower() %}
+          {% if ("unreaded" not in checked_types) or (not podcast.get_read()) %}
+          <div class="list-group" id="{{ podcast.get_episode() }}" style="padding-top: 5px;">
+            {% if podcast.get_read() %}
+            <a href="/podcasts/{{ podcast.get_id() }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
             {% else %}
-            <a href="/podcasts/{{ podcast[0] }}" class="list-group-item list-group-item-action">
+            <a href="/podcasts/{{ podcast.get_id() }}" class="list-group-item list-group-item-action">
             {% endif %}
               <div class="d-flex justify-content-between">
-                <h5 class="mb-1">Nimi: {{ podcast[1] }}</h5>
-                <small>Tyyppi: {{ podcast[4] }}</small>
+                <h5 class="mb-1">Nimi: {{ podcast.get_title() }}</h5>
+                <small>Tyyppi: Podcast</small>
               </div>
-              <h6 class="mb-1">Jakso: {{ podcast[2] }}</h6>
-              <h6 class="mb-1">Kuvaus: {{ podcast[3] }}</h6>
-              <small id="{{ podcast[2] }}_" class="text-muted">Luettu: {{ podcast[6] }}</small>
+              <h6 class="mb-1">Jakso: {{ podcast.get_episode() }}</h6>
+              <h6 class="mb-1">Kuvaus: {{ podcast.get_description() }}</h6>
+              <small class="text-muted">Tagit: {{ podcast.get_tag_names() }}</small>
+              <br>
+              <small id="{{ podcast.get_episode() }}_" class="text-muted">Luettu: {{ podcast.get_read() }}</small>
             </a>
           </div>
           {% endif %}
@@ -142,23 +146,25 @@ Lukuvinkkisovellus
           <h4>Blogit</h4>
           <hr>
           {% for blog in blogs %}
-          {% if keyword.lower() in blog[2].lower() %}
-          {% if ("unreaded" not in checked_types) or (blog[7] is none) %}
-          <div class="list-group" id="{{ blog[2] }}" style="padding-top: 5px;">
-            {% if blog[7] is not none %}
-            <a href="/blogs/{{ blog[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
+          {% if keyword.lower() in blog.get_title().lower() %}
+          {% if ("unreaded" not in checked_types) or (not blog.get_read()) %}
+          <div class="list-group" id="{{ blog.get_title() }}" style="padding-top: 5px;">
+            {% if blog.get_read() %}
+            <a href="/blogs/{{ blog.get_id() }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
             {% else %}
-            <a href="/blogs/{{ blog[0] }}" class="list-group-item list-group-item-action">
+            <a href="/blogs/{{ blog.get_id() }}" class="list-group-item list-group-item-action">
             {% endif %}
               <div class="d-flex justify-content-between">
-                <h6 class="mb-1">Otsikko: {{ blog[2] }}</h6>
-                <small>Tyyppi: {{ blog[5] }}</small>
+                <h6 class="mb-1">Otsikko: {{ blog.get_title() }}</h6>
+                <small>Tyyppi: Blogi</small>
               </div>
-              <h6 class="mb-1">Kirjoittaja: {{ blog[1] }}</h6>
-              <h6 class="mb-1">Kuvaus: {{ blog[4] }}</h6>
-              <small class="text-muted">URL: {{ blog[3] }}</small>
+              <h6 class="mb-1">Kirjoittaja: {{ blog.get_author() }}</h6>
+              <h6 class="mb-1">Kuvaus: {{ blog.get_description() }}</h6>
+              <small class="text-muted">URL: {{ blog.get_url() }}</small>
               <br>
-              <small id="{{ blog[2] }}_" class="text-muted">Luettu: {{ blog[7] }}</small>
+              <small class="text-muted">Tagit: {{ blog.get_tag_names() }}</small>
+              <br>
+              <small id="{{ blog.get_title() }}_" class="text-muted">Luettu: {{ blog.get_read() }}</small>
             </a>
           </div>
           {% endif %}
@@ -170,22 +176,24 @@ Lukuvinkkisovellus
           <h4>Videot</h4>
           <hr>
           {% for video in videos %}
-          {% if keyword.lower() in video[1].lower() %}
-          {% if ("unreaded" not in checked_types) or (video[6] is none) %}
-          <div class="list-group" id="{{ video[1] }}" style="padding-top: 5px;">
-            {% if video[6] is not none %}
-            <a href="/videos/{{ video[0] }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
+          {% if keyword.lower() in video.get_title().lower() %}
+          {% if ("unreaded" not in checked_types) or (not video.get_read()) %}
+          <div class="list-group" id="{{ video.get_title() }}" style="padding-top: 5px;">
+            {% if video.get_read() %}
+            <a href="/videos/{{ video.get_id() }}" class="list-group-item list-group-item-action" style="border: 1mm; border-color: green; border-style: solid;;">    
             {% else %}
-            <a href="/videos/{{ video[0] }}" class="list-group-item list-group-item-action">
+            <a href="/videos/{{ video.get_id() }}" class="list-group-item list-group-item-action">
             {% endif %}
               <div class="d-flex justify-content-between">
-                <h6 class="mb-1">Otsikko: {{ video[1] }}</h6>
-                <small>Tyyppi: {{ video[4] }}</small>
+                <h6 class="mb-1">Otsikko: {{ video.get_title() }}</h6>
+                <small>Tyyppi: Video</small>
               </div>
-              <h6 class="mb-1">Kuvaus: {{ video[3] }}</h6>
-              <small class="text-muted">URL: {{ video[2] }}</small>
+              <h6 class="mb-1">Kuvaus: {{ video.get_description() }}</h6>
+              <small class="text-muted">URL: {{ video.get_url() }}</small>
               <br>
-              <small id="{{ video[1] }}_" class="text-muted">Luettu: {{ video[6] }}</small>
+              <small class="text-muted">Tagit: {{ video.get_tag_names() }}</small>
+              <br>
+              <small id="{{ video.get_title() }}_" class="text-muted">Luettu: {{ video.get_read() }}</small>
             </a>
           </div>
           {% endif %}

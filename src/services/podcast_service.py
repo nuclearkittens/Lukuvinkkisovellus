@@ -5,6 +5,9 @@ class PodcastService:
     def new_podcast(self, podcast, user_id):
         return self._podcast_repository.add_podcast(podcast, user_id)
 
+    def get_podcast(self, podcast_id):
+        return self._podcast_repository.get_podcast(podcast_id)
+
     def update_podcast(self, title, episode, description, podcast_id):
         """
         First searches that podcast to be updated exists based on podcast_id. 
@@ -21,7 +24,7 @@ class PodcastService:
         """
         podcast_db_row = self._podcast_repository.get_podcast(podcast_id)
         # Update only if podcast was actually found
-        if podcast_db_row != None and len(podcast_db_row) > 0:
+        if podcast_db_row != None:
             return self._podcast_repository.update_podcast(title, episode, description, podcast_id)
         return False
 
@@ -44,5 +47,25 @@ class PodcastService:
     def mark_podcast_finished(self, podcast_id):
         return self._podcast_repository.mark_finished(podcast_id)
 
+    def mark_podcast_unfinished(self, podcast_id):
+        return self._podcast_repository.mark_unfinished(podcast_id)
+
     def is_podcast_mine(self, user_id, podcast_id):
         return self._podcast_repository.is_owner(user_id, podcast_id)
+
+    def get_podcasts_by_tag(self, tag_id):
+        return self._podcast_repository.get_podcasts_by_tag(tag_id)
+
+    def get_tags_by_podcast(self, podcast_id):
+        return self._podcast_repository.get_tags_by_podcast(podcast_id)
+
+    def attach_tag(self, tag_id, podcast_id):
+        return self._podcast_repository.attach_tag(tag_id, podcast_id)
+
+    def remove_tag(self, tag_id, podcast_id):
+        return self._podcast_repository.remove_tag(tag_id, podcast_id)
+
+    def remove_all_tags_by_podcast(self, podcast_id):
+        tags = self.get_tags_by_podcast(podcast_id)
+        for tag in tags:
+            self._podcast_repository.remove_tag(tag.get_id(), podcast_id)

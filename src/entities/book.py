@@ -1,26 +1,33 @@
 class Book:
     # tags and related_courses as String-lists
-    def __init__(self, author, description, title, isbn=None):
+    def __init__(self, author, title, description, read=False, id=0, isbn=None, tags=[]):
         """
         Creates book object.
 
         Args:
+            id (int): Id of the book.
             author (String): Author of the book.
             title (String): Title of the book.
             description (String): Description of the book.
+            read (boolean): read status of the book.
+            id (int): Id of the book. default to 0.
             isbn (String, optional): ISBN-code of the book. Defaults to None.
+            tags (List): List of tags attached to the book. Default to an empty list.
         """
         self._author = author
         self._title = title
         self._description = description
         self._isbn = isbn
+        self._tags = tags
+        self._id = id
+        self._read = read
 
     def get_author(self):
         """
         Return author of the book.
 
         Returns:
-            String: Author given when descriptionthis book-object was constructed.
+            String: Author given when this book-object was constructed.
         """
         return self._author
 
@@ -90,3 +97,45 @@ class Book:
         """
 
         self._isbn = isbn
+    
+    def get_tags(self):
+        """
+        Return tags of the book.
+
+        Returns:
+            List: tags given when this book-object was constructed.
+        """
+        return self._tags
+    
+    def get_tag_ids(self):
+        return [tag.get_id() for tag in self._tags]
+    
+    def get_tag_names(self):
+        """
+        Return tag names from the tag entity list as string.
+
+        Returns:
+            String: tags given when this book-object was constructed.
+        """
+        names = [tag.get_name() for tag in self._tags]
+        if len(names) == 0:
+            return "-"
+        return ", ".join(names)
+
+    def get_id(self):
+        """
+        Return id of the book.
+
+        Returns:
+            int: id given when this book-object was constructed.
+        """
+        return self._id
+    
+    def get_read(self):
+        """
+        Return read status of the book.
+
+        Returns:
+            boolean: indicates whether or not the book is marked as read.
+        """
+        return self._read

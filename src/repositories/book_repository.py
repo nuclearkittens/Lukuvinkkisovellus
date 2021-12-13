@@ -1,4 +1,6 @@
 from sqlalchemy import exc
+from entities.tag import Tag
+from entities.book import Book
 
 
 class BookRepository:
@@ -72,8 +74,18 @@ class BookRepository:
     def get_book(self, book_id):
         try:
             sql = "SELECT * FROM books WHERE id=:book_id"
-            result = self._db.session.execute(sql, {"book_id": book_id})
-            return result.fetchone()
+            result = self._db.session.execute(sql, {"book_id": book_id}).fetchone()
+            tags = self.get_tags_by_book(result[0])
+            book = Book(
+                author=result[1],
+                title=result[2],
+                description=result[3],
+                read=result[7],
+                id=result[0],
+                isbn=result[5],
+                tags=tags
+                )
+            return book
         except:
             return None
 
@@ -98,8 +110,21 @@ class BookRepository:
         """
         try:
             sql = "SELECT * FROM books WHERE user_id=:user_id"
-            result = self._db.session.execute(sql, {"user_id": user_id})
-            return result.fetchall()
+            result = self._db.session.execute(sql, {"user_id": user_id}).fetchall()
+            books = []
+            for data in result:
+                tags = self.get_tags_by_book(data[0])
+                book = Book(
+                    author=data[1],
+                    title=data[2],
+                    description=data[3],
+                    read=data[7],
+                    id=data[0],
+                    isbn=data[5],
+                    tags=tags
+                    )
+                books.append(book)
+            return books
         except:
             return None
 
@@ -112,3 +137,72 @@ class BookRepository:
         except:
             return False
 
+    def mark_unfinished(self, book_id):
+        try:
+            sql = "UPDATE books SET marked_read=NULL WHERE id=:book_id"
+            self._db.session.execute(sql, {"book_id": book_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
+    def get_books_by_tag(self, tag_id):
+        try:
+            sql = "SELECT * FROM books, book_tags \
+                WHERE book_tags.tag_id=:tag_id AND \
+                    book_tags.book_id=books.id"
+            result = self._db.session.execute(
+                sql, {"tag_id": tag_id}).fetchall()
+            books = []
+            for data in result:
+                tags = self.get_tags_by_book(data[0])
+                book = Book(
+                    author=data[1],
+                    title=data[2],
+                    description=data[3],
+                    read=data[7],
+                    id=data[0],
+                    isbn=data[5],
+                    tags=tags
+                    )
+                books.append(book)
+            return books
+        except:
+            return None
+    
+    def get_tags_by_book(self, book_id):
+        try:
+            sql = "SELECT tags.id, tags.tag FROM tags, \
+                book_tags WHERE book_tags.tag_id=tags.id \
+                    AND book_tags.book_id=:book_id"
+            result = self._db.session.execute(
+                sql, {"book_id": book_id}).fetchall()
+            tags = []
+            for data in result:
+                tag = Tag(data[0], data[1])
+                tags.append(tag)
+            return tags
+        except:
+            return None
+
+    def attach_tag(self, tag_id, book_id):
+        try:
+            sql = "INSERT INTO book_tags (tag_id, book_id) \
+                    VALUES (:tag_id, :book_id)"
+            self._db.session.execute(
+                sql, {"tag_id": tag_id, "book_id": book_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
+
+    def remove_tag(self, tag_id, book_id):
+        try:
+            sql = "DELETE FROM book_tags \
+                WHERE tag_id=:tag_id AND book_id=:book_id"
+            self._db.session.execute(
+                sql, {"tag_id": tag_id, "book_id": book_id})
+            self._db.session.commit()
+            return True
+        except:
+            return False
