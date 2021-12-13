@@ -96,11 +96,14 @@ Lukuvinkkisovellus
             <a href="/books/{{ book.get_id() }}" class="list-group-item list-group-item-action">
             {% endif %}
               <div class="d-flex justify-content-between">
-                <h5 class="mb-1">Otsikko: {{ book.get_title() }}</h5>
+                <h5 class="mb-1">{{ book.get_title() }}</h5>
                 <small><img src="../static/pics/book.png" width="24" height="24"></small>
               </div>
-              <h6 class="mb-1">Kirjoittaja: {{ book.get_author() }}</h6>
-              <h6 class="mb-1">Kuvaus: {{ book.get_description() }}</h6>
+              <h6 class="mb-1">- {{ book.get_author() }}</h6>
+              {% if book.get_description() %}
+              <hr>
+              {% endif %}
+              <h6 class="mb-1">{{ book.get_description() }}</h6>
               <small class="text-muted">ISBN: {{ book.get_isbn() }}</small>
               <br>
               <small class="text-muted">Tagit: {{ book.get_tag_names() }}</small>
@@ -126,11 +129,14 @@ Lukuvinkkisovellus
             <a href="/podcasts/{{ podcast.get_id() }}" class="list-group-item list-group-item-action">
             {% endif %}
               <div class="d-flex justify-content-between">
-                <h5 class="mb-1">Nimi: {{ podcast.get_title() }}</h5>
+                <h5 class="mb-1">{{ podcast.get_title() }}</h5>
                 <small><img src="../static/pics/podcast.png" width="24" height="24"></small>
               </div>
-              <h6 class="mb-1">Jakso: {{ podcast.get_episode() }}</h6>
-              <h6 class="mb-1">Kuvaus: {{ podcast.get_description() }}</h6>
+              <h6 class="mb-1">{{ podcast.get_episode() }}</h6>
+              {% if podcast.get_description() %}
+              <hr>
+              {% endif %}
+              <h6 class="mb-1">{{ podcast.get_description() }}</h6>
               <small class="text-muted">Tagit: {{ podcast.get_tag_names() }}</small>
               <br>
               <small id="{{ podcast.get_episode() }}_" class="text-muted">Luettu: {{ podcast.get_read() }}</small>
@@ -154,11 +160,14 @@ Lukuvinkkisovellus
             <a href="/blogs/{{ blog.get_id() }}" class="list-group-item list-group-item-action">
             {% endif %}
               <div class="d-flex justify-content-between">
-                <h6 class="mb-1">Otsikko: {{ blog.get_title() }}</h6>
+                <h6 class="mb-1">{{ blog.get_title() }}</h6>
                 <small><img src="../static/pics/blog.png" width="25" height="22"></small>
               </div>
-              <h6 class="mb-1">Kirjoittaja: {{ blog.get_author() }}</h6>
-              <h6 class="mb-1">Kuvaus: {{ blog.get_description() }}</h6>
+              <h6 class="mb-1">- {{ blog.get_author() }}</h6>
+              {% if blog.get_description() %}
+              <hr>
+              {% endif %}
+              <h6 class="mb-1">{{ blog.get_description() }}</h6>
               <small class="text-muted">URL: {{ blog.get_url() }}</small>
               <br>
               <small class="text-muted">Tagit: {{ blog.get_tag_names() }}</small>
@@ -184,10 +193,13 @@ Lukuvinkkisovellus
             <a href="/videos/{{ video.get_id() }}" class="list-group-item list-group-item-action">
             {% endif %}
               <div class="d-flex justify-content-between">
-                <h6 class="mb-1">Otsikko: {{ video.get_title() }}</h6>
+                <h6 class="mb-1">{{ video.get_title() }}</h6>
                 <small><img src="../static/pics/video.png" width="31" height="22"></small>
               </div>
-              <h6 class="mb-1">Kuvaus: {{ video.get_description() }}</h6>
+              {% if video.get_description() %}
+              <hr>
+              {% endif %}
+              <h6 class="mb-1">{{ video.get_description() }}</h6>
               <small class="text-muted">URL: {{ video.get_url() }}</small>
               <br>
               <small class="text-muted">Tagit: {{ video.get_tag_names() }}</small>
