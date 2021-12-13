@@ -237,10 +237,11 @@ def video(video_id):
     user_tags = tag_service.get_tags(session["user_id"])
     form = VideoForm()
     if video_service.is_video_mine(session["user_id"], video_id):
-        delete = request.form["delete"]
-        if delete == "yes":
-            #
-            return redirect("/")
+        if request.method == "POST":
+            delete = request.form["delete"]
+            if delete == "yes":
+                #
+                return redirect("/")
         if form.validate_on_submit():
             title = form.title.data
             url = form.url.data
@@ -280,6 +281,12 @@ def podcast(podcast_id):
     user_tags = tag_service.get_tags(session["user_id"])
     form = PodcastForm()    
     if podcast_service.is_podcast_mine(session["user_id"], podcast_id):
+        if request.method == "POST":
+            delete = request.form["delete"]
+            if delete == "yes":
+                #
+                print("poistettiin")
+                return redirect("/")
         if form.validate_on_submit():
             title = form.title.data
             episode = form.episode.data
@@ -294,6 +301,7 @@ def podcast(podcast_id):
             if read_check == "not_read":
                 podcast_service.mark_podcast_unfinished(podcast_id)
             if podcast_service.update_podcast(title, episode, description, podcast_id):
+                print("updatettiin")
                 return redirect("/")
             flash("Something went wrong...")
     else:

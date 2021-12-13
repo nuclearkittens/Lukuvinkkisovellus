@@ -20,7 +20,6 @@ Lukuvinkkisovellus
     <hr>
 
     <form action="/videos/{{  video.get_id() }}" method="POST">
-            
         {{ form.csrf_token }}
         <div class="form-group">
             {{ form.title.label(class='form-control-label') }}
@@ -93,13 +92,11 @@ Lukuvinkkisovellus
             </div>
         </div>
         <br>
-        
+        <input type="hidden" name="delete" value="no">
         <p></p>
         {{ form.submit(class="btn btn-primary", value="Muokkaa") }}    
         <hr>
         
-        
-
         <medium class="text-muted">
             Tähdellä (*) merkityt kohdat ovat pakollisia
         </medium>
